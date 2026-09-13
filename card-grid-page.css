@@ -1,0 +1,348 @@
+/* ========== card-grid-page.css — общий шаблон index-страниц (Biography, Art Works, …)
+   Horizontal 16:9 — ref page2+ (3840×2160 → tokens @1920×1080) ========== */
+@import url("fonts.css");
+
+:root {
+    --ref-w: 1920;
+    --ref-h: 1080;
+
+    --bg: #000000;
+    --canvas-bg: #000000;
+    --card-bg: #b2b2b2;
+
+    /*
+      Рамка: верх/низ = эталон 60@1080.
+      На 16:9 равные px визуально кажутся шире по бокам (и letterbox это усиливает),
+      поэтому горизонталь чуть уже — чтобы выглядело как верх/низ.
+    */
+    --card-frame-y: calc(60 / var(--ref-h) * 100cqh);
+    --card-frame-x: calc(34 / var(--ref-h) * 100cqh);
+    --card-radius: calc(26 / var(--ref-h) * 100cqh);
+
+    /* PS Medium 80pt / Regular 42pt @3840 → 40 / 21 @1920 */
+    --title-font: calc(40 / var(--ref-h) * 100cqh);
+    --label-font: calc(21 / var(--ref-h) * 100cqh);
+    /* page2 PS @3840: cols 1025–1745 / 2065–2790 → avgW 722.5, avg margin 1037.5, mirror @center;
+       frame-x 68 → padX (1037.5−68)/2 = 484.75 @1920 */
+    --card-padding-x: calc(484.75 / var(--ref-w) * 100cqw);
+    --card-padding-top: calc(64 / var(--ref-h) * 100cqh);
+    --card-padding-bottom: calc(31 / var(--ref-h) * 100cqh);
+    /* img top 570: frameY+pad+title+gap+label+labelGap → pad+titleGap = 146.5 */
+    --title-grid-gap: calc(82.5 / var(--ref-h) * 100cqh);
+    --grid-gap-x: calc(160 / var(--ref-w) * 100cqw);
+    /* row-gap @3840: 93 between upper img bottom and lower label top */
+    --grid-gap-y: calc(46.5 / var(--ref-h) * 100cqh);
+    /* label→img gaps 40 / 30 → avg 35 @3840 */
+    --label-image-gap: calc(17.5 / var(--ref-h) * 100cqh);
+    --label-indent: calc(5 / var(--ref-w) * 100cqw); /* 10px @3840 */
+    /* image h avg 462.5 @3840; radius ×1.5 */
+    --image-radius: calc(13.5 / var(--ref-h) * 100cqh);
+
+    /* Language / MENU|HOME — Artworks (page3) size/pos; shared by pages 2–6 */
+    --switcher-w: calc(275 / 1080 * 100cqh);
+    --switcher-h: calc(64 / 1080 * 100cqh);
+    --switcher-radius: calc(32 / 1080 * 100cqh);
+    --switcher-font: calc(21 / 1080 * 100cqh);
+    --circle-size: calc(42 / 1080 * 100cqh);
+    --switchers-gap: calc(105 / var(--ref-w) * 100cqw);
+    --switchers-top: calc(18 / var(--ref-h) * 100cqh);
+    /* language ::before −25/−10 vs nav ±10 → shift pair so outer ovals center on page axis */
+    --switchers-optical-x: calc(7.5 / 1080 * 100cqh);
+
+    --scroll-arrow-stem-h: calc(24 / var(--ref-h) * 100cqh);
+    --scroll-arrow-stem-w: calc(1 / var(--ref-h) * 100cqh);
+    --scroll-arrow-head-size: calc(10 / var(--ref-h) * 100cqh);
+    --scroll-arrows-stack-gap: calc(8 / var(--ref-h) * 100cqh);
+    --scroll-arrow-zone: calc(64 / var(--ref-h) * 100cqh);
+    --lang-fade: 0.28s ease;
+}
+
+/* ---------- Базовая разметка 16:9 ---------- */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--canvas-bg);
+    font-family: var(--font-display);
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    aspect-ratio: 16 / 9;
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    max-height: 100vh;
+    max-width: 100vw;
+    margin: auto;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.card-page {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    background: var(--bg);
+    padding: 0;
+    box-sizing: border-box;
+    min-height: auto;
+}
+
+/* ---------- Серая панель: чёрная рамка = одинаковый inset, без glow ---------- */
+.card-panel {
+    position: absolute;
+    inset: var(--card-frame-y) var(--card-frame-x);
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    background: var(--card-bg);
+    border-radius: var(--card-radius);
+    padding:
+        var(--card-padding-top)
+        var(--card-padding-x)
+        var(--card-padding-bottom);
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+/* ---------- Заголовок ---------- */
+.card-title {
+    margin: 0 0 var(--title-grid-gap);
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: var(--title-font);
+    font-weight: 500; /* NotoSansDisplay-Medium */
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    text-align: center;
+    color: #000000;
+}
+
+/* ---------- Сетка 2 колонки ---------- */
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--grid-gap-x);
+    row-gap: var(--grid-gap-y);
+    flex: 1 1 auto;
+    align-content: start;
+    min-height: 0;
+    width: 100%;
+}
+
+.card-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.card-label {
+    margin: 0 0 var(--label-image-gap);
+    padding: 0 0 0 var(--label-indent);
+    font-family: var(--font-display);
+    font-size: var(--label-font);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #000000;
+    border-bottom: 0;
+}
+
+em, i {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.card-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--image-radius);
+    background: #c8c8c8;
+}
+
+/* ---------- Прокручиваемая сетка (Art Works и др.) ---------- */
+.card-panel--scroll .card-grid-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-panel--scroll .card-grid--scrollable {
+    padding-bottom: var(--scroll-arrow-zone);
+}
+
+.card-grid--scrollable {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.card-grid--scrollable::-webkit-scrollbar {
+    display: none;
+}
+
+.card-panel--scroll {
+    position: absolute;
+    --card-padding-top: calc(48 / var(--ref-h) * 100cqh);
+    --title-grid-gap: calc(40 / var(--ref-h) * 100cqh);
+}
+
+.card-panel--scroll .scroll-bottom-zone {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--scroll-arrow-zone);
+    background: var(--card-bg);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.card-panel--scroll .scroll-arrows {
+    position: static;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--scroll-arrows-stack-gap);
+    margin: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.scroll-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--scroll-arrows-stack-gap);
+}
+
+.scroll-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--scroll-arrow-head-size) * 2);
+    height: var(--scroll-arrow-stem-h);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    color: #000000;
+}
+
+.scroll-btn__icon {
+    display: block;
+    width: calc(var(--scroll-arrow-head-size) * 1.75);
+    height: 100%;
+}
+
+.scroll-btn--up,
+.scroll-btn--down {
+    color: #000000;
+}
+
+.scroll-btn--inactive {
+    color: #b3b3b3;
+    cursor: default;
+}
+
+.card-panel--scroll .switchers-row {
+    position: relative;
+    z-index: 4;
+}
+
+.card-panel--scroll .switchers-row::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--card-padding-x));
+    right: calc(-1 * var(--card-padding-x));
+    bottom: 100%;
+    height: calc(var(--switchers-top) + calc(6 / var(--ref-h) * 100cqh));
+    background: var(--card-bg);
+    pointer-events: none;
+}
+
+/* ---------- Bilingual visibility (opacity fade) ---------- */
+.card-title,
+.card-label {
+    display: grid;
+}
+
+.card-title .lang-it,
+.card-title .lang-en,
+.card-label .lang-it,
+.card-label .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .card-title .lang-it,
+#lang-it:checked ~ .page .card-label .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .card-title .lang-en,
+#lang-en:checked ~ .page .card-label .lang-en {
+    opacity: 1;
+}
+
+/* ---------- Ряд переключателей внизу карточки (layout only) ---------- */
+.switchers-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--switchers-gap);
+    margin-top: auto;
+    padding-top: var(--switchers-top);
+    flex-shrink: 0;
+    /* equal pills + gap → axis through gap; optical-x corrects asymmetric language oval */
+    transform: translateX(var(--switchers-optical-x));
+}
+
+.card-panel .css-switcher,
+.card-panel .nav-switcher,
+.card-panel a.nav-switcher {
+    margin: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="baiduspider" content="noindex, nofollow">
+    <title>Interviews and Films</title>
+    <link rel="stylesheet" href="language-switcher.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="page-arrows.css">
+    <link rel="stylesheet" href="card-grid-page.css">
+    <link rel="stylesheet" href="films_index.css">
+    <script src="language-switcher.js" defer></script>
+    <script src="scroll-grid.js" defer></script>
+    <style>
+        /* ref page6 — erase this block to revert */
+        :root {
+            --canvas-bg: #08080a;
+            --bg: #08080a;
+            --card-bg: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="radio" name="lang" id="lang-it" class="lang-radio" hidden>
+        <input type="radio" name="lang" id="lang-en" class="lang-radio" checked hidden>
+
+        <div class="page card-page">
+            <button type="button" class="page-arrow page-arrow--prev" data-scroll-prev aria-label="Scroll left">
+                <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
+                    <path d="M120 31H8M36 3L8 31l28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button type="button" class="page-arrow page-arrow--next" data-scroll-next aria-label="Scroll right">
+                <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
+                    <path d="M8 31h112M92 3l28 28-28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <div class="card-panel films-panel">
+                <h1 class="card-title">
+                    <span class="lang-it">INTERVISTE E FILM</span>
+                    <span class="lang-en">INTERVIEWS AND FILMS</span>
+                </h1>
+
+                <div
+                    class="films-scroll"
+                    data-scroll-area
+                    data-scroll-axis="x"
+                    data-scroll-mode="page"
+                    data-scroll-item=".films-page"
+                >
+                    <div class="films-viewport" data-scroll-grid>
+                        <div class="films-track">
+
+                            <div class="films-page">
+                                <article class="film-item">
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/01.jpg" alt="La nascita di un eroe">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">LA NASCITA DI UN EROE</span>
+                                            </p>
+                                            <p class="film-source">Ciclo Tv Gallery, canale televisivo Ostankino</p>
+                                            <p class="film-credit">Regista: Nina Zareckaja</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">THE BIRTH OF A HERO</span>
+                                            </p>
+                                            <p class="film-source">TV Gallery cycle, Ostankino television channel</p>
+                                            <p class="film-credit">Director: Nina Zareckaja</p>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="film-item">
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/02.jpg" alt="La nascita di un eroe">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">LA NASCITA DI UN EROE</span>
+                                            </p>
+                                            <p class="film-source">Ciclo Tv Gallery, canale televisivo Ostankino</p>
+                                            <p class="film-credit">Regista: Nina Zareckaja</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">THE BIRTH OF A HERO</span>
+                                            </p>
+                                            <p class="film-source">TV Gallery cycle, Ostankino television channel</p>
+                                            <p class="film-credit">Director: Nina Zareckaja</p>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="film-item">
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/03.jpg" alt="La nascita di un eroe">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">LA NASCITA DI UN EROE</span>
+                                            </p>
+                                            <p class="film-source">Ciclo Tv Gallery, canale televisivo Ostankino</p>
+                                            <p class="film-credit">Regista: Nina Zareckaja</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">THE BIRTH OF A HERO</span>
+                                            </p>
+                                            <p class="film-source">TV Gallery cycle, Ostankino television channel</p>
+                                            <p class="film-credit">Director: Nina Zareckaja</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="films-page">
+                                <article class="film-item">
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/04.jpg" alt="La nascita di un eroe">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">LA NASCITA DI UN EROE</span>
+                                            </p>
+                                            <p class="film-source">Ciclo Tv Gallery, canale televisivo Ostankino</p>
+                                            <p class="film-credit">Regista: Nina Zareckaja</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">1992.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">THE BIRTH OF A HERO</span>
+                                            </p>
+                                            <p class="film-source">TV Gallery cycle, Ostankino television channel</p>
+                                            <p class="film-credit">Director: Nina Zareckaja</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="switchers-row">
+                    <div class="css-switcher">
+                        <div class="switcher-left">
+                            <label for="lang-en" class="switcher-label switcher-label--toggle-en">LANGUAGE</label>
+                            <label for="lang-it" class="switcher-label switcher-label--toggle-it">Lingua</label>
+                        </div>
+                        <div class="switcher-divider"></div>
+                        <div class="switcher-right">
+                            <label for="lang-it" class="circle it-circle">IT</label>
+                            <label for="lang-en" class="circle en-circle">EN</label>
+                        </div>
+                    </div>
+
+                    <a href="index.html" class="nav-switcher" aria-label="Navigation">
+                        <div class="nav-switcher-left">
+                            <span class="nav-label">MENU</span>
+                        </div>
+                        <div class="nav-divider"></div>
+                        <div class="nav-switcher-right">
+                            <span class="nav-home">HOME</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

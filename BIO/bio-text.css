@@ -1,0 +1,229 @@
+/* BIO popup — horizontal Fancybox iframe */
+@import url("../fonts.css");
+
+:root {
+    --ref-w: 1920;
+    --ref-h: 1080;
+
+    --text-scale: 1.5;
+    --footer-zone-fr: 19%;
+    --switcher-scale: 1.18;
+
+    --page-padding: calc(28 / var(--ref-h) * 100cqh);
+    --content-width: 92%;
+    --title-margin-top: calc(8 / var(--ref-h) * 100cqh);
+    --title-underline-gap: calc(18 / var(--ref-h) * 100cqh);
+    --font-size-base: calc(22 / var(--ref-h) * 100cqh * var(--text-scale));
+    --font-size-h1: calc(36 / var(--ref-h) * 100cqh * var(--text-scale));
+    --text-color: #000000;
+    --bg-color: #b2b2b2;
+    --scrollbar-thumb: #000000;
+    --scrollbar-track: #9a9a9a;
+    --scrollbar-width: 3px;
+    --scrollbar-gap: calc(8 / var(--ref-h) * 100cqh);
+    --scrollbar-nudge: 20px;
+    --scrollbar-top: calc(48 / var(--ref-h) * 100cqh);
+
+    --switcher-w: calc(275 / 1080 * 100cqh * var(--switcher-scale));
+    --switcher-h: calc(64 / 1080 * 100cqh * var(--switcher-scale));
+    --switcher-radius: calc(32 / 1080 * 100cqh * var(--switcher-scale));
+    --switcher-font: calc(21 / 1080 * 100cqh * var(--switcher-scale));
+    --circle-size: calc(42 / 1080 * 100cqh * var(--switcher-scale));
+
+    --scroll-btn-d: calc(85 / var(--ref-h) * 100cqh);
+    --scroll-arrows-stack-gap: calc(18 / var(--ref-h) * 100cqh);
+    --scroll-btn-border: #4a4a4a;
+    --footer-pad-top: calc(14 / var(--ref-h) * 100cqh);
+    --scroll-arrows-above-switcher: calc(10 / var(--ref-h) * 100cqh);
+    --switcher-bottom-pad: 0;
+
+* {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-display);
+    background-color: var(--bg-color);
+    overflow: hidden;
+}
+
+em, i {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    container-type: size;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) var(--footer-zone-fr);
+    align-items: stretch;
+    justify-items: center;
+    padding: var(--page-padding);
+    padding-bottom: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+}
+
+.scroll-wrapper {
+    width: 100%;
+    min-height: 0;
+    height: 100%;
+    position: relative;
+    grid-row: 1;
+}
+
+.title-section {
+    width: 100%;
+    margin-top: var(--title-margin-top);
+    margin-bottom: var(--title-underline-gap);
+}
+
+.title-section h1 {
+    font-size: var(--font-size-h1);
+    font-weight: normal;
+    margin: 0;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.text-section {
+    width: var(--content-width);
+    height: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex: none;
+}
+
+.text-section::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-track {
+    position: absolute;
+    top: var(--scrollbar-top);
+    right: calc(
+        (100% - var(--content-width)) / 2
+        - var(--scrollbar-width)
+        - var(--scrollbar-gap)
+        - var(--scrollbar-nudge)
+    );
+    width: var(--scrollbar-width);
+    height: calc(100% - var(--scrollbar-top));
+    background-color: var(--scrollbar-track);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.scroll-thumb {
+    width: 100%;
+    background-color: var(--scrollbar-thumb);
+    will-change: transform;
+}
+
+.text-content {
+    width: 100%;
+    font-size: var(--font-size-base);
+    line-height: 1.45;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.text-content p {
+    margin-bottom: 0.85em;
+}
+
+.text-content .bio-year {
+    font-weight: 700;
+    display: inline;
+}
+
+.text-content .bio-note {
+    margin-top: 1.2em;
+}
+
+/* Footer: gap under text → arrows lower → switcher flush to bottom */
+.footer-zone {
+    grid-row: 2;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: end;
+    justify-items: center;
+    padding-top: var(--footer-pad-top);
+    padding-bottom: var(--switcher-bottom-pad);
+}
+
+.scroll-arrows {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--scroll-arrows-stack-gap);
+    min-height: 0;
+    margin-bottom: var(--scroll-arrows-above-switcher);
+}
+
+.scroll-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--scroll-btn-d);
+    height: var(--scroll-btn-d);
+    margin: 0;
+    padding: 0;
+    border: 2px solid var(--scroll-btn-border);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    color: #000000;
+    box-sizing: border-box;
+}
+
+.scroll-btn__icon {
+    display: block;
+    width: 55%;
+    height: 55%;
+}
+
+.scroll-btn--inactive {
+    color: #8a8a8a;
+    border-color: #8a8a8a;
+    cursor: default;
+    pointer-events: none;
+}
+
+.page .css-switcher {
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.page .css-switcher::before {
+    left: calc(-25 / 1080 * 100cqh * var(--switcher-scale));
+    right: calc(-10 / 1080 * 100cqh * var(--switcher-scale));
+}
+
+.page .css-switcher .switcher-divider {
+    margin-left: calc(14 / 1080 * 100cqh * var(--switcher-scale));
+    margin-right: calc(14 / 1080 * 100cqh * var(--switcher-scale));
+}

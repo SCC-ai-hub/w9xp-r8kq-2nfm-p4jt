@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>BRUSKIN touchscreen · Grid Gallery</title>
+	
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Добавляет анимацию нажимающих ладошек для привлечения внимания к экрану -->
+    <!-- <link rel="stylesheet" href="press-me.css">	 -->
+	
+    <!-- Если никто не трогает экран 3 минуты, то таймер перезагружает index.html возвращая всё на основной вид -->
+	<script src="timer.js"></script>
+	
+<link rel="stylesheet" href="fancybox/fancybox.css" />
+<link rel="stylesheet" href="fancybox/fancybox-override.css">
+<script src="fancybox/fancybox.umd.js"></script>
+<script src="fancybox/fancybox-override.js"></script>
+	
+	
+</head>
+<body oncontextmenu="return false;">
+<script>document.oncontextmenu = function() { return false; };</script>
+
+    <div class="container">
+
+
+    <!-- Фоновая картинка (под сеткой) -->
+        <img src="index-background.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; z-index: -1;">
+		
+    <!-- Оверлей поверх ВСЕГО (над сеткой, но клики проходят насквозь) -->
+		<img src="index-overlay.png" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; pointer-events: none; z-index: 1;">
+
+    
+        <!-- Кликабельные зоны -->
+        <div class="touch-areas">
+            <svg viewBox="0 0 2160 3840" preserveAspectRatio="none">
+                <a href="sculpture-descriptions/0.About.html" data-fancybox="gallery" data-type="iframe">
+                    <rect x="900" y="0" width="350" height="300" fill="transparent"/>
+                </a>
+            </svg>
+        </div>
+
+		
+    <!-- Сетка с картинками -->
+        <div class="grid" id="imageGrid">
+<!--            <div class="grid-item"><a href="sculpture-descriptions/0.About.html" data-fancybox="gallery" data-type="iframe"><img src="info.png" style="transform: scale(0.7);"></a></div>
+
+
+             <div class="grid-item"><a href="sculpture-descriptions/1.Mouse.1.html" data-fancybox="gallery" data-type="iframe"><img src="empty_500x500.png"></a></div>
+		    <div class="grid-item"><a href="sculpture-descriptions/1.Mouse.1.html" data-fancybox="gallery" data-type="iframe"><img src="empty_500x500.png"></a></div>		
+ -->
+ 
+<div class="grid-item" style="grid-column: span 2; aspect-ratio: 2 / 1; display: flex; align-items: center; justify-content: center;">
+    <a href="sculpture-descriptions/1.Mouse.1.html" data-fancybox="gallery" data-type="iframe" style="display: flex; width:100%; height:100%;">
+        <img src="PNG-crop/1.Mouse.1.png" style="width:100%; height:100%; object-fit:contain;">
+    </a>
+</div>
+ 
+            <div class="grid-item"><a href="sculpture-descriptions/1.Mouse.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/1.Mouse.2.png" style="transform: scale(0.7);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/2.Mouse Fossil.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/2.Mouse Fossil.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/3.Brood of Mice.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/3.Brood of Mice.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/4.Mouse in a Cage.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/4.Mouse in a Cage.1.png"></a></div>
+
+
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/4.Mouse in a Cage.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/4.Mouse in a Cage.2.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/5.Mouse without Paws and Ears.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/5.Mouse without Paws and Ears.png" style="transform: scale(0.8);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/6.Dead Mouse.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/6.Dead Mouse.png" style="transform: scale(0.8);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/7.Soldier-Killer.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/7.Soldier-Killer.png" style="transform: scale(0.9);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/8.Aid.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/8.Aid.png" style="transform: scale(1.1);"></a></div>
+
+
+            <div class="grid-item"><a href="sculpture-descriptions/9.Tent in Cross Section.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/9.Tent in Cross Section.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/10.Man Running from a Dog.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/10.Man Running from a Dog.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/11.The Crowd.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/11.The Crowd.1.png"></a></div> -->
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/11.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/11.The Crowd.2.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/12.Our Home is Russia.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/12.Our Home is Russia.png" style="transform: scale(0.9);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/13.Pilgrims.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/13.Pilgrims.1.png"></a></div>
+
+
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/13.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/13.Pilgrims.2.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/14.Robbery.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/14.Robbery.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/15.Twins.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/15.Twins.2.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/15.Twins.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/15.Twins.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/16.On the Edge.a.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/16.On the Edge.a.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/16.b.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/16.On the Edge.b.png"></a></div> -->
+
+
+            <div class="grid-item"><a href="sculpture-descriptions/17.X-ray.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/17.X-ray.png" style="transform: scale(0.9);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/18.The Poisoned Well.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/18.The Poisoned Well.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/19.Horseman of Death.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/19.Horseman of Death.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/20.Horseman in a Gas Mask.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/20.Horseman in a Gas Mask.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/21.Labor Camp Guard.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/21.Labor Camp Guard.png"></a></div>
+
+
+            <div class="grid-item"><a href="sculpture-descriptions/22.The Maiden and Death.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/22.The Maiden and Death.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/23.Beggar.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/23.Beggar.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/24.Starving Dogs.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/24.Starving Dogs.1.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/24.1A.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/24.Starving Dogs.1A.png"></a></div> -->
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/24.1B.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/24.Starving Dogs.1B.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/24.Starving Dogs.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/24.Starving Dogs.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/25.Guardians of the Threshold.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/25.Guardians of the Threshold.1.png" style="transform: scale(0.85);"></a></div>
+
+
+            <div class="grid-item"><a href="sculpture-descriptions/25.Guardians of the Threshold.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/25.Guardians of the Threshold.2.png" style="transform: scale(0.85);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/26.Bat.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/26.Bat.png" style="transform: scale(0.9);"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/27.Facial Measurement.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/27.Facial Measurement.png" style="transform: scale(0.9);"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/28.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/28.Cannibal.1.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/28.Cannibal.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/28.Cannibal.2.png"></a></div>
+            
+<!-- 			<div class="grid-item"><a href="sculpture-descriptions/29.Ruined Characters.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/29.Ruined Characters.1.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/29.Ruined Characters.2.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/29.Ruined Characters.2.png"></a></div>
+ -->           
+		   <div class="grid-item"><a href="sculpture-descriptions/30.Fistfight.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/30.Fistfight.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/31.Attack.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/31.Attack.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/32.Little Nurse Bandaging a Wounded Boy.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/32.Little Nurse Bandaging a Wounded Boy.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/33.Murderer.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/33.Murderer.png"></a></div>
+
+
+<!--             <div class="grid-item"><a href="sculpture-descriptions/34.Female Suicide Terrorists.1.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/34.Female Suicide Terrorists.1.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/34.Female Suicide Terrorists.3.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/34.Female Suicide Terrorists.3.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/34.Female Suicide Terrorists.4.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/34.Female Suicide Terrorists.4.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/34.Female Suicide Terrorists.5.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/34.Female Suicide Terrorists.5.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/34.Female Suicide Terrorists.6.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/34.Female Suicide Terrorists.6.png"></a></div>
+ -->
+
+            <div class="grid-item"><a href="sculpture-descriptions/35.Motorcyclist.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/35.Motorcyclist.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/36.Poison.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/36.Poison.png"></a></div> -->
+            
+<!-- 			<div class="grid-item"><a href="sculpture-descriptions/37.Melancholy Androgynous Warriors.1-Scroll.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/37.Melancholy Androgynous Warriors.1.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/37.Melancholy Androgynous Warriors.2-Scroll.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/37.Melancholy Androgynous Warriors.2.png"></a></div>
+            <div class="grid-item"><a href="sculpture-descriptions/37.Melancholy Androgynous Warriors.3-Scroll.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/37.Melancholy Androgynous Warriors.3.png"></a></div>
+			<div class="grid-item"><a href="sculpture-descriptions/37.Melancholy Androgynous Warriors.4-Scroll.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/37.Melancholy Androgynous Warriors.4.png"></a></div>
+			<div class="grid-item"><a href="sculpture-descriptions/37.Melancholy Androgynous Warriors.5-Scroll.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/37.Melancholy Androgynous Warriors.5.png" style="transform: scale(0.8);"></a></div>
+ -->    
+ 
+			<div class="grid-item"><a href="sculpture-descriptions/38.Wrestling.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/38.Wrestling.png"></a></div>
+            <!-- <div class="grid-item"><a href="sculpture-descriptions/39.Spy.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/39.Spy.png"></a></div> -->
+            <div class="grid-item"><a href="sculpture-descriptions/40.Downed Plane.html" data-fancybox="gallery" data-type="iframe"><img src="PNG-crop/40.Downed Plane.png" style="transform: scale(0.85);"></a></div>
+
+        </div>
+    </div>
+
+
+
+<!-- Пальцы (анимированные подсказки) -->
+<!-- <div class="finger-container" id="finger1" style="top: 29%; left: 39%; width: 50vw;">
+    <img class="finger-img" src="finger.png" alt="tap">
+</div>
+<div class="finger-container" id="finger2" style="top: 49%; left: 57%; width: 50vw;">
+    <img class="finger-img" src="finger.png" alt="tap">
+</div>
+<div class="finger-container" id="finger3" style="top: 69%; left: 39%; width: 50vw;">
+    <img class="finger-img" src="finger.png" alt="tap">
+</div>
+ -->
+
+
+
+
+<script>
+// Очередной костыль, чтобы когда окно браузера не раскрыт на весь вертикальный экран (смотрят на горизонтальном)
+// таблица картинок прилеплялась верхним рядом к окну браузера
+// иначе по умолчанию она центруется серединой своей таблицы по вертикальной середине экрана
+(function() {
+    function adjustCentering() {
+        var container = document.querySelector('.container');
+        if (!container) return;
+        
+        // Полная высота контента внутри .container (с учётом padding и содержимого)
+        var containerHeight = container.scrollHeight;
+        var viewportHeight = window.innerHeight;
+        
+        if (containerHeight > viewportHeight) {
+            // Контент не помещается — прижимаем к верху и скроллим в начало
+            document.body.classList.add('overflow-top');
+            if (window.scrollY !== 0) {
+                window.scrollTo(0, 0);
+            }
+        } else {
+            // Всё помещается — центрируем
+            document.body.classList.remove('overflow-top');
+        }
+    }
+    
+    // Отслеживаем загрузку всех картинок в сетке (они могут влиять на высоту)
+    function bindImageLoads() {
+        var images = document.querySelectorAll('.grid-item img');
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            if (img.complete) {
+                // Уже загружена — всё равно можно вызвать (но избегаем лишних)
+                continue;
+            }
+            img.addEventListener('load', adjustCentering);
+            img.addEventListener('error', adjustCentering);
+        }
+    }
+    
+    // Запускаем при полной загрузке страницы и при изменении размеров окна
+    window.addEventListener('load', function() {
+        adjustCentering();
+        bindImageLoads();
+    });
+    window.addEventListener('resize', adjustCentering);
+    
+    // Дополнительно запустим один раз после небольшой задержки (на случай динамических изменений)
+    setTimeout(adjustCentering, 100);
+})();
+</script>
+
+
+
+
+
+
+<script>
+//тут код вызова fancybox, а бОльшая часть кода пытается рещить проблему, что когда мы переключаем язык, то первый переход между скульптурами почему-то возвращает 
+//язык на старый и только последующие переходы включают нужный язык
+//проблема решается топорно - при первом переходе после переключения языка мы обновляем iframe (он мигает), при последующих просто срабатывает смена встроенная в fancybox
+//и так до нового переключения языка
+
+
+    // Функция получения текущего языка
+    function getCurrentLanguage() {
+        return localStorage.getItem('selectedLanguage') || 'it';
+    }
+
+    // Хранилище для iframe элементов
+    var iframeCache = {};
+    var lastLanguage = getCurrentLanguage();
+    var pendingReload = false; // флаг: нужно ли перезагрузить следующий слайд
+
+    // Слушаем изменения языка в localStorage (если язык поменяли в другом iframe)
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'selectedLanguage') {
+            lastLanguage = e.newValue;
+            pendingReload = true; // следующий слайд перезагрузим
+        }
+    });
+
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        type: 'iframe',
+        iframe: {
+            preload: false,
+            css: {
+                width: '80vw',
+                height: '80vh'
+            }
+        },
+        animated: true,
+        showClass: 'f-zoomInUp',
+        hideClass: 'f-zoomOutDown',
+        closeButton: 'auto',
+        dragToClose: true,
+        
+        Carousel: {
+            preload: 0
+        },
+        
+        // При каждом показе слайда
+        beforeShow: function(fancybox, slide) {
+            if (slide && slide.src) {
+                var currentLang = getCurrentLanguage();
+                var needReload = pendingReload || (currentLang !== lastLanguage);
+                
+                if (needReload) {
+                    // Язык изменился — перезагружаем этот слайд
+                    var url = new URL(slide.src, window.location.href);
+                    url.searchParams.set('lang', currentLang);
+                    url.searchParams.set('_t', Date.now());
+                    
+                    var newSrc = url.toString();
+                    
+                    if (slide.src !== newSrc) {
+                        slide.src = newSrc;
+                        
+                        // Перезагружаем iframe если он уже существует
+                        if (iframeCache[slide.index]) {
+                            var iframe = iframeCache[slide.index];
+                            if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.location.href = newSrc;
+                            }
+                        }
+                    }
+                    
+                    // Сбрасываем флаги — последующие слайды не перезагружаем
+                    pendingReload = false;
+                    lastLanguage = currentLang;
+                }
+                // Если язык не менялся — ничего не делаем, используем кеш
+            }
+        },
+        
+        // Сохраняем iframe после создания
+        afterLoad: function(fancybox, slide) {
+            if (slide.type === 'iframe' && slide.iframe) {
+                iframeCache[slide.index] = slide.iframe;
+            }
+        },
+        
+        // Очищаем кеш при закрытии
+        on: {
+            'close': function() {
+                iframeCache = {};
+                pendingReload = false;
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

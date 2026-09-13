@@ -1,0 +1,107 @@
+/* ========== artworks_index.css — Art Works 3×2 horizontal pages ==========
+   page3 @3840: cols L 655/1554/2460 R 1378/2278/3183 → avgW 723.⅓, avgGapX 179, center→L 656;
+   rows T 535/1230 B 1004/1700 → avgH 469.5, imgGap 226; label→img = bio 35;
+   tokens @1920×1080
+========== */
+
+.artworks-panel {
+    --card-padding-x: calc(294 / var(--ref-w) * 100cqw);
+    --card-padding-top: calc(64 / var(--ref-h) * 100cqh);
+    --title-grid-gap: calc(65 / var(--ref-h) * 100cqh);
+
+    /* cqh — не cqw: внутри .artworks-viewport (container) cqw = ширина трека */
+    --grid-gap-x: calc(89.5 / var(--ref-h) * 100cqh);
+    --grid-gap-y: calc(74.5 / var(--ref-h) * 100cqh);
+    --label-image-gap: calc(17.5 / var(--ref-h) * 100cqh);
+
+    --art-cols: 3;
+}
+
+.artworks-panel.card-panel--scroll {
+    --card-padding-top: calc(64 / var(--ref-h) * 100cqh);
+    --title-grid-gap: calc(65 / var(--ref-h) * 100cqh);
+}
+
+.artworks-panel.card-panel--scroll .scroll-bottom-zone,
+.artworks-panel.card-panel--scroll .scroll-arrows {
+    display: none;
+}
+
+.artworks-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.artworks-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: artworks-vp;
+}
+
+.artworks-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.artworks-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: max-content;
+    min-height: 100%;
+    box-sizing: border-box;
+    /* same as column gap inside a page — last col of screen N ↔ first of N+1 */
+    column-gap: var(--grid-gap-x);
+}
+
+.artworks-page {
+    display: grid;
+    grid-template-columns: repeat(var(--art-cols), 1fr);
+    grid-template-rows: auto auto;
+    column-gap: var(--grid-gap-x);
+    row-gap: var(--grid-gap-y);
+    align-content: start;
+    flex: 0 0 100cqi;
+    width: 100cqi;
+    min-width: 100cqi;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.artworks-page .card-item {
+    min-width: 0;
+}
+
+/* avg 723.⅓ × 469.5 @3840 — не 3:2 */
+.artworks-page .card-image {
+    aspect-ratio: 4340 / 2817;
+}
+
+.artworks-panel .switchers-row {
+    position: relative;
+    z-index: 4;
+    padding-top: var(--switchers-top);
+}
+
+.artworks-panel .switchers-row::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--card-padding-x));
+    right: calc(-1 * var(--card-padding-x));
+    bottom: 100%;
+    height: calc(8 / var(--ref-h) * 100cqh);
+    background: var(--card-bg);
+    pointer-events: none;
+}

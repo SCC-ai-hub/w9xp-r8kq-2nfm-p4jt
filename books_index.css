@@ -1,0 +1,268 @@
+/* ========== books_index.css — Publications (horizontal row + flip) ========== */
+
+.books-panel {
+    /* Clear page-arrows; title metrics = Biography */
+    --card-padding-x: calc(232 / var(--ref-w) * 100cqw);
+    --card-padding-top: calc(64 / var(--ref-h) * 100cqh);
+    /* ref page4: title→books ≈ 123@1920 */
+    --title-grid-gap: calc(123 / var(--ref-h) * 100cqh);
+
+    --book-gap: calc(56 / var(--ref-w) * 100cqw);
+    --book-cols: 4;
+    /* ref page4 text card @1920: ~20px type, padT≈35, padX≈30, gap title→meta≈18 */
+    --book-meta-font: calc(20 / var(--ref-h) * 100cqh);
+    --book-meta-gap: calc(4 / var(--ref-h) * 100cqh);
+    --book-meta-block-gap: calc(18 / var(--ref-h) * 100cqh);
+    --book-meta-pad-y: calc(35 / var(--ref-h) * 100cqh);
+    --book-meta-pad-x: calc(30 / var(--ref-w) * 100cqw);
+    --book-flip-duration: 1.1s;
+    --book-flip-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.books-panel.card-panel--scroll {
+    --card-padding-top: calc(64 / var(--ref-h) * 100cqh);
+    --title-grid-gap: calc(123 / var(--ref-h) * 100cqh);
+}
+
+.books-panel.card-panel--scroll .scroll-bottom-zone,
+.books-panel.card-panel--scroll .scroll-arrows {
+    display: none;
+}
+
+.books-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.books-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: books-vp;
+}
+
+.books-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.books-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: var(--book-gap);
+    width: max-content;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+/* Width from viewport cqi → exactly N books fill the visible row */
+.book-item {
+    --book-slot: calc((100cqi - (var(--book-cols) - 1) * var(--book-gap)) / var(--book-cols));
+    position: relative;
+    display: block;
+    flex: 0 0 var(--book-slot);
+    width: var(--book-slot);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+    scroll-snap-align: none;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    perspective: calc(1400 / var(--ref-w) * 100cqw);
+}
+
+.book-item:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+}
+
+.book-flip {
+    width: 100%;
+}
+
+.book-flip__inner {
+    position: relative;
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: transform var(--book-flip-duration) var(--book-flip-ease);
+    will-change: transform;
+}
+
+.book-item.is-flipped .book-flip__inner {
+    transform: rotateY(180deg);
+}
+
+.book-flip__face {
+    border-radius: var(--image-radius);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
+
+.book-flip__face--front {
+    position: relative;
+    z-index: 1;
+    background: #c8c8c8;
+}
+
+.book-flip__face--back {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    /* ref: flipped face ≈ #e6e6e6, not mid-gray cover stub */
+    background: #e6e6e6;
+    transform: rotateY(180deg);
+}
+
+.book-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+}
+
+.book-cover.is-pending {
+    aspect-ratio: var(--book-ar, 2 / 3);
+    background: #c8c8c8;
+}
+
+.book-cover--empty {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: #c8c8c8;
+}
+
+.book-item--cover-only {
+    cursor: default;
+    perspective: none;
+}
+
+.book-item--cover-only .book-cover {
+    border-radius: var(--image-radius);
+}
+
+.book-meta {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: var(--book-meta-pad-y) var(--book-meta-pad-x);
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: var(--book-meta-font);
+    line-height: 1.25;
+    color: #000000;
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    text-align: left;
+    pointer-events: none;
+}
+
+.book-meta .lang-it,
+.book-meta .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .book-meta .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .book-meta .lang-en {
+    opacity: 1;
+}
+
+.book-title {
+    margin: 0 0 var(--book-meta-block-gap);
+    padding: 0;
+    font-size: inherit;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.book-title-main {
+    display: block;
+    text-transform: uppercase;
+}
+
+.book-title-alt {
+    display: block;
+    margin-top: var(--book-meta-gap);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.book-publisher,
+.book-place,
+.book-note {
+    margin: 0 0 var(--book-meta-gap);
+    padding: 0;
+    font-weight: 400;
+    color: #000000;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.book-publisher,
+.book-note {
+    font-style: italic;
+}
+
+.book-place {
+    font-style: normal;
+}
+
+.book-note {
+    color: #808080;
+}
+
+.book-meta .book-note:last-child,
+.book-place:last-child,
+.book-publisher:last-child {
+    margin-bottom: 0;
+}
+
+.books-panel .switchers-row {
+    position: relative;
+    z-index: 4;
+    padding-top: var(--switchers-top);
+}
+
+.books-panel .switchers-row::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--card-padding-x));
+    right: calc(-1 * var(--card-padding-x));
+    bottom: 100%;
+    height: calc(8 / var(--ref-h) * 100cqh);
+    background: var(--card-bg);
+    pointer-events: none;
+}

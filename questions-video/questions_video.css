@@ -1,0 +1,186 @@
+/* ========== questions_video.css — Ask the Artist (1 Q / screen) ==========
+   Shell = card-grid-page; side page-arrows scroll questions; ref page5 @3840→1920 */
+
+.questions-panel {
+    --card-padding-x: calc(280 / var(--ref-w) * 100cqw);
+    --card-padding-top: calc(64 / var(--ref-h) * 100cqh);
+    --title-grid-gap: calc(48 / var(--ref-h) * 100cqh);
+
+    --question-font: calc(39 / var(--ref-h) * 100cqh);
+    --question-line: 1.35;
+    --question-max-w: calc(1440 / var(--ref-w) * 100cqw);
+    --question-color: #ffffff;
+    --answer-gap: calc(88 / var(--ref-h) * 100cqh);
+    --answer-h: calc(63 / var(--ref-h) * 100cqh);
+    --answer-pad-x: calc(40 / var(--ref-h) * 100cqh);
+    --answer-min-w: calc(235 / var(--ref-h) * 100cqh);
+    --answer-font: calc(16 / var(--ref-h) * 100cqh);
+    --answer-tracking: 0.06em;
+
+    --q-counter-zone: calc(56 / var(--ref-h) * 100cqh);
+    --q-counter-font: calc(22 / var(--ref-h) * 100cqh);
+}
+
+.questions-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.questions-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: var(--q-counter-zone);
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: questions-vp;
+}
+
+.questions-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.questions-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: max-content;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.question-slide {
+    flex: 0 0 100cqi;
+    width: 100cqi;
+    min-width: 100cqi;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 calc(40 / var(--ref-w) * 100cqw);
+    gap: var(--answer-gap);
+}
+
+.question-text {
+    margin: 0;
+    padding: 0;
+    max-width: var(--question-max-w);
+    display: grid;
+    font-family: var(--font-display);
+    font-size: var(--question-font);
+    font-weight: 400;
+    line-height: var(--question-line);
+    letter-spacing: 0;
+    color: var(--question-color);
+    text-align: center;
+}
+
+.question-text .lang-it,
+.question-text .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .question-text .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .question-text .lang-en {
+    opacity: 1;
+}
+
+.question-answer-btn {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    box-sizing: border-box;
+    min-width: var(--answer-min-w);
+    height: var(--answer-h);
+    padding: 0 var(--answer-pad-x);
+    border: 0;
+    border-radius: 999px;
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: var(--answer-font);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: var(--answer-tracking);
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.question-answer-btn .lang-it,
+.question-answer-btn .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+#lang-it:checked ~ .page .question-answer-btn .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .question-answer-btn .lang-en {
+    opacity: 1;
+}
+
+/* Question counter 1 / N — centered under slides */
+.questions-counter-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--q-counter-zone);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.questions-counter {
+    font-size: var(--q-counter-font);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: #000000;
+    user-select: none;
+}
+
+.questions-panel .switchers-row {
+    position: relative;
+    z-index: 4;
+    padding-top: var(--switchers-top);
+}
+
+.questions-panel .switchers-row::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--card-padding-x));
+    right: calc(-1 * var(--card-padding-x));
+    bottom: 100%;
+    height: calc(8 / var(--ref-h) * 100cqh);
+    background: var(--card-bg);
+    pointer-events: none;
+}

@@ -1,0 +1,198 @@
+/* fancybox-override.css - исправленная версия */
+
+/* ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
+:root {
+    /* Отступы для контента */
+    --fancybox-margin-top: 10vh;
+    --fancybox-margin-bottom: 10vh;
+    --fancybox-margin-left: 10vw;
+    --fancybox-margin-right: 10vw;
+}
+
+/* ===== КОНТЕНТ И IFRAME ===== */
+.fancybox__slide.has-iframe .fancybox__content,
+.fancybox__slide.has-html .fancybox__content {
+    width: 45vh !important;
+	height: 80vh !important;
+    max-height: 90vh !important;
+}
+
+/* вариант когда размеры fancybox высчитываются */
+/* .fancybox__slide.has-iframe .fancybox__content,
+.fancybox__slide.has-html .fancybox__content {
+    width: calc(100% - var(--fancybox-margin-left) - var(--fancybox-margin-right)) !important;
+    max-width: calc(100% - var(--fancybox-margin-left) - var(--fancybox-margin-right)) !important;
+    min-width: auto !important;
+    height: calc(100% - var(--fancybox-margin-top) - var(--fancybox-margin-bottom)) !important;
+    max-height: calc(100% - var(--fancybox-margin-top) - var(--fancybox-margin-bottom)) !important;
+} */
+
+.fancybox__content .fancybox__iframe,
+.fancybox__content iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    display: block;
+}
+
+/* ===== БЕЛАЯ РАМКА ===== */
+.fancybox__content {
+    border-radius: 15px !important;
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0), 
+                0 0 0 0.1vw rgba(255, 255, 255, 0.9),
+                0 0 1vw 0.6vw rgba(255, 255, 255, 0.8),
+                0 0 2.5vw 1.2vw rgba(255, 255, 255, 0.1),
+                0 0 4vw 2vw rgba(255, 255, 255, 0) !important;
+    background: white !important;
+    border: none !important;
+    background-clip: padding-box !important;
+}
+
+.fancybox__content iframe {
+    border-radius: 4vw !important;
+}
+
+.fancybox__slide.has-iframe {
+    padding: 0 !important;
+}
+
+.fancybox__backdrop {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(2px);
+}
+
+.fancybox__content:focus {
+    outline: none;
+}
+
+.fancybox__carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== КНОПКА ЗАКРЫТИЯ ===== */
+.f-button.is-close-btn,
+.fancybox__close {
+    all: unset !important;
+    position: absolute !important;
+    top: 2rem !important;
+    right: 2rem !important;
+    width: 5rem !important;
+    height: 5rem !important;
+    background: transparent !important;
+    border: 2px solid black !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 100000 !important;
+    transition: transform 0.2s ease, border-color 0.2s ease !important;
+    box-sizing: border-box !important;
+}
+
+.f-button.is-close-btn svg,
+.fancybox__close svg {
+    width: 2.8rem !important;
+    height: 2.8rem !important;
+    stroke: black !important;
+    stroke-width: 1 !important;
+    fill: none !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.f-button.is-close-btn:hover,
+.fancybox__close:hover {
+    transform: scale(1.05) !important;
+    border-color: #333 !important;
+}
+
+.f-button.is-close-btn:hover svg,
+.fancybox__close:hover svg {
+    stroke: #333 !important;
+}
+
+/* ===== БОКОВЫЕ СТРЕЛКИ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ ===== */
+.fancybox__nav .f-button {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+.fancybox__nav .f-button svg {
+    width: 48px !important;
+    height: 48px !important;
+}
+
+/* Для адаптации под экран */
+@media (max-width: 768px) {
+    .fancybox__nav .f-button {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    .fancybox__nav .f-button svg {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/* ===== МИНИАТЮРЫ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ В 2 РАЗА ===== */
+/* Контейнер миниатюры */
+.f-thumbs__slide {
+    width: 180px !important;
+    height: 135px !important;
+    flex: 0 0 auto !important;
+}
+
+/* Картинка внутри миниатюры */
+.f-thumbs__slide__img {
+    object-fit: contain !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Кнопка миниатюры */
+.f-thumbs__slide__button {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Отключаем clip-path который обрезает */
+.is-modern .f-thumbs__slide__button {
+    clip-path: none !important;
+}
+
+/* Расстояние между миниатюрами */
+.f-thumbs.is-horizontal .f-thumbs__slide {
+    margin-right: 16px !important;
+}
+
+/* Панель миниатюр — больше отступы */
+.fancybox__thumbs {
+    padding: 16px 0 !important;
+}
+
+/* Адаптация под маленькие экраны */
+@media (max-width: 768px) {
+    .f-thumbs__slide {
+        width: 120px !important;
+        height: 90px !important;
+    }
+    .f-thumbs.is-horizontal .f-thumbs__slide {
+        margin-right: 12px !important;
+    }
+}
+
+/* Для очень больших экранов */
+@media (min-width: 1200px) {
+    .f-thumbs__slide {
+        width: 220px !important;
+        height: 165px !important;
+    }
+    .f-thumbs.is-horizontal .f-thumbs__slide {
+        margin-right: 20px !important;
+    }
+}

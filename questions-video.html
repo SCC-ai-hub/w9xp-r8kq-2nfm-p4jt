@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="baiduspider" content="noindex, nofollow">
+    <title>Ask the Artist</title>
+    <link rel="stylesheet" href="language-switcher.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="page-arrows.css">
+    <link rel="stylesheet" href="card-grid-page.css">
+    <link rel="stylesheet" href="questions-video/questions_video.css">
+    <link rel="stylesheet" href="fancybox/fancybox.css">
+    <link rel="stylesheet" href="fancybox/fancybox-override.css">
+    <script src="fancybox/fancybox.umd.js"></script>
+    <script src="fancybox/fancybox-override.js"></script>
+    <script src="language-switcher.js" defer></script>
+    <script src="scroll-grid.js" defer></script>
+    <script src="questions-video/questions-pager.js" defer></script>
+    <style>
+        /* ref page5 — erase this block to revert */
+        :root {
+            --canvas-bg: #08080a;
+            --bg: #08080a;
+            --card-bg: #8c8c8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="radio" name="lang" id="lang-it" class="lang-radio" hidden>
+        <input type="radio" name="lang" id="lang-en" class="lang-radio" checked hidden>
+
+        <div class="page card-page">
+            <button type="button" class="page-arrow page-arrow--prev" data-scroll-prev aria-label="Previous question">
+                <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
+                    <path d="M120 31H8M36 3L8 31l28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button type="button" class="page-arrow page-arrow--next" data-scroll-next aria-label="Next question">
+                <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
+                    <path d="M8 31h112M92 3l28 28-28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <div class="card-panel questions-panel">
+                <h1 class="card-title">
+                    <span class="lang-it">CHIEDI ALL'ARTISTA</span>
+                    <span class="lang-en">ASK THE ARTIST</span>
+                </h1>
+
+                <div
+                    class="questions-scroll"
+                    data-scroll-area
+                    data-scroll-axis="x"
+                    data-scroll-mode="page"
+                    data-scroll-cols="1"
+                    data-scroll-item=".question-slide"
+                >
+                    <div class="questions-viewport" data-scroll-grid>
+                        <div class="questions-track">
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">1. Ti consideri un artista russo? In quale tradizione ti inscrivi?</span>
+                                    <span class="lang-en">1. Do you consider yourself to be a Russian artist? What tradition do you identify with?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">2. Nella tua arte utilizzi due linguaggi diversi: immagini e parole. Come interagiscono questi due codici nella tua ricerca artistica?</span>
+                                    <span class="lang-en">2. In your art, you use two different languages: images and words. How are these two codes related in your artistic investigation?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">3. Cosa rappresenta per te il simbolo del Libro?</span>
+                                    <span class="lang-en">3. What does the symbol of the Book mean to you?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">4. Perché l'arazzo?</span>
+                                    <span class="lang-en">4. Why tapestries?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">5. Tra memoria e nuove tecnologie: come ti poni?</span>
+                                    <span class="lang-en">5. Between memory and new technologies: what is your position?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">6. Ebraismo e narrazione: una tradizione millenaria. Come ti rapporti a essa?</span>
+                                    <span class="lang-en">6. Hebraism and narration: a thousand-year-old tradition. How do you relate to that?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">7. Che cosa rappresenta per te l'angelo?</span>
+                                    <span class="lang-en">7. What does the angel represent for you?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">8. Qual è il simbolo che lega in uno Oriente e Occidente?<br>C'è qualcosa in comune, che collega le diverse civiltà?</span>
+                                    <span class="lang-en">8. Which symbol links East and West?<br>Are these different civilisations connected by something shared?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">9. Bianco, rosso e nero: questi colori hanno un significato preciso per te?</span>
+                                    <span class="lang-en">9. Red, black and white: do these colours have a specific meaning for you?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                            <div class="question-slide">
+                                <p class="question-text">
+                                    <span class="lang-it">10. Che senso attribuisci ad "Alefbet" all'interno della tua opera?</span>
+                                    <span class="lang-en">10. What meaning do you attribute to Alefbet within your work?</span>
+                                </p>
+                                <a class="question-answer-btn" href="questions-video/1.mp4" data-questions-video>
+                                    <span class="lang-it">MOSTRA RISPOSTA</span>
+                                    <span class="lang-en">SHOW ANSWER</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="questions-counter-bar" aria-live="polite">
+                        <div class="questions-counter">
+                            <span data-q-current>1</span>&nbsp;/&nbsp;<span data-q-total>10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="switchers-row">
+                    <div class="css-switcher">
+                        <div class="switcher-left">
+                            <label for="lang-en" class="switcher-label switcher-label--toggle-en">LANGUAGE</label>
+                            <label for="lang-it" class="switcher-label switcher-label--toggle-it">Lingua</label>
+                        </div>
+                        <div class="switcher-divider"></div>
+                        <div class="switcher-right">
+                            <label for="lang-it" class="circle it-circle">IT</label>
+                            <label for="lang-en" class="circle en-circle">EN</label>
+                        </div>
+                    </div>
+
+                    <a href="index.html" class="nav-switcher" aria-label="Navigation">
+                        <div class="nav-switcher-left">
+                            <span class="nav-label">MENU</span>
+                        </div>
+                        <div class="nav-divider"></div>
+                        <div class="nav-switcher-right">
+                            <span class="nav-home">HOME</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,211 @@
+/* ========== index.css — главное меню, horizontal 16:9 (ref page1) ========== */
+@import url("fonts.css");
+
+:root {
+    --ref-w: 1920;
+    --ref-h: 1080;
+
+    --bg: #08080a;
+    --text: #ffffff;
+
+    /* Circle menu — ref page1; 251−5% → 238
+       Designer left-edges @3840 → centers → avg-mirror about x=1920 → /2 @1920:
+       top L/R cx 382.5 / 1537.5; bottom L/R cx 675 / 1245; mid on axis */
+    --circle-d: calc(238 / var(--ref-h) * 100cqh);
+    --circle-border: calc(1.5 / var(--ref-h) * 100cqh);
+    --menu-gap-x-top: calc(339.5 / var(--ref-h) * 100cqh);
+    --menu-gap-x-bottom: calc(332 / var(--ref-h) * 100cqh);
+    --menu-gap-y: calc(50 / var(--ref-h) * 100cqh);
+    --label-gap: calc(28 / var(--ref-h) * 100cqh);
+    /* PS Bold 72pt @3840 → 36 @1920 */
+    --label-font: calc(36 / var(--ref-h) * 100cqh);
+    --menu-top: calc(114 / var(--ref-h) * 100%);
+
+    --switcher-top: calc(900 / var(--ref-h) * 100%);
+    /* Language switcher — GLOBAL size (measured from horizontal-page2 @3840→1920) */
+    --switcher-w: calc(275 / 1080 * 100cqh);
+    --switcher-h: calc(64 / 1080 * 100cqh);
+    --switcher-radius: calc(32 / 1080 * 100cqh);
+    --switcher-font: calc(21 / 1080 * 100cqh);
+    --circle-size: calc(42 / 1080 * 100cqh);
+    --lang-fade: 0.28s ease;
+}
+
+/* ---------- Базовая разметка 16:9 ---------- */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    font-family: var(--font-display);
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    aspect-ratio: 16 / 9;
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    max-height: 100vh;
+    max-width: 100vw;
+    margin: auto;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.page {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    background: var(--bg);
+    padding: 0;
+}
+
+/* ---------- Меню: 3 + 2 круга ---------- */
+.menu-list {
+    position: absolute;
+    top: var(--menu-top);
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--menu-gap-y);
+    transform: translateX(-50%);
+    width: max-content;
+}
+
+.menu-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.menu-row--top {
+    gap: var(--menu-gap-x-top);
+}
+
+.menu-row--bottom {
+    gap: var(--menu-gap-x-bottom);
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--circle-d);
+    text-decoration: none;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.menu-circle {
+    display: block;
+    box-sizing: border-box;
+    width: var(--circle-d);
+    height: var(--circle-d);
+    border-radius: 50%;
+    overflow: hidden;
+    border: var(--circle-border) solid rgba(255, 255, 255, 0.92);
+    background: #111111;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-circle img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-label {
+    display: grid;
+    margin-top: var(--label-gap);
+    width: max-content;
+    max-width: none;
+    min-width: 100%;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--label-font);
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.menu-item--pressed .menu-circle {
+    border-color: #ffffff;
+    box-shadow:
+        0 0 calc(8 / var(--ref-h) * 100cqh) rgba(255, 255, 255, 0.55),
+        0 0 calc(18 / var(--ref-h) * 100cqh) rgba(255, 255, 255, 0.28);
+}
+
+/* ---------- Видимость языков ---------- */
+.menu-label .lang-it,
+.menu-label .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .menu-label .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .menu-label .lang-en {
+    opacity: 1;
+}
+
+/* ---------- Index: bg fill + gray type (page-local; not language-switcher.css) ---------- */
+.container .css-switcher {
+    position: absolute;
+    top: var(--switcher-top);
+    left: 50%;
+    /* language ::before −25/−10 — center the visible oval, not the content box */
+    transform: translateX(calc(-50% + 7.5 / 1080 * 100cqh));
+    margin: 0;
+    background-color: var(--bg);
+    border-color: transparent;
+}
+
+.container .css-switcher::before {
+    border-color: #9a9a9a;
+    background-color: var(--bg);
+}
+
+.page .css-switcher .switcher-label,
+#lang-it:checked ~ .page .css-switcher .switcher-label--toggle-en,
+#lang-en:checked ~ .page .css-switcher .switcher-label--toggle-it {
+    color: #9a9a9a;
+}
+
+.page .css-switcher .it-circle,
+.page .css-switcher .en-circle,
+#lang-en:checked ~ .page .css-switcher .it-circle,
+#lang-en:checked ~ .page .css-switcher .en-circle,
+#lang-it:checked ~ .page .css-switcher .it-circle,
+#lang-it:checked ~ .page .css-switcher .en-circle {
+    color: #9a9a9a;
+}
+
+#lang-en:checked ~ .page .css-switcher .en-circle,
+#lang-it:checked ~ .page .css-switcher .it-circle {
+    border-color: #9a9a9a;
+}

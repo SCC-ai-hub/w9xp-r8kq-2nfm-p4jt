@@ -1,0 +1,184 @@
+/* ========== films_index.css — Interviews and Films (page6)
+   Measured from reference/project_3_horizontal-page6.png @3840×2160 → /2 @1920×1080
+   Layout: 3 large thumbs / page; pad widened so page-arrows clear thumbs. ========== */
+
+.films-panel {
+    /* Clear circular page-arrows (inset 127 + Ø126 → content ≥ ~265 from canvas L) */
+    --card-padding-x: calc(280 / var(--ref-w) * 100cqw);
+    --card-padding-top: calc(78 / var(--ref-h) * 100cqh);
+    --card-padding-bottom: calc(28 / var(--ref-h) * 100cqh);
+    --title-grid-gap: calc(100 / var(--ref-h) * 100cqh);
+
+    --film-cols: 3;
+    --film-gap-x: calc(72 / var(--ref-h) * 100cqh);
+    --film-image-gap: calc(25 / var(--ref-h) * 100cqh);
+    --film-meta-font: calc(22 / var(--ref-h) * 100cqh);
+    --film-source-font: calc(23 / var(--ref-h) * 100cqh); /* 20 × 1.15 */
+    --film-credit-font: calc(19.55 / var(--ref-h) * 100cqh); /* 17 × 1.15 */
+    --film-heading-line: 1.58;
+    --film-meta-line: 1.58; /* same rhythm as heading wraps */
+    --film-block-gap: 0; /* inter-block = inter-line */
+    --film-credit-color: #676767;
+    --film-play-d: calc(50 / var(--ref-h) * 100cqh);
+}
+
+.films-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.films-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: films-vp;
+}
+
+.films-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.films-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: max-content;
+    min-height: 100%;
+    box-sizing: border-box;
+    column-gap: var(--film-gap-x);
+}
+
+.films-page {
+    display: grid;
+    grid-template-columns: repeat(var(--film-cols), 1fr);
+    column-gap: var(--film-gap-x);
+    align-content: start;
+    flex: 0 0 100cqi;
+    width: 100cqi;
+    min-width: 100cqi;
+    box-sizing: border-box;
+}
+
+.film-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.film-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.film-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 839 / 540;
+    object-fit: cover;
+    border-radius: var(--image-radius);
+    background: #c8c8c8;
+}
+
+.film-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: #d8d8d8;
+}
+
+.film-play__icon {
+    display: block;
+    width: var(--film-play-d);
+    height: var(--film-play-d);
+    overflow: visible;
+}
+
+/* ---------- Meta typography ---------- */
+.film-meta {
+    width: 100%;
+    margin-top: var(--film-image-gap);
+    font-family: var(--font-display);
+    font-size: var(--film-meta-font);
+    line-height: var(--film-heading-line);
+    color: #000000;
+    display: grid;
+}
+
+.film-meta .lang-it,
+.film-meta .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .film-meta .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .film-meta .lang-en {
+    opacity: 1;
+}
+
+.film-heading {
+    margin: 0 0 var(--film-block-gap);
+    padding: 0;
+    font-size: inherit;
+    font-weight: 400; /* NotoSansDisplay-Regular */
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: var(--film-heading-line);
+}
+
+.film-year {
+    font-weight: 700; /* NotoSansDisplay-Bold */
+    text-transform: uppercase;
+}
+
+.film-artist,
+.film-title {
+    font-weight: 400; /* NotoSansDisplay-Regular */
+    text-transform: uppercase;
+}
+
+.film-source {
+    margin: 0 0 var(--film-block-gap);
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: var(--film-source-font);
+    font-style: italic;
+    font-weight: 400;
+    line-height: var(--film-meta-line);
+    color: #000000;
+}
+
+.film-credit {
+    margin: 0;
+    padding: 0;
+    font-size: var(--film-credit-font);
+    line-height: var(--film-meta-line);
+    color: var(--film-credit-color);
+    font-weight: 400;
+}
+
+.films-panel .switchers-row {
+    position: relative;
+    z-index: 4;
+}

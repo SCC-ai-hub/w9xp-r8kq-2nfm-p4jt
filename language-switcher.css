@@ -1,0 +1,363 @@
+/* ========== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (CSS-only, без JavaScript) ========== */
+
+/* Скрываем радио-кнопки */
+.lang-radio {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* Контейнер — ghost pill (ref page2); index перекрашивает в solid.
+   Контур овала — ::before (расширен по краям; контент не смещается). */
+.css-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: var(--switcher-w, calc(275 / 1080 * 100cqh));
+    height: var(--switcher-h, calc(64 / 1080 * 100cqh));
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--switcher-radius, calc(32 / 1080 * 100cqh));
+    margin-top: auto;
+    margin-bottom: 1.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: visible;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    box-sizing: border-box;
+    font-family: var(--font-display, "Noto Sans Display", "Helvetica Neue", Helvetica, Arial, sans-serif);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.css-switcher::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(-25 / 1080 * 100cqh);
+    right: calc(-10 / 1080 * 100cqh);
+    border: 1px solid #000000;
+    border-radius: inherit;
+    background-color: transparent;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.switcher-left,
+.switcher-divider,
+.switcher-right {
+    position: relative;
+    z-index: 1;
+}
+
+.switcher-left {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
+    position: relative;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* LANGUAGE (при IT) / Lingua (при EN) — клик = противоположный язык.
+   Абсолютный hit на всю левую половину + до края овала; текст визуально по центру половины. */
+.page .css-switcher .switcher-label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(-25 / 1080 * 100cqh);
+    right: 0;
+    padding-left: calc(25 / 1080 * 100cqh);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    pointer-events: none;
+    font-family: var(--font-display, "Noto Sans Display", "Helvetica Neue", Helvetica, Arial, sans-serif);
+    font-size: var(--switcher-font, calc(21 / 1080 * 100cqh));
+    font-weight: 500;
+    color: #000000;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    line-height: 1;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.page .css-switcher .switcher-label::before {
+    content: none !important;
+    display: none !important;
+}
+
+#lang-it:checked ~ .page .css-switcher .switcher-label--toggle-en,
+#lang-en:checked ~ .page .css-switcher .switcher-label--toggle-it {
+    visibility: visible;
+    pointer-events: auto;
+    font-size: var(--switcher-font, calc(21 / 1080 * 100cqh));
+    font-weight: 500;
+    color: #000000;
+}
+
+/* ВРЕМЕННО ОТКЛЮЧЕНО — вертикальная черта (раскомментировать блок ниже, убрать display:none) */
+/*
+.switcher-divider {
+    width: 2px;
+    height: calc(var(--switcher-h, calc(64 / 1080 * 100cqh)) * 0.34);
+    margin-left: calc(14 / 1080 * 100cqh);
+    margin-right: calc(14 / 1080 * 100cqh);
+    background-color: #000000;
+    flex-shrink: 0;
+    align-self: center;
+}
+*/
+.switcher-divider {
+    display: none;
+}
+
+.switcher-right {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--switcher-h, calc(64 / 1080 * 100cqh)) * 0.2);
+    height: 100%;
+}
+
+/* IT/EN — outline у активного */
+.page .css-switcher .circle {
+    width: var(--circle-size, calc(42 / 1080 * 100cqh));
+    height: var(--circle-size, calc(42 / 1080 * 100cqh));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display, "Noto Sans Display", "Helvetica Neue", Helvetica, Arial, sans-serif);
+    font-size: var(--switcher-font, calc(21 / 1080 * 100cqh));
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.page .css-switcher .it-circle,
+.page .css-switcher .en-circle,
+#lang-en:checked ~ .page .css-switcher .it-circle,
+#lang-en:checked ~ .page .css-switcher .en-circle,
+#lang-it:checked ~ .page .css-switcher .it-circle,
+#lang-it:checked ~ .page .css-switcher .en-circle {
+    background-color: transparent;
+    color: #000000;
+}
+
+#lang-en:checked ~ .page .css-switcher .en-circle,
+#lang-it:checked ~ .page .css-switcher .it-circle {
+    border-color: #000000;
+}
+
+#lang-en:checked ~ .page .css-switcher .it-circle,
+#lang-it:checked ~ .page .css-switcher .en-circle {
+    border-color: transparent;
+}
+
+/* ========== ПЕРЕКЛЮЧЕНИЕ ЗАГОЛОВКА ========== */
+.title-it, .title-en {
+    transition: opacity 0.8s ease;
+    margin: 0;
+}
+
+/* По умолчанию показываем итальянский заголовок */
+.title-it {
+    display: block;
+    opacity: 1;
+}
+
+.title-en {
+    display: block;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* Когда выбран EN */
+#lang-en:checked ~ .page .title-it {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#lang-en:checked ~ .page .title-en {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+/* При переключении обратно на IT */
+#lang-it:checked ~ .page .title-it {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+#lang-it:checked ~ .page .title-en {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* ========== ПЕРЕКЛЮЧЕНИЕ ТЕКСТА С ЭФФЕКТОМ ========== */
+.text-content {
+    position: relative;
+}
+
+.text-it, .text-en {
+    transition: opacity 0.8s ease;
+    margin: 0;
+    width: 100%;
+}
+
+/* По умолчанию показываем итальянский текст */
+.text-it {
+    display: block;
+    opacity: 1;
+}
+
+.text-en {
+    display: block;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* Когда выбран EN */
+#lang-en:checked ~ .page .text-it {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#lang-en:checked ~ .page .text-en {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+/* При переключении обратно на IT */
+#lang-it:checked ~ .page .text-it {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+#lang-it:checked ~ .page .text-en {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* ========== ОТКЛЮЧАЕМ ВСЕ ПРОКРУТКИ ========== */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Контейнер страницы — flex, чтобы прижать переключатель к низу */
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    padding: var(--page-padding);
+    box-sizing: border-box;
+}
+
+/* Картинка */
+.image-section {
+    width: var(--content-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--image-text-gap);
+    flex-shrink: 0;
+}
+
+.content-image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+/* Текстовая секция — растягивается */
+.text-section {
+    width: var(--content-width);
+    flex: 1 0 auto;
+}
+
+.text-content {
+    width: 100%;
+    font-size: var(--font-size-base);
+    text-align: left;
+}
+
+.text-content p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+/* Эффект клика на кругах */
+.circle:active {
+    transform: scale(0.95);
+}
+
+/* Убираем любые полосы прокрутки */
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}

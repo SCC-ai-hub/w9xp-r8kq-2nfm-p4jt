@@ -1,0 +1,309 @@
+/* ========== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (CSS-only, без JavaScript) ========== */
+
+/* Скрываем радио-кнопки */
+.lang-radio {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* Контейнер переключателя — привязан к концу контента */
+.css-switcher {
+    display: flex;
+    align-items: center;
+    width: 40vw;
+    height: 3.5vh;
+    background-color: #000000;
+    border-radius: calc(3.5vh / 2);
+    margin-top: auto;           /* прижимаем к низу */
+    margin-bottom: 1.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Левая часть */
+.switcher-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Текст слева (по умолчанию LINGUA) */
+.switcher-label {
+    font-size: 1.25vh;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+}
+
+/* Вертикальная белая черта */
+.switcher-divider {
+    width: 1px;
+    height: calc(3.5vh * 0.5);
+    background-color: #ffffff;
+    flex-shrink: 0;
+}
+
+/* Правая часть с кругами */
+.switcher-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(3.5vh * 0.2);
+    height: 100%;
+}
+
+/* Общий стиль кругов */
+.circle {
+    width: calc(3.5vh * 0.65);
+    height: calc(3.5vh * 0.65);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(3.5vh * 0.35);
+    font-weight: normal;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Состояние по умолчанию (IT активен) */
+.it-circle {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.en-circle {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* При выборе EN */
+#lang-en:checked ~ .page .css-switcher .it-circle {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#lang-en:checked ~ .page .css-switcher .en-circle {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Меняем текст слева */
+#lang-en:checked ~ .page .css-switcher .switcher-label {
+    font-size: 0;
+}
+
+#lang-en:checked ~ .page .css-switcher .switcher-label::before {
+    content: "Lingua";
+    font-size: 1.25vh;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+}
+
+#lang-it:checked ~ .page .css-switcher .switcher-label {
+    font-size: 1.25vh;
+}
+
+#lang-it:checked ~ .page .css-switcher .switcher-label::before {
+    display: none;
+}
+
+/* ========== ПЕРЕКЛЮЧЕНИЕ ЗАГОЛОВКА ========== */
+.title-it, .title-en {
+    transition: opacity 0.8s ease;
+    margin: 0;
+}
+
+/* По умолчанию показываем итальянский заголовок */
+.title-it {
+    display: block;
+    opacity: 1;
+}
+
+.title-en {
+    display: block;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* Когда выбран EN */
+#lang-en:checked ~ .page .title-it {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#lang-en:checked ~ .page .title-en {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+/* При переключении обратно на IT */
+#lang-it:checked ~ .page .title-it {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+#lang-it:checked ~ .page .title-en {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* ========== ПЕРЕКЛЮЧЕНИЕ ТЕКСТА С ЭФФЕКТОМ ========== */
+.text-content {
+    position: relative;
+}
+
+.text-it, .text-en {
+    transition: opacity 0.8s ease;
+    margin: 0;
+    width: 100%;
+}
+
+/* По умолчанию показываем итальянский текст */
+.text-it {
+    display: block;
+    opacity: 1;
+}
+
+.text-en {
+    display: block;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* Когда выбран EN */
+#lang-en:checked ~ .page .text-it {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#lang-en:checked ~ .page .text-en {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+/* При переключении обратно на IT */
+#lang-it:checked ~ .page .text-it {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}
+
+#lang-it:checked ~ .page .text-en {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* ========== ОТКЛЮЧАЕМ ВСЕ ПРОКРУТКИ ========== */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Контейнер страницы — flex, чтобы прижать переключатель к низу */
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    padding: var(--page-padding);
+    box-sizing: border-box;
+}
+
+/* Картинка */
+.image-section {
+    width: var(--content-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--image-text-gap);
+    flex-shrink: 0;
+}
+
+.content-image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+/* Текстовая секция — растягивается */
+.text-section {
+    width: var(--content-width);
+    flex: 1 0 auto;
+}
+
+.text-content {
+    width: 100%;
+    font-size: var(--font-size-base);
+    text-align: left;
+}
+
+.text-content p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+/* Эффект клика на кругах */
+.circle:active {
+    transform: scale(0.95);
+}
+
+/* Убираем любые полосы прокрутки */
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}

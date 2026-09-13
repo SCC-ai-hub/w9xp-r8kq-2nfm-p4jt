@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="baiduspider" content="noindex, nofollow">
+    <title>Art Works</title>
+    <link rel="stylesheet" href="language-switcher.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="page-arrows.css">
+    <link rel="stylesheet" href="card-grid-page.css">
+    <link rel="stylesheet" href="artworks_index.css">
+    <link rel="stylesheet" href="fancybox/fancybox.css">
+    <link rel="stylesheet" href="fancybox/fancybox-override.css">
+    <script src="fancybox/fancybox.umd.js"></script>
+    <script src="fancybox/fancybox-override.js"></script>
+    <script src="language-switcher.js" defer></script>
+    <script src="scroll-grid.js" defer></script>
+    <style>
+        /* ref page3 — erase this block to revert */
+        :root {
+            --canvas-bg: #08080a;
+            --bg: #08080a;
+            --card-bg: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="radio" name="lang" id="lang-it" class="lang-radio" hidden>
+        <input type="radio" name="lang" id="lang-en" class="lang-radio" checked hidden>
+
+        <div class="page card-page">
+            <button type="button" class="page-arrow page-arrow--prev" data-scroll-prev aria-label="Scroll left">
+                <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
+                    <path d="M120 31H8M36 3L8 31l28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button type="button" class="page-arrow page-arrow--next" data-scroll-next aria-label="Scroll right">
+                <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
+                    <path d="M8 31h112M92 3l28 28-28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <div class="card-panel card-panel--scroll artworks-panel">
+                <h1 class="card-title">
+                    <span class="lang-it">OPERE</span>
+                    <span class="lang-en">ART WORKS</span>
+                </h1>
+
+                <div class="artworks-scroll" data-scroll-area data-scroll-axis="x" data-scroll-mode="page" data-scroll-item=".artworks-page">
+                    <div class="artworks-viewport" data-scroll-grid>
+                        <div class="artworks-track">
+
+                            <div class="artworks-page">
+                                <a class="card-item" href="ARTWORKS/Alefbet.jpg" data-fancybox="artwork-1">
+                                    <div class="card-label">
+                                        <span class="lang-en">Alefbet</span>
+                                        <span class="lang-it">Alefbet</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/Alefbet.jpg" alt="Alefbet">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/Archaeologist.jpg" data-fancybox="artwork-2">
+                                    <div class="card-label">
+                                        <span class="lang-en">An Archaeologist's Collection</span>
+                                        <span class="lang-it">La collezione di un archeologo</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/Archaeologist.jpg" alt="An Archaeologist's Collection">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/Dies-Illa.jpg" data-fancybox="artwork-3">
+                                    <div class="card-label">
+                                        <span class="lang-en">Dies Illa</span>
+                                        <span class="lang-it">Dies Illa</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/Dies-Illa.jpg" alt="Dies Illa">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/FundamentalLexicon.jpg" data-fancybox="artwork-4">
+                                    <div class="card-label">
+                                        <span class="lang-en">Fundamental Lexicon</span>
+                                        <span class="lang-it">Lessico fondamentale</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/FundamentalLexicon.jpg" alt="Fundamental Lexicon">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/X-Hour.jpg" data-fancybox="artwork-5">
+                                    <div class="card-label">
+                                        <span class="lang-en">H-Hour</span>
+                                        <span class="lang-it">L'Ora X</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/X-Hour.jpg" alt="H-Hour">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/LifeAboveAll.jpg" data-fancybox="artwork-6">
+                                    <div class="card-label">
+                                        <span class="lang-en">Life Above All</span>
+                                        <span class="lang-it">La vita soprattutto</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/LifeAboveAll.jpg" alt="Life Above All">
+                                </a>
+                            </div>
+
+                            <div class="artworks-page">
+                                <a class="card-item" href="ARTWORKS/OnTheEdge.jpg" data-fancybox="artwork-7">
+                                    <div class="card-label">
+                                        <span class="lang-en">On the Edge</span>
+                                        <span class="lang-it">In bilico</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/OnTheEdge.jpg" alt="On the Edge">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/SceneChange.jpg" data-fancybox="artwork-8">
+                                    <div class="card-label">
+                                        <span class="lang-en">Scene Change</span>
+                                        <span class="lang-it">Cambio di scena</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/SceneChange.jpg" alt="Scene Change">
+                                </a>
+
+                                <a class="card-item" href="ARTWORKS/TheGreatTomorrow.jpg" data-fancybox="artwork-9">
+                                    <div class="card-label">
+                                        <span class="lang-en">The Great Tomorrow</span>
+                                        <span class="lang-it">Il grande domani</span>
+                                    </div>
+                                    <img class="card-image" src="ARTWORKS/TheGreatTomorrow.jpg" alt="The Great Tomorrow">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="switchers-row">
+                    <div class="css-switcher">
+                        <div class="switcher-left">
+                            <label for="lang-en" class="switcher-label switcher-label--toggle-en">LANGUAGE</label>
+                            <label for="lang-it" class="switcher-label switcher-label--toggle-it">Lingua</label>
+                        </div>
+                        <div class="switcher-divider"></div>
+                        <div class="switcher-right">
+                            <label for="lang-it" class="circle it-circle">IT</label>
+                            <label for="lang-en" class="circle en-circle">EN</label>
+                        </div>
+                    </div>
+
+                    <a href="index.html" class="nav-switcher" aria-label="Navigation">
+                        <div class="nav-switcher-left">
+                            <span class="nav-label">MENU</span>
+                        </div>
+                        <div class="nav-divider"></div>
+                        <div class="nav-switcher-right">
+                            <span class="nav-home">HOME</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

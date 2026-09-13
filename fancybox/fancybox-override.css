@@ -1,0 +1,646 @@
+/* fancybox-override.css - исправленная версия */
+
+/* ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
+:root {
+    /* Отступы для контента */
+    --fancybox-margin-top: 10vh;
+    --fancybox-margin-bottom: 10vh;
+    --fancybox-margin-left: 10vw;
+    --fancybox-margin-right: 10vw;
+}
+
+/* ===== КОНТЕНТ И IFRAME — width same, height ×1.5 then −10% ===== */
+.fancybox__slide.has-iframe .fancybox__content,
+.fancybox__slide.has-html .fancybox__content {
+    width: min(66vw, calc(61.5vh * 16 / 9)) !important;
+    height: min(83.025vh, calc(66vw * 243 / 320)) !important;
+    max-width: 66vw !important;
+    max-height: 83.025vh !important;
+    background: #b2b2b2 !important;
+    position: relative !important;
+    /* Fancybox default pad 32px; half the bottom gap so switcher sits mid-way to sheet edge */
+    padding-bottom: 16px !important;
+}
+
+/* вариант когда размеры fancybox высчитываются */
+/* .fancybox__slide.has-iframe .fancybox__content,
+.fancybox__slide.has-html .fancybox__content {
+    width: calc(100% - var(--fancybox-margin-left) - var(--fancybox-margin-right)) !important;
+    max-width: calc(100% - var(--fancybox-margin-left) - var(--fancybox-margin-right)) !important;
+    min-width: auto !important;
+    height: calc(100% - var(--fancybox-margin-top) - var(--fancybox-margin-bottom)) !important;
+    max-height: calc(100% - var(--fancybox-margin-top) - var(--fancybox-margin-bottom)) !important;
+} */
+
+.fancybox__content .fancybox__iframe,
+.fancybox__content iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    display: block;
+}
+
+/* ===== БЕЛАЯ РАМКА (glow ×0.5) ===== */
+.fancybox__content {
+    border-radius: 15px !important;
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0),
+                0 0 0 0.1vw rgba(255, 255, 255, 0.45),
+                0 0 1vw 0.6vw rgba(255, 255, 255, 0.4),
+                0 0 2.5vw 1.2vw rgba(255, 255, 255, 0.05),
+                0 0 4vw 2vw rgba(255, 255, 255, 0) !important;
+    background: white !important;
+    border: none !important;
+    background-clip: padding-box !important;
+}
+
+.fancybox__content iframe {
+    border-radius: 15px !important;
+}
+
+.fancybox__slide.has-iframe {
+    padding: 0 !important;
+}
+
+.fancybox__backdrop {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(2px);
+}
+
+.fancybox__content:focus {
+    outline: none;
+}
+
+.fancybox__carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== КНОПКА ЗАКРЫТИЯ ===== */
+.f-button.is-close-btn,
+.fancybox__close {
+    all: unset !important;
+    position: absolute !important;
+    top: 2rem !important;
+    right: 2rem !important;
+    width: 5rem !important;
+    height: 5rem !important;
+    background: transparent !important;
+    border: 2px solid black !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 100000 !important;
+    transition: transform 0.2s ease, border-color 0.2s ease !important;
+    box-sizing: border-box !important;
+}
+
+.f-button.is-close-btn svg,
+.fancybox__close svg {
+    width: 2.8rem !important;
+    height: 2.8rem !important;
+    stroke: black !important;
+    stroke-width: 1 !important;
+    fill: none !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.f-button.is-close-btn:hover,
+.fancybox__close:hover {
+    transform: scale(1.05) !important;
+    border-color: #333 !important;
+}
+
+.f-button.is-close-btn:hover svg,
+.fancybox__close:hover svg {
+    stroke: #333 !important;
+}
+
+/* Bio iframe: close pinned to sheet top-right (×1.5) */
+.fancybox__slide.has-iframe .f-button.is-close-btn,
+.fancybox__slide.has-iframe .fancybox__close {
+    top: 0.45rem !important;
+    right: 0.45rem !important;
+    width: 3.525rem !important;
+    height: 3.525rem !important;
+    border-width: 1.5px !important;
+}
+
+.fancybox__slide.has-iframe .f-button.is-close-btn svg,
+.fancybox__slide.has-iframe .fancybox__close svg {
+    width: 1.95rem !important;
+    height: 1.95rem !important;
+}
+
+/* ===== БОКОВЫЕ СТРЕЛКИ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ ===== */
+.fancybox__nav .f-button {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+.fancybox__nav .f-button svg {
+    width: 48px !important;
+    height: 48px !important;
+}
+
+/* Для адаптации под экран */
+@media (max-width: 768px) {
+    .fancybox__nav .f-button {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    .fancybox__nav .f-button svg {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/* ===== МИНИАТЮРЫ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ В 2 РАЗА ===== */
+/* Контейнер миниатюры */
+.f-thumbs__slide {
+    width: 180px !important;
+    height: 135px !important;
+    flex: 0 0 auto !important;
+}
+
+/* Картинка внутри миниатюры */
+.f-thumbs__slide__img {
+    object-fit: contain !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Кнопка миниатюры */
+.f-thumbs__slide__button {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Отключаем clip-path который обрезает */
+.is-modern .f-thumbs__slide__button {
+    clip-path: none !important;
+}
+
+/* Расстояние между миниатюрами */
+.f-thumbs.is-horizontal .f-thumbs__slide {
+    margin-right: 16px !important;
+}
+
+/* Панель миниатюр — больше отступы */
+.fancybox__thumbs {
+    padding: 16px 0 !important;
+}
+
+/* Адаптация под маленькие экраны */
+@media (max-width: 768px) {
+    .f-thumbs__slide {
+        width: 120px !important;
+        height: 90px !important;
+    }
+    .f-thumbs.is-horizontal .f-thumbs__slide {
+        margin-right: 12px !important;
+    }
+}
+
+/* Для очень больших экранов */
+@media (min-width: 1200px) {
+    .f-thumbs__slide {
+        width: 220px !important;
+        height: 165px !important;
+    }
+    .f-thumbs.is-horizontal .f-thumbs__slide {
+        margin-right: 20px !important;
+    }
+}
+
+/* ===== BIO IMAGE GALLERIES (photos + documents + press) =====
+   Scoped to bio image galleries only — not iframe BIO / other pages.
+   Align to page black frame; nudge +30px; photo fills down to caption band. */
+.bio-photos-gallery,
+.bio-documents-gallery,
+.bio-press-gallery {
+    --bio-stage-h: min(100vh, calc(100vw * 9 / 16));
+    --bio-stage-w: min(100vw, calc(100vh * 16 / 9));
+    --bio-letterbox-y: max(0px, calc((100vh - var(--bio-stage-h)) / 2));
+    --bio-frame-y: calc(60 / 1080 * var(--bio-stage-h));
+    --bio-inset-y: calc(var(--bio-letterbox-y) + var(--bio-frame-y));
+    --bio-nudge-y: 30px;
+    /* Photo top stays on frame; chrome/thumbs shift down by nudge */
+    --bio-inset-top: var(--bio-inset-y);
+    --bio-inset-bottom: calc(var(--bio-inset-y) - var(--bio-nudge-y));
+    --bio-thumb-width: 144px;  /* 180 × 0.8 */
+    --bio-thumb-height: 108px; /* 135 × 0.8 */
+    --bio-thumbs-stack: var(--bio-thumb-height);
+    /* Caption ×2 vs prior (2rem/3); bottom anchored above thumbs, grows up */
+    --bio-caption-font: calc(4rem / 3);
+    --bio-caption-pad-y: 6px;
+    --bio-caption-gap: 6px;
+    --bio-caption-reserve: calc(var(--bio-caption-font) * 1.35 + var(--bio-caption-pad-y) * 2 + var(--bio-caption-gap) + 16px);
+    --bio-photo-max-w: calc(90vw * 0.85);
+    /* Shorter photo so bottom sits above taller caption band */
+    --bio-photo-max-h: calc(
+        100vh - var(--bio-inset-top) - var(--bio-inset-bottom)
+            - var(--bio-thumbs-stack) - var(--bio-caption-reserve)
+    );
+    --bio-close-size: calc(var(--bio-stage-h) * 0.055);
+    --bio-close-gap: 30px;
+    --bio-nav-inset: 18vw;
+    --bio-nav-size: calc(var(--bio-stage-h) * 0.085);
+}
+
+.bio-photos-gallery .fancybox__backdrop,
+.bio-documents-gallery .fancybox__backdrop,
+.bio-press-gallery .fancybox__backdrop {
+    background: rgba(0, 0, 0, 0.75) !important;
+}
+
+.bio-photos-gallery .fancybox__toolbar,
+.bio-documents-gallery .fancybox__toolbar,
+.bio-press-gallery .fancybox__toolbar {
+    display: none !important;
+}
+
+.bio-photos-gallery .fancybox__slide.has-image,
+.bio-documents-gallery .fancybox__slide.has-image,
+.bio-press-gallery .fancybox__slide.has-image {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: var(--bio-inset-top) !important;
+    padding-bottom: calc(var(--bio-caption-reserve)) !important;
+    box-sizing: border-box !important;
+}
+
+/* Fancybox uses ::before/::after + margin:auto to vertically center slides */
+.bio-photos-gallery .fancybox__slide.has-image::before,
+.bio-photos-gallery .fancybox__slide.has-image::after,
+.bio-documents-gallery .fancybox__slide.has-image::before,
+.bio-documents-gallery .fancybox__slide.has-image::after,
+.bio-press-gallery .fancybox__slide.has-image::before,
+.bio-press-gallery .fancybox__slide.has-image::after {
+    content: none !important;
+    display: none !important;
+    margin: 0 !important;
+    flex: none !important;
+}
+
+.bio-photos-gallery .fancybox__slide.has-image .fancybox__content,
+.bio-documents-gallery .fancybox__slide.has-image .fancybox__content,
+.bio-press-gallery .fancybox__slide.has-image .fancybox__content {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    align-self: center !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--bio-photo-max-w) !important;
+    max-height: var(--bio-photo-max-h) !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    cursor: default !important;
+}
+
+.bio-photos-gallery .fancybox__image,
+.bio-photos-gallery .fancybox-image,
+.bio-documents-gallery .fancybox__image,
+.bio-documents-gallery .fancybox-image,
+.bio-press-gallery .fancybox__image,
+.bio-press-gallery .fancybox-image {
+    object-fit: contain !important;
+    max-width: var(--bio-photo-max-w) !important;
+    max-height: var(--bio-photo-max-h) !important;
+    width: auto !important;
+    height: auto !important;
+    pointer-events: none !important;
+}
+
+.bio-photos-gallery .fancybox__thumbs,
+.bio-documents-gallery .fancybox__thumbs,
+.bio-press-gallery .fancybox__thumbs {
+    --f-thumbs-gap: 0;
+    bottom: var(--bio-inset-bottom) !important;
+    height: var(--bio-thumb-height) !important;
+    padding: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.bio-photos-gallery .f-thumbs__slide,
+.bio-documents-gallery .f-thumbs__slide,
+.bio-press-gallery .f-thumbs__slide {
+    width: var(--bio-thumb-width) !important;
+    height: var(--bio-thumb-height) !important;
+}
+
+.bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+.bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+.bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
+    margin-right: 9px !important;
+}
+
+/* Hide per-slide captions — a single host caption is mounted on the container
+   (slide transforms break position:fixed and park the label on the photo). */
+.bio-photos-gallery .fancybox__slide .fancybox__caption,
+.bio-documents-gallery .fancybox__slide .fancybox__caption,
+.bio-press-gallery .fancybox__slide .fancybox__caption {
+    display: none !important;
+}
+
+.bio-photos-gallery .bio-gallery-caption,
+.bio-documents-gallery .bio-gallery-caption,
+.bio-press-gallery .bio-gallery-caption {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: auto;
+    bottom: calc(var(--bio-inset-bottom) + var(--bio-thumb-height) + var(--bio-caption-gap));
+    transform: translateX(-50%);
+    z-index: 40;
+    width: min(70vw, 560px);
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: var(--bio-caption-font);
+    line-height: 1.35;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.62);
+    text-align: center;
+    padding: var(--bio-caption-pad-y) 12px;
+    white-space: pre-line;
+    border-radius: 8px;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 0 8px rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+
+.bio-photos-gallery .bio-gallery-caption:empty,
+.bio-documents-gallery .bio-gallery-caption:empty,
+.bio-press-gallery .bio-gallery-caption:empty {
+    display: none;
+}
+
+.bio-photos-gallery .bio-image-close,
+.bio-documents-gallery .bio-image-close,
+.bio-press-gallery .bio-image-close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    right: auto;
+    transform: translateX(var(--bio-close-gap));
+    width: var(--bio-close-size);
+    height: var(--bio-close-size);
+    border: calc(var(--bio-close-size) * 0.045) solid #ffffff;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.bio-photos-gallery .bio-image-close svg,
+.bio-documents-gallery .bio-image-close svg,
+.bio-press-gallery .bio-image-close svg {
+    display: block;
+    width: calc(var(--bio-close-size) * 0.42);
+    height: calc(var(--bio-close-size) * 0.42);
+    color: #ffffff;
+}
+
+.bio-photos-gallery .bio-image-close:hover,
+.bio-documents-gallery .bio-image-close:hover,
+.bio-press-gallery .bio-image-close:hover {
+    transform: translateX(var(--bio-close-gap)) scale(1.04);
+}
+
+/* Prev/next: closer to center, circle always visible */
+.bio-photos-gallery .fancybox__nav .f-button,
+.bio-documents-gallery .fancybox__nav .f-button,
+.bio-press-gallery .fancybox__nav .f-button {
+    width: var(--bio-nav-size) !important;
+    height: var(--bio-nav-size) !important;
+    border-radius: 50% !important;
+    background: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    color: #ffffff !important;
+}
+
+.bio-photos-gallery .fancybox__nav .f-button svg,
+.bio-documents-gallery .fancybox__nav .f-button svg,
+.bio-press-gallery .fancybox__nav .f-button svg {
+    width: calc(var(--bio-nav-size) * 0.42) !important;
+    height: calc(var(--bio-nav-size) * 0.42) !important;
+    stroke: #ffffff !important;
+    fill: none !important;
+    filter: none !important;
+}
+
+.bio-photos-gallery .fancybox__nav .f-button.is-prev,
+.bio-documents-gallery .fancybox__nav .f-button.is-prev,
+.bio-press-gallery .fancybox__nav .f-button.is-prev {
+    left: var(--bio-nav-inset) !important;
+    right: auto !important;
+}
+
+.bio-photos-gallery .fancybox__nav .f-button.is-next,
+.bio-documents-gallery .fancybox__nav .f-button.is-next,
+.bio-press-gallery .fancybox__nav .f-button.is-next {
+    right: var(--bio-nav-inset) !important;
+    left: auto !important;
+}
+
+.bio-photos-gallery .fancybox__nav .f-button:hover,
+.bio-documents-gallery .fancybox__nav .f-button:hover,
+.bio-press-gallery .fancybox__nav .f-button:hover {
+    opacity: 1 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.bio-photos-gallery .fancybox__nav .f-button[disabled],
+.bio-documents-gallery .fancybox__nav .f-button[disabled],
+.bio-press-gallery .fancybox__nav .f-button[disabled] {
+    opacity: 0.35 !important;
+}
+
+@media (max-width: 768px) {
+    .bio-photos-gallery,
+    .bio-documents-gallery,
+    .bio-press-gallery {
+        --bio-thumb-width: 96px;  /* 120 × 0.8 */
+        --bio-thumb-height: 72px; /* 90 × 0.8 */
+        --bio-nav-inset: 8vw;
+    }
+
+    .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+    .bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+    .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
+        margin-right: 6px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .bio-photos-gallery,
+    .bio-documents-gallery,
+    .bio-press-gallery {
+        --bio-thumb-width: 176px;  /* 220 × 0.8 */
+        --bio-thumb-height: 132px; /* 165 × 0.8 */
+    }
+
+    .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+    .bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+    .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
+        margin-right: 10px !important;
+    }
+}
+
+/* ===== QUESTIONS VIDEO GALLERY ===== */
+.questions-video-gallery {
+    --qv-page-w: min(100vw, calc(100vh * 9 / 16));
+    --qv-page-h: min(100vh, calc(100vw * 16 / 9));
+    --qv-video-max-w: calc(var(--qv-page-w) * 0.81);
+    --qv-video-max-h: calc(var(--qv-page-h) * 0.81);
+    --qv-close-size: calc(var(--qv-page-w) * 0.07);
+    --qv-nav-size: calc(var(--qv-page-w) * 0.08);
+}
+
+.questions-video-gallery .fancybox__backdrop {
+    background: rgba(0, 0, 0, 0.75) !important;
+}
+
+.questions-video-gallery .fancybox__container {
+    position: fixed !important;
+    inset: 0 !important;
+}
+
+.questions-video-gallery .fancybox__carousel,
+.questions-video-gallery .fancybox__viewport {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.questions-video-gallery .fancybox__track {
+    height: 100% !important;
+}
+
+.questions-video-gallery .fancybox__slide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+.questions-video-gallery .fancybox__slide.has-html5video .fancybox__content,
+.questions-video-gallery .fancybox__slide.has-video .fancybox__content,
+.questions-video-gallery .fancybox__slide.has-html .fancybox__content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--qv-video-max-w) !important;
+    max-height: var(--qv-video-max-h) !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+
+.questions-video-gallery .questions-video-frame {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    max-width: var(--qv-video-max-w);
+    max-height: var(--qv-video-max-h);
+}
+
+.questions-video-gallery .fancybox__html5video,
+.questions-video-gallery video {
+    display: block;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--qv-video-max-w) !important;
+    max-height: var(--qv-video-max-h) !important;
+    aspect-ratio: 9 / 16;
+    object-fit: contain;
+    margin: 0;
+}
+
+.questions-video-gallery .questions-video-close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(42%, -42%);
+    width: var(--qv-close-size);
+    height: var(--qv-close-size);
+    border: calc(var(--qv-close-size) * 0.045) solid #000000;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+.questions-video-gallery .questions-video-close svg {
+    display: block;
+    width: calc(var(--qv-close-size) * 0.42);
+    height: calc(var(--qv-close-size) * 0.42);
+    color: #000000;
+}
+
+.questions-video-gallery .questions-video-close:hover {
+    transform: translate(42%, -42%) scale(1.04);
+}
+
+.questions-video-gallery .fancybox__nav .f-button {
+    width: var(--qv-nav-size) !important;
+    height: var(--qv-nav-size) !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    opacity: 0.92;
+}
+
+.questions-video-gallery .fancybox__nav .f-button svg {
+    width: calc(var(--qv-nav-size) * 0.55) !important;
+    height: calc(var(--qv-nav-size) * 0.55) !important;
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.45));
+}
+
+.questions-video-gallery .fancybox__nav .f-button:hover {
+    opacity: 1;
+}
+
+.questions-video-gallery .fancybox__nav .f-button[disabled] {
+    opacity: 0.25;
+    cursor: default;
+}

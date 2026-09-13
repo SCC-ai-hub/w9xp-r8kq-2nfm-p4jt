@@ -1,0 +1,68 @@
+/* ========== page-arrows.css — круглые ← → для прокрутки контента ==========
+   Только на страницах с горизонтальным скроллом (artworks / books / questions).
+   Требует предка с container-type: size (обычно .card-page / .page).
+   В HTML: <button class="page-arrow page-arrow--prev|next" data-scroll-prev|next>.
+
+   Fill = white @45% over the gray panel; border = solid black. */
+
+.page-arrow {
+    /* Measured from reference/project_3_horizontal-page2.png @3840×2160 → /2 for 1920×1080 */
+    --page-arrow-d: calc(126 / 1080 * 100cqh);
+    --page-arrow-border: calc(2 / 1080 * 100cqh);
+    --page-arrow-bg: rgba(255, 255, 255, 0.45);
+    --page-arrow-fg: #000000;
+    --page-arrow-border-color: #000000;
+    --page-arrow-inset-x: calc(127 / 1920 * 100cqw);
+    --page-arrow-icon-w: calc(64 / 1080 * 100cqh);
+    --page-arrow-icon-h: calc(31 / 1080 * 100cqh);
+
+    position: absolute;
+    top: 50%;
+    z-index: 6;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--page-arrow-d);
+    height: var(--page-arrow-d);
+    margin: 0;
+    padding: 0;
+    border: var(--page-arrow-border) solid var(--page-arrow-border-color);
+    border-radius: 50%;
+    background: var(--page-arrow-bg);
+    background-clip: padding-box;
+    color: var(--page-arrow-fg);
+    font: inherit;
+    text-decoration: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transform: translateY(-50%);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.page-arrow--prev {
+    left: var(--page-arrow-inset-x);
+}
+
+.page-arrow--next {
+    right: var(--page-arrow-inset-x);
+}
+
+.page-arrow__icon {
+    display: block;
+    width: var(--page-arrow-icon-w);
+    height: var(--page-arrow-icon-h);
+    overflow: visible;
+    pointer-events: none;
+}
+
+.page-arrow:focus-visible {
+    outline: calc(2 / 1080 * 100cqh) solid var(--page-arrow-border-color);
+    outline-offset: calc(3 / 1080 * 100cqh);
+}
+
+.page-arrow.scroll-btn--inactive {
+    opacity: 0.35;
+    cursor: default;
+}

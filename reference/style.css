@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ROOT: все размеры — относительные единицы (vw/vh) */
+:root {
+    /* ---------- НАСТРОЙКИ СЕТКИ (меняй здесь) ---------- */
+    --grid-columns: 5;          /* количество столбцов: 4, 5 или 6 */
+	--grid-gap-v: 2vw;        /* расстояние между картинками по вертикали */
+    --grid-gap-h: 1.5vw;        /* расстояние между картинками по горизонтали */
+    --tile-bg-color: #000000;   /* цвет фона под картинкой (чёрный) */
+    --container-padding: 2vw;	    /* отступы контейнера от краёв экрана */
+    /* --------------------------- */
+}
+
+
+body {
+    background: black;
+    margin: 0;
+    width: 97%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    overflow: auto;
+}
+
+
+/* Когда окно браузера развёрнуто не на весь экран - прилепляет первый ряд картинок к верху страницы, чтобы скрол начинался с первого ряда */
+body.overflow-top {
+    align-items: flex-start;
+}
+
+  
+.container {
+    position: relative;
+    width: 100%;
+    padding: var(--container-padding);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    gap: var(--grid-gap-v) var(--grid-gap-h);
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.grid-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+.grid-item:active {
+    transform: scale(0.97);
+}
+
+.grid-item img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 600px) {
+    :root {
+        --grid-gap-h: 2vw;
+        --grid-gap-v: 2vw;
+        --container-padding: 3vw;
+    }
+    .grid-item img {
+        max-width: 85%;
+        max-height: 85%;
+    }
+}
+
+@media (min-width: 1600px) {
+    :root {
+        --grid-gap-h: 1vw;
+        --grid-gap-v: 1vw;
+    }
+}
+
+.grid-item a:focus,
+.grid-item a:focus-visible,
+*:focus,
+*:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.touch-areas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.touch-areas svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}
+
+.touch-areas a rect {
+    pointer-events: auto;
+}
