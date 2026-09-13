@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="bio-text.css">
     <script src="../language-switcher.js" defer></script>
 </head>
-<body>
+<body oncontextmenu="return false;">
+<script>document.oncontextmenu = function() { return false; };</script>
 <input type="radio" name="lang" id="lang-it" class="lang-radio" hidden>
 <input type="radio" name="lang" id="lang-en" class="lang-radio" checked hidden>
 <div class="page">
