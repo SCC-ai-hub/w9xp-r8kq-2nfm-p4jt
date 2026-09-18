@@ -81,6 +81,10 @@
     position: relative;
     display: block;
     width: 100%;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .film-image {

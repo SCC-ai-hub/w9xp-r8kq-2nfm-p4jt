@@ -6,7 +6,7 @@
     --ref-h: 1080;
 
     --text-scale: 1.5;
-    --footer-zone-fr: 19%;
+    --footer-zone-fr: 25%;
     --switcher-scale: 1.18;
 
     --page-padding: calc(28 / var(--ref-h) * 100cqh);
@@ -31,11 +31,11 @@
     --circle-size: calc(42 / 1080 * 100cqh * var(--switcher-scale));
 
     --scroll-btn-d: calc(85 / var(--ref-h) * 100cqh);
-    --scroll-arrows-stack-gap: calc(18 / var(--ref-h) * 100cqh);
+    --scroll-arrows-stack-gap: calc(28 / var(--ref-h) * 100cqh);
     --scroll-btn-border: #4a4a4a;
-    --footer-pad-top: calc(14 / var(--ref-h) * 100cqh);
-    --scroll-arrows-above-switcher: calc(10 / var(--ref-h) * 100cqh);
-    --switcher-bottom-pad: 0;
+    --footer-pad-top: calc(20 / var(--ref-h) * 100cqh);
+    --scroll-arrows-above-switcher: calc(24 / var(--ref-h) * 100cqh);
+    --switcher-bottom-pad: calc(18 / var(--ref-h) * 100cqh);
 
 * {
     user-select: none;
@@ -159,7 +159,7 @@ em, i {
     margin-top: 1.2em;
 }
 
-/* Footer: gap under text → arrows lower → switcher flush to bottom */
+/* Footer: shorter text column so arrows, language and bottom edge have air */
 .footer-zone {
     grid-row: 2;
     width: 100%;

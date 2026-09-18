@@ -18,6 +18,7 @@
     max-height: 83.025vh !important;
     background: #b2b2b2 !important;
     position: relative !important;
+    overflow: visible !important;
     /* Fancybox default pad 32px; half the bottom gap so switcher sits mid-way to sheet edge */
     padding-bottom: 16px !important;
 }
@@ -59,6 +60,7 @@
 
 .fancybox__slide.has-iframe {
     padding: 0 !important;
+    overflow: visible !important;
 }
 
 .fancybox__backdrop {
@@ -120,20 +122,42 @@
     stroke: #333 !important;
 }
 
-/* Bio iframe: close pinned to sheet top-right (×1.5) */
+/* Bio iframe: hide native close — custom button sits outside the sheet */
 .fancybox__slide.has-iframe .f-button.is-close-btn,
-.fancybox__slide.has-iframe .fancybox__close {
-    top: 0.45rem !important;
-    right: 0.45rem !important;
-    width: 3.525rem !important;
-    height: 3.525rem !important;
-    border-width: 1.5px !important;
+.fancybox__slide.has-iframe .fancybox__close,
+.fancybox__slide.has-iframe .fancybox__toolbar {
+    display: none !important;
 }
 
-.fancybox__slide.has-iframe .f-button.is-close-btn svg,
-.fancybox__slide.has-iframe .fancybox__close svg {
-    width: 1.95rem !important;
-    height: 1.95rem !important;
+.bio-iframe-close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(42%, -42%);
+    width: 4.8rem;
+    height: 4.8rem;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100000;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.bio-iframe-close svg {
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #000000;
+}
+
+.bio-iframe-close:hover {
+    transform: translate(42%, -42%) scale(1.04);
 }
 
 /* ===== БОКОВЫЕ СТРЕЛКИ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ ===== */
@@ -253,10 +277,20 @@
     --bio-nav-size: calc(var(--bio-stage-h) * 0.085);
 }
 
+.bio-photos-gallery.fancybox__container,
+.bio-documents-gallery.fancybox__container,
+.bio-press-gallery.fancybox__container,
+.bio-photos-gallery .fancybox__carousel,
+.bio-documents-gallery .fancybox__carousel,
+.bio-press-gallery .fancybox__carousel {
+    background: #b2b2b2 !important;
+}
+
 .bio-photos-gallery .fancybox__backdrop,
 .bio-documents-gallery .fancybox__backdrop,
 .bio-press-gallery .fancybox__backdrop {
-    background: rgba(0, 0, 0, 0.75) !important;
+    background: #b2b2b2 !important;
+    backdrop-filter: none !important;
 }
 
 .bio-photos-gallery .fancybox__toolbar,
@@ -329,11 +363,33 @@
 .bio-documents-gallery .fancybox__thumbs,
 .bio-press-gallery .fancybox__thumbs {
     --f-thumbs-gap: 0;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    transition: none !important;
     bottom: var(--bio-inset-bottom) !important;
     height: var(--bio-thumb-height) !important;
     padding: 0 !important;
     padding-bottom: 0 !important;
     box-sizing: border-box !important;
+}
+
+.bio-photos-gallery .fancybox__thumbs.is-masked,
+.bio-documents-gallery .fancybox__thumbs.is-masked,
+.bio-press-gallery .fancybox__thumbs.is-masked {
+    max-height: none !important;
+}
+
+.bio-photos-gallery .f-thumbs,
+.bio-documents-gallery .f-thumbs,
+.bio-press-gallery .f-thumbs,
+.bio-photos-gallery .f-thumbs__viewport,
+.bio-documents-gallery .f-thumbs__viewport,
+.bio-press-gallery .f-thumbs__viewport {
+    width: 100% !important;
 }
 
 .bio-photos-gallery .f-thumbs__slide,
@@ -401,9 +457,9 @@
     transform: translateX(var(--bio-close-gap));
     width: var(--bio-close-size);
     height: var(--bio-close-size);
-    border: calc(var(--bio-close-size) * 0.045) solid #ffffff;
+    border: calc(var(--bio-close-size) * 0.045) solid #000000;
     border-radius: 50%;
-    background: transparent;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -419,7 +475,7 @@
     display: block;
     width: calc(var(--bio-close-size) * 0.42);
     height: calc(var(--bio-close-size) * 0.42);
-    color: #ffffff;
+    color: #000000;
 }
 
 .bio-photos-gallery .bio-image-close:hover,
@@ -642,5 +698,143 @@
 
 .questions-video-gallery .fancybox__nav .f-button[disabled] {
     opacity: 0.25;
+    cursor: default;
+}
+
+/* ===== FILMS / INTERVIEWS VIDEO ===== */
+.films-video-gallery {
+    --fv-video-max-w: min(86vw, calc(78vh * 16 / 9));
+    --fv-video-max-h: min(78vh, calc(86vw * 9 / 16));
+    --fv-close-size: calc(min(100vh, 100vw * 9 / 16) * 0.07);
+    --fv-nav-size: calc(min(100vh, 100vw * 9 / 16) * 0.08);
+}
+
+.films-video-gallery.fancybox__container {
+    background: #b2b2b2 !important;
+}
+
+.films-video-gallery .fancybox__backdrop {
+    background: #b2b2b2 !important;
+    backdrop-filter: none !important;
+}
+
+.films-video-gallery .fancybox__container,
+.films-video-gallery .fancybox__carousel,
+.films-video-gallery .fancybox__viewport {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.films-video-gallery .fancybox__track {
+    height: 100% !important;
+}
+
+.films-video-gallery .fancybox__slide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+.films-video-gallery .fancybox__slide.has-html5video .fancybox__content,
+.films-video-gallery .fancybox__slide.has-video .fancybox__content,
+.films-video-gallery .fancybox__slide.has-html .fancybox__content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--fv-video-max-w) !important;
+    max-height: var(--fv-video-max-h) !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+
+.films-video-gallery .films-video-frame {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    max-width: var(--fv-video-max-w);
+    max-height: var(--fv-video-max-h);
+}
+
+.films-video-gallery .fancybox__html5video,
+.films-video-gallery video {
+    display: block;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--fv-video-max-w) !important;
+    max-height: var(--fv-video-max-h) !important;
+    object-fit: contain;
+    margin: 0;
+}
+
+.films-video-gallery .films-video-close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(42%, -42%);
+    width: var(--fv-close-size);
+    height: var(--fv-close-size);
+    border: calc(var(--fv-close-size) * 0.045) solid #000000;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+.films-video-gallery .films-video-close svg {
+    display: block;
+    width: calc(var(--fv-close-size) * 0.42);
+    height: calc(var(--fv-close-size) * 0.42);
+    color: #000000;
+}
+
+.films-video-gallery .films-video-close:hover {
+    transform: translate(42%, -42%) scale(1.04);
+}
+
+.films-video-gallery .fancybox__nav .f-button {
+    width: var(--fv-nav-size) !important;
+    height: var(--fv-nav-size) !important;
+    border-radius: 50% !important;
+    background: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(0, 0, 0, 0.35) !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    opacity: 1;
+}
+
+.films-video-gallery .fancybox__nav .f-button svg {
+    width: calc(var(--fv-nav-size) * 0.42) !important;
+    height: calc(var(--fv-nav-size) * 0.42) !important;
+    stroke: #ffffff !important;
+    fill: none !important;
+    filter: none !important;
+}
+
+.films-video-gallery .fancybox__nav .f-button:hover {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.films-video-gallery .fancybox__nav .f-button[disabled] {
+    opacity: 0.35;
     cursor: default;
 }
