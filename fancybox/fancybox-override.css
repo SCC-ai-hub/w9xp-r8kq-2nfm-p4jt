@@ -363,6 +363,10 @@
 .bio-documents-gallery .fancybox__thumbs,
 .bio-press-gallery .fancybox__thumbs {
     --f-thumbs-gap: 0;
+    --f-thumb-width: var(--bio-thumb-width);
+    --f-thumb-height: var(--bio-thumb-height);
+    --f-thumb-clip-width: var(--bio-thumb-width);
+    --f-thumb-extra-gap: 0px;
     position: absolute !important;
     left: 0 !important;
     right: 0 !important;
@@ -375,12 +379,16 @@
     padding: 0 !important;
     padding-bottom: 0 !important;
     box-sizing: border-box !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: visible !important;
 }
 
 .bio-photos-gallery .fancybox__thumbs.is-masked,
 .bio-documents-gallery .fancybox__thumbs.is-masked,
 .bio-press-gallery .fancybox__thumbs.is-masked {
-    max-height: none !important;
+    max-height: var(--bio-thumb-height) !important;
+    height: var(--bio-thumb-height) !important;
 }
 
 .bio-photos-gallery .f-thumbs,
@@ -388,8 +396,30 @@
 .bio-press-gallery .f-thumbs,
 .bio-photos-gallery .f-thumbs__viewport,
 .bio-documents-gallery .f-thumbs__viewport,
-.bio-press-gallery .f-thumbs__viewport {
+.bio-press-gallery .f-thumbs__viewport,
+.bio-photos-gallery .f-thumbs__track,
+.bio-documents-gallery .f-thumbs__track,
+.bio-press-gallery .f-thumbs__track {
     width: 100% !important;
+    max-height: none !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+.bio-photos-gallery .is-modern .f-thumbs__slide,
+.bio-documents-gallery .is-modern .f-thumbs__slide,
+.bio-press-gallery .is-modern .f-thumbs__slide {
+    width: var(--bio-thumb-width) !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+.bio-photos-gallery .is-modern .f-thumbs__slide__button,
+.bio-documents-gallery .is-modern .f-thumbs__slide__button,
+.bio-press-gallery .is-modern .f-thumbs__slide__button {
+    clip-path: none !important;
+    width: var(--bio-thumb-width) !important;
+    margin: 0 !important;
 }
 
 .bio-photos-gallery .f-thumbs__slide,
@@ -699,6 +729,10 @@
 .questions-video-gallery .fancybox__nav .f-button[disabled] {
     opacity: 0.25;
     cursor: default;
+}
+
+.questions-video-gallery .fancybox__nav {
+    display: none !important;
 }
 
 /* ===== FILMS / INTERVIEWS VIDEO ===== */

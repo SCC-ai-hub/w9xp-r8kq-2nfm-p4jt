@@ -380,7 +380,7 @@ function initBioImageGalleryFancybox(config) {
         },
         Thumbs: {
             showOnStart: true,
-            type: 'classic'
+            type: 'modern'
         },
         caption: function (fancybox, slide) {
             return getBioGalleryCaption(slide, items);

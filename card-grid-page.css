@@ -349,9 +349,14 @@ em, i {
 
 /* Hide language + MENU and side arrows while a video overlay is open */
 body.is-media-overlay .switchers-row,
-body.is-media-overlay .page-arrow {
+body.is-media-overlay .page-arrow,
+body:has(.questions-video-gallery) .switchers-row,
+body:has(.questions-video-gallery) .page-arrow,
+body:has(.films-video-gallery) .switchers-row,
+body:has(.films-video-gallery) .page-arrow {
     opacity: 0 !important;
+    visibility: hidden !important;
     pointer-events: none !important;
-    transition: opacity 0.22s ease;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 
