@@ -334,6 +334,7 @@ em, i {
     flex-shrink: 0;
     /* equal pills + gap → axis through gap; optical-x corrects asymmetric language oval */
     transform: translateX(var(--switchers-optical-x));
+    transition: opacity 0.22s ease;
 }
 
 .card-panel .css-switcher,
@@ -344,5 +345,18 @@ em, i {
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+/* Hide language + MENU and side arrows while a video overlay is open */
+body.is-media-overlay .switchers-row,
+body.is-media-overlay .page-arrow,
+body:has(.questions-video-gallery) .switchers-row,
+body:has(.questions-video-gallery) .page-arrow,
+body:has(.films-video-gallery) .switchers-row,
+body:has(.films-video-gallery) .page-arrow {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 

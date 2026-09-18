@@ -73,8 +73,15 @@ function initBioFancybox() {
         animated: true,
         showClass: 'f-zoomInUp',
         hideClass: 'f-zoomOutDown',
-        closeButton: true,
+        closeButton: false,
         dragToClose: true,
+        Toolbar: {
+            display: {
+                left: [],
+                middle: [],
+                right: []
+            }
+        },
         beforeShow: function (fancybox, slide) {
             if (!slide || !slide.src) {
                 return;
@@ -84,8 +91,47 @@ function initBioFancybox() {
             var url = new URL(slide.src, window.location.href);
             url.searchParams.set('lang', currentLang);
             slide.src = url.toString();
+        },
+        on: {
+            done: function (fancybox) {
+                ensureBioIframeCloseButton(fancybox);
+            },
+            reveal: function (fancybox) {
+                ensureBioIframeCloseButton(fancybox);
+            }
         }
     });
+}
+
+function ensureBioIframeCloseButton(fancybox) {
+    if (!fancybox) {
+        fancybox = Fancybox.getInstance();
+    }
+
+    if (!fancybox) {
+        return;
+    }
+
+    var slide = fancybox.getSlide();
+    var content = slide && slide.el ? slide.el.querySelector('.fancybox__content') : null;
+
+    if (!content || content.querySelector('.bio-iframe-close')) {
+        return;
+    }
+
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'bio-iframe-close';
+    button.setAttribute('aria-label', 'Close');
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7 L17 17 M17 7 L7 17" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
+
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        fancybox.close();
+    });
+
+    content.appendChild(button);
 }
 
 var bioImageGalleries = [
@@ -333,7 +379,8 @@ function initBioImageGalleryFancybox(config) {
             }
         },
         Thumbs: {
-            showOnStart: true
+            showOnStart: true,
+            type: 'modern'
         },
         caption: function (fancybox, slide) {
             return getBioGalleryCaption(slide, items);
@@ -394,6 +441,10 @@ function initBioImageGalleries() {
 
 var questionsVideoFancyboxBound = false;
 
+function setMediaOverlayChrome(active) {
+    document.body.classList.toggle('is-media-overlay', !!active);
+}
+
 var questionsVideoFancyboxOptions = {
     mainClass: 'questions-video-gallery',
     closeButton: false,
@@ -408,15 +459,18 @@ var questionsVideoFancyboxOptions = {
     },
     on: {
         done: function (fancybox) {
+            setMediaOverlayChrome(true);
             activateQuestionsVideoSlide(fancybox);
         },
         'Carousel.change': function (fancybox) {
             activateQuestionsVideoSlide(fancybox);
         },
         closing: function (fancybox, slide) {
+            setMediaOverlayChrome(false);
             teardownQuestionsVideo(slide);
         },
         destroy: function (fancybox) {
+            setMediaOverlayChrome(false);
             if (!fancybox || !fancybox.container) {
                 return;
             }
@@ -622,6 +676,221 @@ function initQuestionsVideoFancybox() {
     });
 }
 
+var filmsVideoFancyboxBound = false;
+
+var filmsVideoFancyboxOptions = {
+    mainClass: 'films-video-gallery',
+    closeButton: false,
+    dragToClose: false,
+    animated: true,
+    Html: {
+        videoAutoplay: false
+    },
+    Carousel: {
+        infinite: false,
+        preload: 0
+    },
+    on: {
+        done: function (fancybox) {
+            setMediaOverlayChrome(true);
+            activateFilmsVideoSlide(fancybox);
+        },
+        'Carousel.change': function (fancybox) {
+            activateFilmsVideoSlide(fancybox);
+        },
+        closing: function (fancybox, slide) {
+            setMediaOverlayChrome(false);
+            teardownFilmsVideo(slide);
+        },
+        destroy: function (fancybox) {
+            setMediaOverlayChrome(false);
+            if (!fancybox || !fancybox.container) {
+                return;
+            }
+
+            fancybox.container.querySelectorAll('video').forEach(function (video) {
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+            });
+        }
+    }
+};
+
+function pauseAllFilmsVideos(fancybox) {
+    if (!fancybox || !fancybox.container) {
+        return;
+    }
+
+    fancybox.container.querySelectorAll('video').forEach(function (video) {
+        video.pause();
+        video._filmsStarted = false;
+    });
+}
+
+function ensureFilmsVideoCloseButton(content, fancybox) {
+    if (!content) {
+        return;
+    }
+
+    var video = content.querySelector('video');
+
+    if (!video) {
+        return;
+    }
+
+    var frame = content.querySelector('.films-video-frame');
+
+    if (!frame) {
+        frame = document.createElement('div');
+        frame.className = 'films-video-frame';
+        video.parentNode.insertBefore(frame, video);
+        frame.appendChild(video);
+    }
+
+    if (frame.querySelector('.films-video-close')) {
+        return;
+    }
+
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'films-video-close';
+    button.setAttribute('aria-label', 'Close video');
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7 L17 17 M17 7 L7 17" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
+
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        fancybox.close();
+    });
+
+    frame.appendChild(button);
+}
+
+function activateFilmsVideoSlide(fancybox) {
+    if (!fancybox || !fancybox.container) {
+        return;
+    }
+
+    pauseAllFilmsVideos(fancybox);
+
+    var slide = fancybox.getSlide();
+
+    if (!slide || !slide.el) {
+        return;
+    }
+
+    var content = slide.el.querySelector('.fancybox__content');
+
+    if (content) {
+        ensureFilmsVideoCloseButton(content, fancybox);
+    }
+
+    var videos = slide.el.querySelectorAll('video');
+
+    if (!videos.length) {
+        return;
+    }
+
+    for (var i = 1; i < videos.length; i++) {
+        videos[i].pause();
+        videos[i].removeAttribute('src');
+        videos[i].load();
+        videos[i].remove();
+    }
+
+    var video = videos[0];
+
+    video.pause();
+    video.currentTime = 0;
+    video.muted = false;
+    video.defaultMuted = false;
+    video.controls = false;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.removeAttribute('autoplay');
+    video._filmsStarted = true;
+    video.play().catch(function () {});
+}
+
+function teardownFilmsVideo(slide) {
+    if (!slide || !slide.el) {
+        return;
+    }
+
+    var video = slide.el.querySelector('video');
+
+    if (!video) {
+        return;
+    }
+
+    video.pause();
+    video._filmsStarted = false;
+}
+
+function getFilmsVideoSlides() {
+    var links = document.querySelectorAll('[data-films-video]');
+    var slides = [];
+
+    links.forEach(function (link) {
+        slides.push({
+            src: link.getAttribute('href'),
+            type: 'html5video'
+        });
+    });
+
+    return slides;
+}
+
+function openFilmsVideo(clickedLink) {
+    if (typeof Fancybox === 'undefined' || !clickedLink) {
+        return;
+    }
+
+    var links = Array.prototype.slice.call(document.querySelectorAll('[data-films-video]'));
+    var slides = getFilmsVideoSlides();
+    var startIndex = links.indexOf(clickedLink);
+
+    if (!slides.length) {
+        return;
+    }
+
+    var activeInstance = Fancybox.getInstance();
+
+    if (activeInstance) {
+        activeInstance.close();
+    }
+
+    Fancybox.show(slides, Object.assign({}, filmsVideoFancyboxOptions, {
+        startIndex: startIndex >= 0 ? startIndex : 0
+    }));
+}
+
+function initFilmsVideoFancybox() {
+    if (typeof Fancybox === 'undefined') {
+        return;
+    }
+
+    if (filmsVideoFancyboxBound) {
+        return;
+    }
+
+    var links = document.querySelectorAll('[data-films-video]');
+
+    if (!links.length) {
+        return;
+    }
+
+    filmsVideoFancyboxBound = true;
+
+    links.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            openFilmsVideo(link);
+        });
+    });
+}
+
 function initBooksFancybox() {
     if (typeof Fancybox === 'undefined') {
         return;
@@ -684,6 +953,7 @@ function initFancybox() {
     initBioFancybox();
     initBioImageGalleries();
     initQuestionsVideoFancybox();
+    initFilmsVideoFancybox();
     initBooksFancybox();
     initArtworksFancybox();
 }
