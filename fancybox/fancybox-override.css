@@ -254,11 +254,12 @@
 }
 
 /* ===== BIO IMAGE GALLERIES (photos + documents + press) =====
-   Scoped to bio image galleries only — not iframe BIO / other pages.
+   Scoped to bio image galleries and artwork carousels — not iframe BIO / other pages.
    Align to page black frame; nudge +30px; photo fills down to caption band. */
 .bio-photos-gallery,
 .bio-documents-gallery,
-.bio-press-gallery {
+.bio-press-gallery,
+.artworks-gallery {
     --bio-stage-h: min(100vh, calc(100vw * 9 / 16));
     --bio-stage-w: min(100vw, calc(100vh * 16 / 9));
     --bio-letterbox-y: max(0px, calc((100vh - var(--bio-stage-h)) / 2));
@@ -298,19 +299,22 @@
 
 .bio-photos-gallery .fancybox__backdrop,
 .bio-documents-gallery .fancybox__backdrop,
-.bio-press-gallery .fancybox__backdrop {
+.bio-press-gallery .fancybox__backdrop,
+.artworks-gallery .fancybox__backdrop {
     background: rgba(0, 0, 0, 0.9) !important;
 }
 
 .bio-photos-gallery .fancybox__toolbar,
 .bio-documents-gallery .fancybox__toolbar,
-.bio-press-gallery .fancybox__toolbar {
+.bio-press-gallery .fancybox__toolbar,
+.artworks-gallery .fancybox__toolbar {
     display: none !important;
 }
 
 .bio-photos-gallery .fancybox__slide.has-image,
 .bio-documents-gallery .fancybox__slide.has-image,
-.bio-press-gallery .fancybox__slide.has-image {
+.bio-press-gallery .fancybox__slide.has-image,
+.artworks-gallery .fancybox__slide.has-image {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -326,7 +330,9 @@
 .bio-documents-gallery .fancybox__slide.has-image::before,
 .bio-documents-gallery .fancybox__slide.has-image::after,
 .bio-press-gallery .fancybox__slide.has-image::before,
-.bio-press-gallery .fancybox__slide.has-image::after {
+.bio-press-gallery .fancybox__slide.has-image::after,
+.artworks-gallery .fancybox__slide.has-image::after,
+.artworks-gallery .fancybox__slide.has-image::before {
     content: none !important;
     display: none !important;
     margin: 0 !important;
@@ -335,7 +341,8 @@
 
 .bio-photos-gallery .fancybox__slide.has-image .fancybox__content,
 .bio-documents-gallery .fancybox__slide.has-image .fancybox__content,
-.bio-press-gallery .fancybox__slide.has-image .fancybox__content {
+.bio-press-gallery .fancybox__slide.has-image .fancybox__content,
+.artworks-gallery .fancybox__slide.has-image .fancybox__content {
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -359,7 +366,9 @@
 .bio-documents-gallery .fancybox__image,
 .bio-documents-gallery .fancybox-image,
 .bio-press-gallery .fancybox__image,
-.bio-press-gallery .fancybox-image {
+.bio-press-gallery .fancybox-image,
+.artworks-gallery .fancybox__image,
+.artworks-gallery .fancybox-image {
     object-fit: contain !important;
     max-width: var(--bio-photo-max-w) !important;
     max-height: var(--bio-photo-max-h) !important;
@@ -371,7 +380,8 @@
 /* Thumbs logic from origin/main; bottom keeps current tuned frame position */
 .bio-photos-gallery .fancybox__thumbs,
 .bio-documents-gallery .fancybox__thumbs,
-.bio-press-gallery .fancybox__thumbs {
+.bio-press-gallery .fancybox__thumbs,
+.artworks-gallery .fancybox__thumbs {
     --f-thumbs-gap: 0;
     bottom: var(--bio-thumbs-bottom) !important;
     height: var(--bio-thumb-height) !important;
@@ -382,14 +392,16 @@
 
 .bio-photos-gallery .f-thumbs__slide,
 .bio-documents-gallery .f-thumbs__slide,
-.bio-press-gallery .f-thumbs__slide {
+.bio-press-gallery .f-thumbs__slide,
+.artworks-gallery .f-thumbs__slide {
     width: var(--bio-thumb-width) !important;
     height: var(--bio-thumb-height) !important;
 }
 
 .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
 .bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
-.bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
+.bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+.artworks-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
     margin-right: 9px !important;
 }
 
@@ -397,13 +409,15 @@
    (slide transforms break position:fixed and park the label on the photo). */
 .bio-photos-gallery .fancybox__slide .fancybox__caption,
 .bio-documents-gallery .fancybox__slide .fancybox__caption,
-.bio-press-gallery .fancybox__slide .fancybox__caption {
+.bio-press-gallery .fancybox__slide .fancybox__caption,
+.artworks-gallery .fancybox__slide .fancybox__caption {
     display: none !important;
 }
 
 .bio-photos-gallery .bio-gallery-caption,
 .bio-documents-gallery .bio-gallery-caption,
-.bio-press-gallery .bio-gallery-caption {
+.bio-press-gallery .bio-gallery-caption,
+.artworks-gallery .bio-gallery-caption {
     display: block;
     position: absolute;
     left: 50%;
@@ -431,13 +445,15 @@
 
 .bio-photos-gallery .bio-gallery-caption:empty,
 .bio-documents-gallery .bio-gallery-caption:empty,
-.bio-press-gallery .bio-gallery-caption:empty {
+.bio-press-gallery .bio-gallery-caption:empty,
+.artworks-gallery .bio-gallery-caption:empty {
     display: none;
 }
 
 .bio-photos-gallery .bio-image-close,
 .bio-documents-gallery .bio-image-close,
-.bio-press-gallery .bio-image-close {
+.bio-press-gallery .bio-image-close,
+.artworks-gallery .bio-image-close {
     all: unset;
     position: absolute;
     top: 0;
@@ -460,7 +476,8 @@
 
 .bio-photos-gallery .bio-image-close svg,
 .bio-documents-gallery .bio-image-close svg,
-.bio-press-gallery .bio-image-close svg {
+.bio-press-gallery .bio-image-close svg,
+.artworks-gallery .bio-image-close svg {
     display: block;
     width: calc(var(--bio-close-size) * 0.42);
     height: calc(var(--bio-close-size) * 0.42);
@@ -469,14 +486,16 @@
 
 .bio-photos-gallery .bio-image-close:hover,
 .bio-documents-gallery .bio-image-close:hover,
-.bio-press-gallery .bio-image-close:hover {
+.bio-press-gallery .bio-image-close:hover,
+.artworks-gallery .bio-image-close:hover {
     transform: translateX(var(--bio-close-gap)) scale(1.04);
 }
 
 /* Prev/next: closer to center, circle always visible */
 .bio-photos-gallery .fancybox__nav .f-button,
 .bio-documents-gallery .fancybox__nav .f-button,
-.bio-press-gallery .fancybox__nav .f-button {
+.bio-press-gallery .fancybox__nav .f-button,
+.artworks-gallery .fancybox__nav .f-button {
     width: var(--bio-nav-size) !important;
     height: var(--bio-nav-size) !important;
     border-radius: 50% !important;
@@ -489,7 +508,8 @@
 
 .bio-photos-gallery .fancybox__nav .f-button svg,
 .bio-documents-gallery .fancybox__nav .f-button svg,
-.bio-press-gallery .fancybox__nav .f-button svg {
+.bio-press-gallery .fancybox__nav .f-button svg,
+.artworks-gallery .fancybox__nav .f-button svg {
     width: calc(var(--bio-nav-size) * 0.42) !important;
     height: calc(var(--bio-nav-size) * 0.42) !important;
     stroke: #ffffff !important;
@@ -499,28 +519,32 @@
 
 .bio-photos-gallery .fancybox__nav .f-button.is-prev,
 .bio-documents-gallery .fancybox__nav .f-button.is-prev,
-.bio-press-gallery .fancybox__nav .f-button.is-prev {
+.bio-press-gallery .fancybox__nav .f-button.is-prev,
+.artworks-gallery .fancybox__nav .f-button.is-prev {
     left: var(--bio-nav-inset) !important;
     right: auto !important;
 }
 
 .bio-photos-gallery .fancybox__nav .f-button.is-next,
 .bio-documents-gallery .fancybox__nav .f-button.is-next,
-.bio-press-gallery .fancybox__nav .f-button.is-next {
+.bio-press-gallery .fancybox__nav .f-button.is-next,
+.artworks-gallery .fancybox__nav .f-button.is-next {
     right: var(--bio-nav-inset) !important;
     left: auto !important;
 }
 
 .bio-photos-gallery .fancybox__nav .f-button:hover,
 .bio-documents-gallery .fancybox__nav .f-button:hover,
-.bio-press-gallery .fancybox__nav .f-button:hover {
+.bio-press-gallery .fancybox__nav .f-button:hover,
+.artworks-gallery .fancybox__nav .f-button:hover {
     opacity: 1 !important;
     background: rgba(0, 0, 0, 0.6) !important;
 }
 
 .bio-photos-gallery .fancybox__nav .f-button[disabled],
 .bio-documents-gallery .fancybox__nav .f-button[disabled],
-.bio-press-gallery .fancybox__nav .f-button[disabled] {
+.bio-press-gallery .fancybox__nav .f-button[disabled],
+.artworks-gallery .fancybox__nav .f-button[disabled] {
     opacity: 1 !important;
     pointer-events: auto !important;
     cursor: pointer !important;
@@ -529,7 +553,8 @@
 @media (max-width: 768px) {
     .bio-photos-gallery,
     .bio-documents-gallery,
-    .bio-press-gallery {
+    .bio-press-gallery,
+    .artworks-gallery {
         --bio-thumb-width: calc(96px * 0.8);
         --bio-thumb-height: calc(72px * 0.8);
         --bio-nav-inset: max(8px, calc(8vw - var(--bio-nav-size)));
@@ -537,7 +562,8 @@
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
     .bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
-    .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
+    .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+    .artworks-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
         margin-right: 6px !important;
     }
 }
@@ -545,14 +571,16 @@
 @media (min-width: 1200px) {
     .bio-photos-gallery,
     .bio-documents-gallery,
-    .bio-press-gallery {
+    .bio-press-gallery,
+    .artworks-gallery {
         --bio-thumb-width: calc(176px * 0.8);
         --bio-thumb-height: calc(132px * 0.8);
     }
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
     .bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
-    .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
+    .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
+    .artworks-gallery .f-thumbs.is-horizontal .f-thumbs__slide {
         margin-right: 10px !important;
     }
 }

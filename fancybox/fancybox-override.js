@@ -126,7 +126,20 @@ function ensureBioIframeCloseButton(fancybox) {
     content.appendChild(button);
 }
 
+function galleryItemSrc(folder, file) {
+    return folder + encodeURIComponent(file);
+}
+
 var bioImageGalleries = [
+    {
+        fancyboxGroup: 'artwork-alefbet',
+        mainClass: 'artworks-gallery',
+        getItems: function () { return window.ALEFBET_IMAGES; },
+        folder: 'artworks/alefbet/',
+        triggerSelector: '.artwork-item--alefbet',
+        containerId: 'artwork-alefbet-gallery',
+        initialized: false
+    },
     {
         fancyboxGroup: 'bio-photos',
         mainClass: 'bio-photos-gallery',
@@ -238,7 +251,7 @@ function getBioGalleryCaption(slide, items) {
 }
 
 function applyBioGalleryItemData(anchor, item, folder, index, group) {
-    var itemPath = folder + item.file;
+    var itemPath = galleryItemSrc(folder, item.file);
     var anchorId = group + '-' + index;
     anchor.href = itemPath;
     anchor.id = anchorId;
@@ -279,7 +292,7 @@ function buildBioGallerySlides(config) {
 
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        var src = config.folder + item.file;
+        var src = galleryItemSrc(config.folder, item.file);
         slides.push({
             src: src,
             type: 'image',
