@@ -142,7 +142,7 @@ var bioImageGalleries = [
     },
     {
         fancyboxGroup: 'artwork-series',
-        mainClass: 'artworks-series-gallery',
+        mainClass: 'artworks-gallery',
         getItems: function () { return window.ARTWORKS_IMAGES; },
         folder: 'artworks/',
         triggerSelector: '.artwork-item--series',
@@ -179,7 +179,7 @@ var bioImageGalleries = [
     },
     {
         fancyboxGroup: 'films-gallery',
-        mainClass: 'films-gallery',
+        mainClass: 'artworks-gallery',
         getItems: function () { return window.FILMS_IMAGES; },
         folder: 'films/',
         triggerSelector: '.film-item--trigger',
@@ -188,7 +188,7 @@ var bioImageGalleries = [
     },
     {
         fancyboxGroup: 'books-gallery',
-        mainClass: 'books-gallery',
+        mainClass: 'artworks-gallery',
         getItems: function () { return window.BOOKS_IMAGES; },
         folder: 'books/',
         triggerSelector: '.book-item--trigger',
@@ -488,9 +488,21 @@ function getActiveBioImageGalleryConfig() {
         return null;
     }
 
-    for (var i = 0; i < bioImageGalleries.length; i++) {
-        if (fancybox.container.classList.contains(bioImageGalleries[i].mainClass)) {
-            return bioImageGalleries[i];
+    /* Prefer matching by slide group — several galleries share mainClass CSS */
+    var slide = typeof fancybox.getSlide === 'function' ? fancybox.getSlide() : null;
+    var anchor = slide && slide.bioAnchor != null ? String(slide.bioAnchor) : '';
+    if (anchor) {
+        for (var i = 0; i < bioImageGalleries.length; i++) {
+            var group = bioImageGalleries[i].fancyboxGroup;
+            if (anchor === group || anchor.indexOf(group + '-') === 0) {
+                return bioImageGalleries[i];
+            }
+        }
+    }
+
+    for (var j = 0; j < bioImageGalleries.length; j++) {
+        if (fancybox.container.classList.contains(bioImageGalleries[j].mainClass)) {
+            return bioImageGalleries[j];
         }
     }
 
