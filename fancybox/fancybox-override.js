@@ -573,6 +573,10 @@ function initBioImageGalleries() {
 
 var questionsVideoFancyboxBound = false;
 
+function setVideoChromeHidden(hidden) {
+    document.body.classList.toggle('video-chrome-hidden', !!hidden);
+}
+
 var questionsVideoFancyboxOptions = {
     mainClass: 'questions-video-gallery',
     closeButton: false,
@@ -586,16 +590,28 @@ var questionsVideoFancyboxOptions = {
         preload: 0
     },
     on: {
+        init: function () {
+            setVideoChromeHidden(true);
+        },
         done: function (fancybox) {
+            setVideoChromeHidden(true);
             activateQuestionsVideoSlide(fancybox);
         },
         'Carousel.change': function (fancybox) {
             activateQuestionsVideoSlide(fancybox);
         },
-        closing: function (fancybox, slide) {
-            teardownQuestionsVideo(slide);
+        /* Fancybox 5 has no "closing" emit — use shouldClose/close so chrome
+           fades in from the first frame of backdrop fade-out. */
+        shouldClose: function () {
+            setVideoChromeHidden(false);
+        },
+        close: function (fancybox) {
+            setVideoChromeHidden(false);
+            teardownQuestionsVideo(fancybox && fancybox.getSlide ? fancybox.getSlide() : null);
         },
         destroy: function (fancybox) {
+            setVideoChromeHidden(false);
+
             if (!fancybox || !fancybox.container) {
                 return;
             }
@@ -660,6 +676,7 @@ function ensureQuestionsVideoCloseButton(content, fancybox) {
     button.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
+        setVideoChromeHidden(false);
         fancybox.close();
     });
 
@@ -711,6 +728,7 @@ function activateQuestionsVideoSlide(fancybox) {
     video._questionsStarted = true;
 
     video._questionsEndedHandler = function () {
+        setVideoChromeHidden(false);
         fancybox.close();
     };
 

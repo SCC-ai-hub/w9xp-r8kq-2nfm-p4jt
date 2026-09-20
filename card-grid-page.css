@@ -355,14 +355,20 @@ em, i {
     transform: translateX(calc(10 / 1080 * 100cqh));
 }
 
-/* Hide language + MENU and side arrows while Ask-the-Artist / films video is open */
-body:has(.questions-video-gallery) .switchers-row,
-body:has(.questions-video-gallery) .page-arrow,
+/* Video overlay chrome: fade with backdrop (open + close).
+   body.video-chrome-hidden toggled in fancybox-override.js on show / shouldClose
+   so arrows/switchers ease in with the black backdrop fade-out (0.2s = Fancybox). */
+.page-arrow,
+.switchers-row {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+body.video-chrome-hidden .switchers-row,
+body.video-chrome-hidden .page-arrow,
 body:has(.films-video-gallery) .switchers-row,
 body:has(.films-video-gallery) .page-arrow {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
-    transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 
