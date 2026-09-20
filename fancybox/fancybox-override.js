@@ -66,14 +66,14 @@ function initBioFancybox() {
         iframe: {
             preload: false,
             css: {
-                width: 'min(66vw, calc(61.5vh * 16 / 9))',
-                height: 'min(83.025vh, calc(66vw * 243 / 320))'
+                width: 'min(52.8vw, calc(49.2vh * 16 / 9))',
+                height: 'min(calc((83.025vh + 100vh) / 2 + 100px), calc((52.8vw * 243 / 320 + 100vh) / 2 + 100px))'
             }
         },
         animated: true,
         showClass: 'f-zoomInUp',
         hideClass: 'f-zoomOutDown',
-        closeButton: true,
+        closeButton: false,
         dragToClose: true,
         beforeShow: function (fancybox, slide) {
             if (!slide || !slide.src) {
@@ -84,8 +84,46 @@ function initBioFancybox() {
             var url = new URL(slide.src, window.location.href);
             url.searchParams.set('lang', currentLang);
             slide.src = url.toString();
+        },
+        on: {
+            done: function (fancybox) {
+                ensureBioIframeCloseButton(fancybox);
+            },
+            reveal: function (fancybox) {
+                ensureBioIframeCloseButton(fancybox);
+            }
         }
     });
+}
+
+function ensureBioIframeCloseButton(fancybox) {
+    if (!fancybox) {
+        fancybox = Fancybox.getInstance();
+    }
+    if (!fancybox) {
+        return;
+    }
+
+    var slide = fancybox.getSlide();
+    var content = slide && slide.el ? slide.el.querySelector('.fancybox__content') : null;
+
+    if (!content || content.querySelector('.bio-iframe-close')) {
+        return;
+    }
+
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'bio-iframe-close';
+    button.setAttribute('aria-label', 'Close');
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7 L17 17 M17 7 L7 17" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
+
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        fancybox.close();
+    });
+
+    content.appendChild(button);
 }
 
 var bioImageGalleries = [
@@ -118,36 +156,94 @@ var bioImageGalleries = [
     }
 ];
 
-function getBioGalleryCaption(slide, items) {
+/* In-memory only — resets when leaving bio_index (navigation / reload). */
+var bioGalleryResumeIndex = {};
+
+function rememberBioGalleryIndex(config, fancybox) {
+    if (!config || !fancybox || typeof fancybox.getSlide !== 'function') {
+        return;
+    }
+    var slide = fancybox.getSlide();
     if (!slide) {
-        return '';
+        return;
+    }
+    var index = typeof slide.index === 'number' ? slide.index : -1;
+    if (index < 0 && typeof slide.bioIndex === 'number') {
+        index = slide.bioIndex;
+    }
+    if (index < 0) {
+        return;
+    }
+    bioGalleryResumeIndex[config.fancyboxGroup] = index;
+}
+
+function escapeBioCaptionHtml(text) {
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function getBioGalleryCaptionMeta(slide, items) {
+    var empty = { text: '', ai: false, aiId: '' };
+    if (!slide) {
+        return empty;
     }
 
     var lang = getCurrentLanguage();
-    var el = slide.triggerEl || slide.el;
+    var itemIndex = typeof slide.bioIndex === 'number' ? slide.bioIndex : slide.index;
+    var item = items && items[itemIndex] != null ? items[itemIndex] : null;
 
-    if (el && el.dataset) {
-        var fromDataset = lang === 'en'
-            ? (el.dataset.captionEn || '')
-            : (el.dataset.captionIt || '');
-
-        if (fromDataset) {
-            return fromDataset;
+    var text = '';
+    if (slide.captionEn != null || slide.captionIt != null) {
+        text = lang === 'en' ? (slide.captionEn || '') : (slide.captionIt || '');
+    } else {
+        var el = slide.triggerEl || slide.el;
+        if (el && el.dataset) {
+            text = lang === 'en'
+                ? (el.dataset.captionEn || '')
+                : (el.dataset.captionIt || '');
+        }
+        if (!text && item) {
+            text = lang === 'en' ? (item.captionEn || '') : (item.captionIt || '');
         }
     }
 
-    if (items && items[slide.index] != null) {
-        return lang === 'en'
-            ? items[slide.index].captionEn
-            : items[slide.index].captionIt;
+    var ai = false;
+    var aiId = '';
+    if (item) {
+        if (lang === 'en' && item.aiTranslatedEn) {
+            ai = true;
+            aiId = item.aiIdEn || '';
+        } else if (lang === 'it' && item.aiTranslatedIt) {
+            ai = true;
+            aiId = item.aiIdIt || '';
+        }
+    } else if (slide) {
+        if (lang === 'en' && slide.aiTranslatedEn) {
+            ai = true;
+            aiId = slide.aiIdEn || '';
+        } else if (lang === 'it' && slide.aiTranslatedIt) {
+            ai = true;
+            aiId = slide.aiIdIt || '';
+        }
     }
 
-    return '';
+    return { text: text || '', ai: ai, aiId: aiId };
 }
 
-function applyBioGalleryItemData(anchor, item, folder) {
+function getBioGalleryCaption(slide, items) {
+    return getBioGalleryCaptionMeta(slide, items).text;
+}
+
+function applyBioGalleryItemData(anchor, item, folder, index, group) {
     var itemPath = folder + item.file;
+    var anchorId = group + '-' + index;
     anchor.href = itemPath;
+    anchor.id = anchorId;
+    anchor.setAttribute('data-bio-index', String(index));
+    anchor.setAttribute('data-bio-anchor', anchorId);
     anchor.setAttribute('data-thumb-src', itemPath);
     anchor.dataset.captionIt = item.captionIt;
     anchor.dataset.captionEn = item.captionEn;
@@ -163,16 +259,147 @@ function buildBioImageGallery(config) {
         return;
     }
 
-    applyBioGalleryItemData(trigger, items[0], config.folder);
+    /* Card is a manual opener — strip Fancybox auto-bind attrs */
+    trigger.removeAttribute('data-fancybox');
+    applyBioGalleryItemData(trigger, items[0], config.folder, 0, config.fancyboxGroup);
 
     container.innerHTML = '';
 
-    for (var i = 1; i < items.length; i++) {
+    for (var i = 0; i < items.length; i++) {
         var link = document.createElement('a');
-        link.setAttribute('data-fancybox', config.fancyboxGroup);
-        applyBioGalleryItemData(link, items[i], config.folder);
+        link.hidden = true;
+        applyBioGalleryItemData(link, items[i], config.folder, i, config.fancyboxGroup);
         container.appendChild(link);
     }
+}
+
+function buildBioGallerySlides(config) {
+    var items = config.getItems() || [];
+    var slides = [];
+
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        var src = config.folder + item.file;
+        slides.push({
+            src: src,
+            type: 'image',
+            thumbSrc: src,
+            captionIt: item.captionIt,
+            captionEn: item.captionEn,
+            aiTranslatedIt: !!item.aiTranslatedIt,
+            aiTranslatedEn: !!item.aiTranslatedEn,
+            aiIdIt: item.aiIdIt || '',
+            aiIdEn: item.aiIdEn || '',
+            bioIndex: i,
+            bioAnchor: config.fancyboxGroup + '-' + i
+        });
+    }
+
+    return slides;
+}
+
+function openBioImageGallery(config, startIndex) {
+    if (typeof Fancybox === 'undefined' || !config) {
+        return;
+    }
+
+    var slides = buildBioGallerySlides(config);
+    if (!slides.length) {
+        return;
+    }
+
+    var index = typeof startIndex === 'number' ? startIndex : 0;
+    if (index < 0 || index >= slides.length) {
+        index = 0;
+    }
+
+    var active = Fancybox.getInstance();
+    if (active) {
+        active.close();
+    }
+
+    var items = config.getItems();
+
+    Fancybox.show(slides, {
+        mainClass: config.mainClass,
+        startIndex: index,
+        animated: true,
+        showClass: 'f-zoomInUp',
+        hideClass: 'f-zoomOutDown',
+        closeButton: false,
+        dragToClose: false,
+        Toolbar: {
+            display: {
+                left: [],
+                middle: [],
+                right: []
+            }
+        },
+        Images: {
+            zoom: false,
+            Panzoom: {
+                click: false,
+                dblClick: false,
+                wheel: false,
+                zoom: false,
+                pinchToZoom: false,
+                maxScale: 1
+            }
+        },
+        Carousel: {
+            infinite: false,
+            formatCaption: function (carousel, slide) {
+                return getBioGalleryCaption(slide, items);
+            }
+        },
+        Thumbs: {
+            showOnStart: true
+        },
+        caption: function (fancybox, slide) {
+            return getBioGalleryCaption(slide, items);
+        },
+        on: {
+            'Carousel.change': function (fancybox) {
+                rememberBioGalleryIndex(config, fancybox);
+                refreshBioImageGalleryCaption();
+                layoutBioImageGalleryChrome(fancybox);
+            },
+            done: function (fancybox) {
+                rememberBioGalleryIndex(config, fancybox);
+                refreshBioImageGalleryCaption();
+                layoutBioImageGalleryChrome(fancybox);
+            },
+            reveal: function (fancybox) {
+                layoutBioImageGalleryChrome(fancybox);
+            },
+            closing: function (fancybox) {
+                rememberBioGalleryIndex(config, fancybox);
+            },
+            destroy: function (fancybox) {
+                rememberBioGalleryIndex(config, fancybox);
+            }
+        }
+    });
+}
+
+function bindBioGalleryResumeTrigger(config) {
+    var trigger = document.querySelector(config.triggerSelector);
+    if (!trigger || trigger.getAttribute('data-bio-resume-bound') === '1') {
+        return;
+    }
+    trigger.setAttribute('data-bio-resume-bound', '1');
+
+    trigger.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var last = bioGalleryResumeIndex[config.fancyboxGroup];
+        if (typeof last !== 'number' || last < 0) {
+            last = 0;
+        }
+
+        openBioImageGallery(config, last);
+    });
 }
 
 function getActiveBioImageGalleryConfig() {
@@ -228,7 +455,6 @@ function ensureBioGalleryCaptionHost(fancybox) {
 }
 
 function positionBioImageGalleryCaption(fancybox) {
-    /* Caption host lives on the container; CSS anchors it above thumbs. */
     ensureBioGalleryCaptionHost(fancybox);
 }
 
@@ -248,8 +474,18 @@ function refreshBioImageGalleryCaption() {
     var items = config.getItems();
 
     if (captionEl && slide) {
-        var text = getBioGalleryCaption(slide, items) || '';
-        captionEl.textContent = text;
+        var meta = getBioGalleryCaptionMeta(slide, items);
+        var text = meta.text || '';
+        if (text && meta.ai) {
+            var idAttr = meta.aiId
+                ? ' data-ai-id="' + escapeBioCaptionHtml(meta.aiId) + '"'
+                : '';
+            captionEl.innerHTML = '<span class="ai-translated"' + idAttr + '>'
+                + escapeBioCaptionHtml(text).replace(/\r\n|\n|\r/g, '<br>')
+                + '</span>';
+        } else {
+            captionEl.textContent = text;
+        }
         captionEl.style.display = text ? '' : 'none';
 
         var triggerEl = slide.triggerEl || slide.el;
@@ -278,80 +514,19 @@ function layoutBioImageGalleryChrome(fancybox) {
     var content = slide.el.querySelector('.fancybox__content');
     ensureBioImageCloseButton(content, fancybox);
     positionBioImageGalleryCaption(fancybox);
+    unlockBioGalleryNav(fancybox);
 }
 
-function scheduleBioImageGalleryChrome(fancybox) {
-    layoutBioImageGalleryChrome(fancybox);
-    requestAnimationFrame(function () {
-        layoutBioImageGalleryChrome(fancybox);
-        requestAnimationFrame(function () {
-            layoutBioImageGalleryChrome(fancybox);
-        });
-    });
-}
-
-function initBioImageGalleryFancybox(config) {
-    if (typeof Fancybox === 'undefined') {
+function unlockBioGalleryNav(fancybox) {
+    if (!fancybox || !fancybox.container) {
         return;
     }
-
-    if (!document.querySelector('[data-fancybox="' + config.fancyboxGroup + '"]')) {
-        return;
+    var buttons = fancybox.container.querySelectorAll('.fancybox__nav .f-button');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = false;
+        buttons[i].removeAttribute('disabled');
+        buttons[i].classList.remove('is-disabled', 'disabled');
     }
-
-    var items = config.getItems();
-
-    Fancybox.bind('[data-fancybox="' + config.fancyboxGroup + '"]', {
-        mainClass: config.mainClass,
-        animated: true,
-        showClass: 'f-zoomInUp',
-        hideClass: 'f-zoomOutDown',
-        closeButton: false,
-        dragToClose: true,
-        Toolbar: {
-            display: {
-                left: [],
-                middle: [],
-                right: []
-            }
-        },
-        Images: {
-            zoom: false,
-            Panzoom: {
-                click: false,
-                dblClick: false,
-                wheel: false,
-                zoom: false,
-                pinchToZoom: false,
-                maxScale: 1
-            }
-        },
-        Carousel: {
-            infinite: false,
-            formatCaption: function (carousel, slide) {
-                return getBioGalleryCaption(slide, items);
-            }
-        },
-        Thumbs: {
-            showOnStart: true
-        },
-        caption: function (fancybox, slide) {
-            return getBioGalleryCaption(slide, items);
-        },
-        on: {
-            'Carousel.change': function (fancybox) {
-                refreshBioImageGalleryCaption();
-                scheduleBioImageGalleryChrome(fancybox);
-            },
-            done: function (fancybox) {
-                refreshBioImageGalleryCaption();
-                scheduleBioImageGalleryChrome(fancybox);
-            },
-            reveal: function (fancybox) {
-                scheduleBioImageGalleryChrome(fancybox);
-            }
-        }
-    });
 }
 
 function bindBioImageGalleriesLangSync() {
@@ -378,11 +553,15 @@ function initBioImageGalleries() {
 
         buildBioImageGallery(config);
 
-        if (!document.querySelector('[data-fancybox="' + config.fancyboxGroup + '"]')) {
+        if (!document.querySelector(config.triggerSelector)) {
             continue;
         }
 
-        initBioImageGalleryFancybox(config);
+        if (!config.getItems() || !config.getItems().length) {
+            continue;
+        }
+
+        bindBioGalleryResumeTrigger(config);
         config.initialized = true;
     }
 

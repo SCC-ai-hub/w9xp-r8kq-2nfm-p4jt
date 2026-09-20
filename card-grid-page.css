@@ -46,8 +46,8 @@
     --circle-size: calc(42 / 1080 * 100cqh);
     --switchers-gap: calc(105 / var(--ref-w) * 100cqw);
     --switchers-top: calc(18 / var(--ref-h) * 100cqh);
-    /* language ::before −25/−10 vs nav ±10 → shift pair so outer ovals center on page axis */
-    --switchers-optical-x: calc(7.5 / 1080 * 100cqh);
+    /* language ::before −15/−10 vs nav ±10 → outer ovals on page axis */
+    --switchers-optical-x: calc(2.5 / 1080 * 100cqh);
 
     --scroll-arrow-stem-h: calc(24 / var(--ref-h) * 100cqh);
     --scroll-arrow-stem-w: calc(1 / var(--ref-h) * 100cqh);
@@ -344,5 +344,25 @@ em, i {
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+/* After divider removal: word + oval left edge +10 @1920 toward IT/EN */
+.card-panel .css-switcher::before {
+    left: calc(-15 / 1080 * 100cqh);
+}
+
+.card-panel .css-switcher .switcher-left {
+    transform: translateX(calc(10 / 1080 * 100cqh));
+}
+
+/* Hide language + MENU and side arrows while Ask-the-Artist / films video is open */
+body:has(.questions-video-gallery) .switchers-row,
+body:has(.questions-video-gallery) .page-arrow,
+body:has(.films-video-gallery) .switchers-row,
+body:has(.films-video-gallery) .page-arrow {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 

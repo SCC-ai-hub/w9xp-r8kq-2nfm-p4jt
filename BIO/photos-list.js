@@ -7,12 +7,14 @@
  *
  * Fields per entry:
  *   file      — filename inside BIO/photos/
+ *   aspect    — width/height (premeasured; used for equal thumb visual gaps)
  *   captionIt — Italian description (multiline template literal)
  *   captionEn — English description (multiline template literal)
  */
 window.BIO_PHOTOS = [
     {
         file: '01.jpg',
+        aspect: 0.7951,
         captionIt: `
             Il trisavolo Boruch.
         `.trim(),
@@ -22,6 +24,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '02.jpg',
+        aspect: 1.3847,
         captionIt: `
             La nonna Rebecca al centro. Crimea, 1923.
         `.trim(),
@@ -31,6 +34,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '03.jpg',
+        aspect: 1.5595,
         captionIt: `
             Il nonno tra i bambini.
         `.trim(),
@@ -40,6 +44,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '04.jpg',
+        aspect: 0.6166,
         captionIt: `
             Il nonno Menachem-Man. Železnovodsk, 1927.
         `.trim(),
@@ -49,6 +54,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '05.jpg',
+        aspect: 1.3014,
         captionIt: `
             Grisha Briskin con le sue sorelle, 1947.
         `.trim(),
@@ -58,6 +64,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '06.jpg',
+        aspect: 0.699,
         captionIt: `
             Grisha Bruskin in seconda classe della scuola n. 325, Mosca, 1954.
         `.trim(),
@@ -67,6 +74,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '07.jpg',
+        aspect: 0.723,
         captionIt: `
             Grisha Bruskin in quarta classe della scuola n. 325.
         `.trim(),
@@ -76,6 +84,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '08.jpg',
+        aspect: 0.75,
         captionIt: `
             Manifesti per la mostra di arazzi Alefbet al Museo d'arte ebraica e di storia ebraica di Parigi, 2010.
         `.trim(),
@@ -85,6 +94,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '09.jpg',
+        aspect: 1.3014,
         captionIt: `
             Con Milos Forman. Mosca, 1987.
         `.trim(),
@@ -94,6 +104,7 @@ window.BIO_PHOTOS = [
     },
     {
         file: '10.jpg',
+        aspect: 1.4321,
         captionIt: `
             Boris Groys, Mikhail Iampolski, Grisha Bruskin, Katya Korsunskaya, Lev Rubinstein, Alla Rosenfeld, Natalia Nikitina, Solomon Volkov, Leonid Sokov. New York, 2013.
         `.trim(),

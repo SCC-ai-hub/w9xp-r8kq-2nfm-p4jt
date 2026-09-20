@@ -10,14 +10,15 @@
     <link rel="stylesheet" href="language-switcher.css">
     <link rel="stylesheet" href="navigation.css">
     <link rel="stylesheet" href="card-grid-page.css">
+    <link rel="stylesheet" href="ai-translated-review.css">
     <link rel="stylesheet" href="fancybox/fancybox.css">
-    <link rel="stylesheet" href="fancybox/fancybox-override.css">
+    <link rel="stylesheet" href="fancybox/fancybox-override.css?v=photo90-resume-show">
     
     <script src="fancybox/fancybox.umd.js"></script>
-    <script src="BIO/photos-list.js"></script>
-    <script src="BIO/documents-list.js"></script>
-    <script src="BIO/press-list.js"></script>
-    <script src="fancybox/fancybox-override.js"></script>
+    <script src="BIO/photos-list.js?v=photo90-resume-show"></script>
+    <script src="BIO/documents-list.js?v=photo90-resume-show"></script>
+    <script src="BIO/press-list.js?v=photo90-resume-show"></script>
+    <script src="fancybox/fancybox-override.js?v=photo90-resume-show"></script>
     <script src="language-switcher.js" defer></script>
     <style>
         /* ref page2 — erase this block to revert */
@@ -29,6 +30,10 @@
         /* avg image 722.5×462.5 @3840 */
         .card-image {
             aspect-ratio: 289 / 185;
+        }
+        /* Documenti: shift image down 10% inside unchanged frame */
+        .bio-item--documents .card-image {
+            object-position: center 35%;
         }
     </style>
 </head>
@@ -53,25 +58,25 @@
                         </div>
                         <img class="card-image" src="BIO/bio_1.png" alt="Bio">
                     </a>
-                    <a class="card-item bio-item--photos" href="BIO/photos/01.jpg" data-fancybox="bio-photos">
+                    <a class="card-item bio-item--photos" href="BIO/photos/01.jpg">
                         <div class="card-label">
-                            <span class="lang-it">FOTO</span>
+                            <span class="lang-it ai-translated" data-ai-id="bio-label-foto-it">FOTO</span>
                             <span class="lang-en">PHOTO</span>
                         </div>
                         <img class="card-image" src="BIO/bio_2.png" alt="Photo">
                     </a>
                     <div id="bio-photos-gallery" hidden aria-hidden="true"></div>
-                    <a class="card-item bio-item--documents" href="BIO/documents/01.jpg" data-fancybox="bio-documents">
+                    <a class="card-item bio-item--documents" href="BIO/documents/01.jpg">
                         <div class="card-label">
-                            <span class="lang-it">DOCUMENTI</span>
+                            <span class="lang-it ai-translated" data-ai-id="bio-label-documenti-it">DOCUMENTI</span>
                             <span class="lang-en">DOCUMENTS</span>
                         </div>
                         <img class="card-image" src="BIO/bio_3.png" alt="Documents">
                     </a>
                     <div id="bio-documents-gallery" hidden aria-hidden="true"></div>
-                    <a class="card-item bio-item--press" href="BIO/press/01.jpg" data-fancybox="bio-press">
+                    <a class="card-item bio-item--press" href="BIO/press/01.jpg">
                         <div class="card-label">
-                            <span class="lang-it">STAMPA</span>
+                            <span class="lang-it ai-translated" data-ai-id="bio-label-stampa-it">STAMPA</span>
                             <span class="lang-en">PRESS</span>
                         </div>
                         <img class="card-image" src="BIO/bio_4.png" alt="Press">

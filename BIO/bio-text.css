@@ -5,7 +5,7 @@
     --ref-w: 1920;
     --ref-h: 1080;
 
-    --text-scale: 1.5;
+    --text-scale: 0.75;
     --footer-zone-fr: 19%;
     --switcher-scale: 1.18;
 
@@ -33,8 +33,7 @@
     --scroll-btn-d: calc(85 / var(--ref-h) * 100cqh);
     --scroll-arrows-stack-gap: calc(18 / var(--ref-h) * 100cqh);
     --scroll-btn-border: #4a4a4a;
-    --footer-pad-top: calc(14 / var(--ref-h) * 100cqh);
-    --scroll-arrows-above-switcher: calc(10 / var(--ref-h) * 100cqh);
+    --text-bottom-lift: 50px;
     --switcher-bottom-pad: 0;
 
 * {
@@ -70,7 +69,7 @@ em, i {
     min-height: 0;
     container-type: size;
     display: grid;
-    grid-template-rows: minmax(0, 1fr) var(--footer-zone-fr);
+    grid-template-rows: minmax(0, 1fr) calc(var(--footer-zone-fr) + var(--text-bottom-lift));
     align-items: stretch;
     justify-items: center;
     padding: var(--page-padding);
@@ -159,7 +158,7 @@ em, i {
     margin-top: 1.2em;
 }
 
-/* Footer: gap under text → arrows lower → switcher flush to bottom */
+/* Footer: arrows centered between text bottom and language switcher */
 .footer-zone {
     grid-row: 2;
     width: 100%;
@@ -167,9 +166,8 @@ em, i {
     min-height: 0;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
-    align-items: end;
+    align-items: center;
     justify-items: center;
-    padding-top: var(--footer-pad-top);
     padding-bottom: var(--switcher-bottom-pad);
 }
 
@@ -180,7 +178,8 @@ em, i {
     justify-content: center;
     gap: var(--scroll-arrows-stack-gap);
     min-height: 0;
-    margin-bottom: var(--scroll-arrows-above-switcher);
+    margin: 0;
+    align-self: center;
 }
 
 .scroll-btn {
@@ -219,8 +218,12 @@ em, i {
 }
 
 .page .css-switcher::before {
-    left: calc(-25 / 1080 * 100cqh * var(--switcher-scale));
+    left: calc(-15 / 1080 * 100cqh * var(--switcher-scale));
     right: calc(-10 / 1080 * 100cqh * var(--switcher-scale));
+}
+
+.page .css-switcher .switcher-left {
+    transform: translateX(calc(10 / 1080 * 100cqh * var(--switcher-scale)));
 }
 
 .page .css-switcher .switcher-divider {

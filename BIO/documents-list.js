@@ -7,12 +7,14 @@
  *
  * Fields per entry:
  *   file      — filename inside BIO/documents/
+ *   aspect    — width/height (premeasured; used for equal thumb visual gaps)
  *   captionIt — Italian description (multiline template literal)
  *   captionEn — English description (multiline template literal)
  */
 window.BIO_DOCUMENTS = [
     {
         file: '01.jpg',
+        aspect: 1.28,
         captionIt: `
             Mostra “L’artista e la contemporaneità”. Mosca, 1987.
             Da sinistra a destra:
@@ -26,6 +28,7 @@ window.BIO_DOCUMENTS = [
     },
     {
         file: '02.jpg',
+        aspect: 1.3624,
         captionIt: `
             Il Presidente e il Consiglio di Amministrazione di Sotheby’s
             hanno il piacere di invitarLa
@@ -59,10 +62,14 @@ window.BIO_DOCUMENTS = [
             12 Krasnopresnenskaya Embankment.
 
             Please bring this invitation with you.
-        `.trim()
+        `.trim(),
+        /* EN absent from _SOURCE/.../Documenti/2/dida2.docx (IT only) — likely auto-translated */
+        aiTranslatedEn: true,
+        aiIdEn: 'docs-sotheby-invite-en'
     },
     {
         file: '03.jpg',
+        aspect: 1.3665,
         captionIt: `
             Il Presidente e il Consiglio di Amministrazione di Sotheby’s
             hanno il piacere di invitarLa
@@ -96,15 +103,19 @@ window.BIO_DOCUMENTS = [
             12 Krasnopresnenskaya Embankment.
 
             Please bring this invitation with you.
-        `.trim()
+        `.trim(),
+        aiTranslatedEn: true,
+        aiIdEn: 'docs-sotheby-invite-en'
     },
     {
         file: '04.jpg',
+        aspect: 0.7089,
         captionIt: ``.trim(),
         captionEn: ``.trim()
     },
     {
         file: '05.jpg',
+        aspect: 0.7536,
         captionIt: `
             La mostra “L’artista e la contemporaneità” alla sala espositiva “Na Kaširke”, febbraio 1987.
             Da sinistra a destra: Grisha Bruskin, Evgenij Barabanov e Friedrich Dürrenmatt davanti al dipinto di Grisha Bruskin “Lessico Fondamentale” – prima parte.

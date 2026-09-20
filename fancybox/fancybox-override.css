@@ -9,15 +9,23 @@
     --fancybox-margin-right: 10vw;
 }
 
-/* ===== КОНТЕНТ И IFRAME — width same, height ×1.5 then −10% ===== */
+/* ===== КОНТЕНТ И IFRAME — width −20%; height +½ of each vertical screen gap ===== */
 .fancybox__slide.has-iframe .fancybox__content,
 .fancybox__slide.has-html .fancybox__content {
-    width: min(66vw, calc(61.5vh * 16 / 9)) !important;
-    height: min(83.025vh, calc(66vw * 243 / 320)) !important;
-    max-width: 66vw !important;
-    max-height: 83.025vh !important;
+    width: min(52.8vw, calc(49.2vh * 16 / 9)) !important;
+    /* was min(83.025vh, 66vw*243/320); grow by half the top gap + half the bottom gap */
+    height: min(
+        calc((83.025vh + 100vh) / 2 + 100px),
+        calc((52.8vw * 243 / 320 + 100vh) / 2 + 100px)
+    ) !important;
+    max-width: 52.8vw !important;
+    max-height: min(
+        calc((83.025vh + 100vh) / 2 + 100px),
+        calc((52.8vw * 243 / 320 + 100vh) / 2 + 100px)
+    ) !important;
     background: #b2b2b2 !important;
     position: relative !important;
+    overflow: visible !important;
     /* Fancybox default pad 32px; half the bottom gap so switcher sits mid-way to sheet edge */
     padding-bottom: 16px !important;
 }
@@ -59,6 +67,7 @@
 
 .fancybox__slide.has-iframe {
     padding: 0 !important;
+    overflow: visible !important;
 }
 
 .fancybox__backdrop {
@@ -120,20 +129,46 @@
     stroke: #333 !important;
 }
 
-/* Bio iframe: close pinned to sheet top-right (×1.5) */
+/* Bio iframe: hide native close — custom button sits outside the sheet (right) */
 .fancybox__slide.has-iframe .f-button.is-close-btn,
-.fancybox__slide.has-iframe .fancybox__close {
-    top: 0.45rem !important;
-    right: 0.45rem !important;
-    width: 3.525rem !important;
-    height: 3.525rem !important;
-    border-width: 1.5px !important;
+.fancybox__slide.has-iframe .fancybox__close,
+.fancybox__slide.has-iframe .fancybox__toolbar {
+    display: none !important;
 }
 
-.fancybox__slide.has-iframe .f-button.is-close-btn svg,
-.fancybox__slide.has-iframe .fancybox__close svg {
-    width: 1.95rem !important;
-    height: 1.95rem !important;
+.bio-iframe-close {
+    all: unset;
+    --bio-iframe-close-d: calc(min(100vh, calc(100vw * 9 / 16)) * 0.055);
+    --bio-iframe-close-gap: 30px;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    right: auto;
+    transform: translateX(var(--bio-iframe-close-gap));
+    width: var(--bio-iframe-close-d);
+    height: var(--bio-iframe-close-d);
+    border: calc(var(--bio-iframe-close-d) * 0.045) solid #ffffff;
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100000;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.bio-iframe-close svg {
+    display: block;
+    width: calc(var(--bio-iframe-close-d) * 0.42);
+    height: calc(var(--bio-iframe-close-d) * 0.42);
+    color: #ffffff;
+}
+
+.bio-iframe-close:hover {
+    transform: translateX(var(--bio-iframe-close-gap)) scale(1.04);
 }
 
 /* ===== БОКОВЫЕ СТРЕЛКИ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ ===== */
@@ -159,7 +194,7 @@
     }
 }
 
-/* ===== МИНИАТЮРЫ — ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ В 2 РАЗА ===== */
+/* ===== МИНИАТЮРЫ — как на origin/main (утренняя синхронизация) ===== */
 /* Контейнер миниатюры */
 .f-thumbs__slide {
     width: 180px !important;
@@ -233,30 +268,38 @@
     /* Photo top stays on frame; chrome/thumbs shift down by nudge */
     --bio-inset-top: var(--bio-inset-y);
     --bio-inset-bottom: calc(var(--bio-inset-y) - var(--bio-nudge-y));
-    --bio-thumb-width: 144px;  /* 180 × 0.8 */
-    --bio-thumb-height: 108px; /* 135 × 0.8 */
+    /* Thumbs bottom on page black frame; −20% size → top edge drops, bottom stays */
+    --bio-thumbs-bottom: var(--bio-inset-y);
+    --bio-thumb-width: calc(144px * 0.8);   /* was 144 */
+    --bio-thumb-height: calc(108px * 0.8);  /* was 108 */
     --bio-thumbs-stack: var(--bio-thumb-height);
-    /* Caption ×2 vs prior (2rem/3); bottom anchored above thumbs, grows up */
-    --bio-caption-font: calc(4rem / 3);
+    /* Caption −20%; photo −10%; caption mid of actual photo↔thumbs gap */
+    --bio-caption-font: calc(4rem / 3 * 0.8);
     --bio-caption-pad-y: 6px;
-    --bio-caption-gap: 6px;
-    --bio-caption-reserve: calc(var(--bio-caption-font) * 1.35 + var(--bio-caption-pad-y) * 2 + var(--bio-caption-gap) + 16px);
-    --bio-photo-max-w: calc(90vw * 0.85);
-    /* Shorter photo so bottom sits above taller caption band */
-    --bio-photo-max-h: calc(
-        100vh - var(--bio-inset-top) - var(--bio-inset-bottom)
-            - var(--bio-thumbs-stack) - var(--bio-caption-reserve)
+    --bio-caption-gap: 4px;
+    --bio-photo-thumbs-gap: 40px;
+    --bio-photo-slot-h: calc(
+        100vh - var(--bio-inset-top) - var(--bio-thumbs-bottom)
+            - var(--bio-thumbs-stack) - var(--bio-photo-thumbs-gap)
     );
+    --bio-photo-max-w: calc(90vw * 0.85 * 0.9);
+    --bio-photo-max-h: calc(var(--bio-photo-slot-h) * 0.9);
+    /* Freed 10% of photo slot joins the caption band */
+    --bio-caption-gap-total: calc(var(--bio-photo-thumbs-gap) + var(--bio-photo-slot-h) * 0.1);
+    --bio-caption-reserve: var(--bio-caption-gap-total);
+    /* Thumbs top = bottom + height; caption center = mid of photo-bottom↔thumbs-top */
+    --bio-caption-band-bottom: calc(var(--bio-thumbs-bottom) + var(--bio-thumb-height));
     --bio-close-size: calc(var(--bio-stage-h) * 0.055);
     --bio-close-gap: 30px;
-    --bio-nav-inset: 18vw;
     --bio-nav-size: calc(var(--bio-stage-h) * 0.085);
+    /* Push nav outward by one button diameter so horizontal photos clear */
+    --bio-nav-inset: max(8px, calc(18vw - var(--bio-nav-size)));
 }
 
 .bio-photos-gallery .fancybox__backdrop,
 .bio-documents-gallery .fancybox__backdrop,
 .bio-press-gallery .fancybox__backdrop {
-    background: rgba(0, 0, 0, 0.75) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
 }
 
 .bio-photos-gallery .fancybox__toolbar,
@@ -325,11 +368,12 @@
     pointer-events: none !important;
 }
 
+/* Thumbs logic from origin/main; bottom keeps current tuned frame position */
 .bio-photos-gallery .fancybox__thumbs,
 .bio-documents-gallery .fancybox__thumbs,
 .bio-press-gallery .fancybox__thumbs {
     --f-thumbs-gap: 0;
-    bottom: var(--bio-inset-bottom) !important;
+    bottom: var(--bio-thumbs-bottom) !important;
     height: var(--bio-thumb-height) !important;
     padding: 0 !important;
     padding-bottom: 0 !important;
@@ -364,8 +408,9 @@
     position: absolute;
     left: 50%;
     top: auto;
-    bottom: calc(var(--bio-inset-bottom) + var(--bio-thumb-height) + var(--bio-caption-gap));
-    transform: translateX(-50%);
+    /* Midpoint between photo bottom and thumbs top */
+    bottom: calc(var(--bio-caption-band-bottom) + var(--bio-caption-gap-total) / 2);
+    transform: translate(-50%, 50%);
     z-index: 40;
     width: min(70vw, 560px);
     box-sizing: border-box;
@@ -476,16 +521,18 @@
 .bio-photos-gallery .fancybox__nav .f-button[disabled],
 .bio-documents-gallery .fancybox__nav .f-button[disabled],
 .bio-press-gallery .fancybox__nav .f-button[disabled] {
-    opacity: 0.35 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
 }
 
 @media (max-width: 768px) {
     .bio-photos-gallery,
     .bio-documents-gallery,
     .bio-press-gallery {
-        --bio-thumb-width: 96px;  /* 120 × 0.8 */
-        --bio-thumb-height: 72px; /* 90 × 0.8 */
-        --bio-nav-inset: 8vw;
+        --bio-thumb-width: calc(96px * 0.8);
+        --bio-thumb-height: calc(72px * 0.8);
+        --bio-nav-inset: max(8px, calc(8vw - var(--bio-nav-size)));
     }
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
@@ -499,8 +546,8 @@
     .bio-photos-gallery,
     .bio-documents-gallery,
     .bio-press-gallery {
-        --bio-thumb-width: 176px;  /* 220 × 0.8 */
-        --bio-thumb-height: 132px; /* 165 × 0.8 */
+        --bio-thumb-width: calc(176px * 0.8);
+        --bio-thumb-height: calc(132px * 0.8);
     }
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
@@ -618,6 +665,10 @@
 
 .questions-video-gallery .questions-video-close:hover {
     transform: translate(42%, -42%) scale(1.04);
+}
+
+.questions-video-gallery .fancybox__nav {
+    display: none !important;
 }
 
 .questions-video-gallery .fancybox__nav .f-button {

@@ -178,16 +178,21 @@ body {
     position: absolute;
     top: var(--switcher-top);
     left: 50%;
-    /* language ::before −25/−10 — center the visible oval, not the content box */
-    transform: translateX(calc(-50% + 7.5 / 1080 * 100cqh));
+    /* language ::before −15/−10 — center the visible oval, not the content box */
+    transform: translateX(calc(-50% + 2.5 / 1080 * 100cqh));
     margin: 0;
     background-color: var(--bg);
     border-color: transparent;
 }
 
 .container .css-switcher::before {
+    left: calc(-15 / 1080 * 100cqh);
     border-color: #9a9a9a;
     background-color: var(--bg);
+}
+
+.container .css-switcher .switcher-left {
+    transform: translateX(calc(10 / 1080 * 100cqh));
 }
 
 .page .css-switcher .switcher-label,

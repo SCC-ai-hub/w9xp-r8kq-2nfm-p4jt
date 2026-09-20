@@ -200,15 +200,43 @@
         btnDown.disabled = atBottom;
     }
 
-    // ВОТ ЗДЕСЬ: гораздо более плавный автоскролл
-    // Вместо native 'behavior: smooth' реализуем кастомную анимацию с меньшей скоростью
+    var scrollAnimating = false;
+    var burstCount = 0;
+    var lastDir = 0;
+    var pendingDir = 0;
+    var idleTimer = null;
+    var IDLE_RESET_MS = 900;
 
-    function animatedScrollBy(pixels, cb) {
+    function scrollStep() {
+        return Math.max(144, textSection.clientHeight * 0.16);
+    }
+
+    function armIdleReset() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(function () {
+            burstCount = 0;
+            lastDir = 0;
+            pendingDir = 0;
+        }, IDLE_RESET_MS);
+    }
+
+    function canScroll(direction) {
+        if (direction < 0) {
+            return btnUp && !btnUp.classList.contains('scroll-btn--inactive');
+        }
+        return btnDown && !btnDown.classList.contains('scroll-btn--inactive');
+    }
+
+    function animatedScrollBy(pixels, onDone) {
         var start = textSection.scrollTop;
         var end = Math.max(0, Math.min(start + pixels, maxScroll()));
         var total = end - start;
-        if (total === 0) { if(cb)cb(); return; }
-        var duration = 550; // длиннее = еще плавнее
+        if (total === 0) {
+            if (onDone) onDone();
+            return;
+        }
+        scrollAnimating = true;
+        var duration = 550;
         var startTime = null;
 
         function step(ts) {
@@ -216,10 +244,10 @@
             var t = (ts - startTime) / duration;
             if (t >= 1) {
                 textSection.scrollTop = end;
-                if (cb) cb();
+                scrollAnimating = false;
+                if (onDone) onDone();
                 return;
             }
-            // очень плавная easeInOut
             var ease = t < 0.5
                 ? 4 * t * t * t
                 : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -229,26 +257,69 @@
         requestAnimationFrame(step);
     }
 
-    function scrollStep() {
-        // Еще более плавный: уменьшаем шаг, увеличиваем прокручиваемый интервал
-        return Math.max(144, textSection.clientHeight * 0.16);
+    function finishScrollCycle() {
+        updateScrollArrows();
+        if (pendingDir && canScroll(pendingDir)) {
+            var dir = pendingDir;
+            pendingDir = 0;
+            startScroll(dir, false);
+            return;
+        }
+        pendingDir = 0;
+        armIdleReset();
+    }
+
+    function startScroll(direction, countTap) {
+        if (countTap) {
+            if (direction !== lastDir) {
+                burstCount = 0;
+                lastDir = direction;
+            }
+            burstCount += 1;
+            clearTimeout(idleTimer);
+        }
+        if (!canScroll(direction)) {
+            burstCount = 0;
+            pendingDir = 0;
+            updateScrollArrows();
+            return;
+        }
+        var mult = burstCount >= 3 ? 2 : 1;
+        animatedScrollBy(direction * scrollStep() * mult, finishScrollCycle);
+    }
+
+    function onArrowClick(direction) {
+        if (!canScroll(direction)) return;
+        if (scrollAnimating) {
+            if (direction !== lastDir) {
+                burstCount = 0;
+                lastDir = direction;
+            }
+            burstCount += 1;
+            pendingDir = direction;
+            clearTimeout(idleTimer);
+            return;
+        }
+        startScroll(direction, true);
     }
 
     function resetScroll() {
         textSection.scrollTop = 0;
+        burstCount = 0;
+        lastDir = 0;
+        pendingDir = 0;
+        clearTimeout(idleTimer);
         updateScrollbar();
     }
 
     if (btnUp) {
         btnUp.addEventListener('click', function () {
-            if (btnUp.classList.contains('scroll-btn--inactive')) return;
-            animatedScrollBy(-scrollStep());
+            onArrowClick(-1);
         });
     }
     if (btnDown) {
         btnDown.addEventListener('click', function () {
-            if (btnDown.classList.contains('scroll-btn--inactive')) return;
-            animatedScrollBy(scrollStep());
+            onArrowClick(1);
         });
     }
 
