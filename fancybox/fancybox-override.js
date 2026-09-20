@@ -872,37 +872,41 @@ function initArtworksFancybox() {
         return;
     }
 
-    if (!document.querySelector('[data-fancybox^="artwork-"]')) {
+    if (!document.querySelector('[data-fancybox="artworks"]')) {
         return;
     }
 
-    /* Unique data-fancybox values → one image, no carousel / next-prev */
-    Fancybox.bind('[data-fancybox^="artwork-"]', {
-        mainClass: 'artworks-lightbox',
-        groupAll: false,
-        closeButton: true,
-        dragToClose: true,
+    /* Shared data-fancybox="artworks" → carousel with next/prev like Alefbet/Bio */
+    Fancybox.bind('[data-fancybox="artworks"]', {
+        mainClass: 'artworks-gallery',
+        closeButton: false,
+        dragToClose: false,
         animated: true,
+        showClass: 'f-zoomInUp',
+        hideClass: 'f-zoomOutDown',
         Carousel: {
-            Navigation: false
+            infinite: false
+        },
+        Thumbs: {
+            showOnStart: true
         },
         Toolbar: {
             display: {
                 left: [],
                 middle: [],
-                right: ['close']
+                right: []
             }
         },
-        keyboard: {
-            Escape: 'close',
-            Delete: 'close',
-            Backspace: 'close',
-            PageUp: false,
-            PageDown: false,
-            ArrowUp: false,
-            ArrowDown: false,
-            ArrowRight: false,
-            ArrowLeft: false
+        on: {
+            done: function (fancybox) {
+                layoutBioImageGalleryChrome(fancybox);
+            },
+            reveal: function (fancybox) {
+                layoutBioImageGalleryChrome(fancybox);
+            },
+            'Carousel.change': function (fancybox) {
+                layoutBioImageGalleryChrome(fancybox);
+            }
         }
     });
 }
