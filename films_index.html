@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="card-grid-page.css">
     <link rel="stylesheet" href="ai-translated-review.css">
     <link rel="stylesheet" href="films_index.css">
+    <link rel="stylesheet" href="fancybox/fancybox.css">
+    <link rel="stylesheet" href="fancybox/fancybox-override.css">
+    <script src="fancybox/fancybox.umd.js"></script>
+    <script src="films/films-list.js"></script>
+    <script src="fancybox/fancybox-override.js"></script>
     <script src="language-switcher.js" defer></script>
     <script src="scroll-grid.js" defer></script>
     <style>
@@ -59,9 +64,9 @@
                         <div class="films-track">
 
                             <div class="films-page">
-                                <article class="film-item">
+                                <a class="film-item film-item--trigger" href="films/01.jpg">
                                     <div class="film-thumb">
-                                        <img class="film-image" src="films/01.jpg" alt="La nascita di un eroe">
+                                        <img class="film-image" src="films/01.jpg" alt="Film">
                                         <span class="film-play" aria-hidden="true">
                                             <svg class="film-play__icon" viewBox="0 0 24 24">
                                                 <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
@@ -69,129 +74,13 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <div class="film-meta">
-                                        <div class="lang-it">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-it">LA NASCITA DI UN EROE</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-it">Ciclo Tv Gallery, canale televisivo Ostankino</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-it">Regista: Nina Zareckaja</p>
-                                        </div>
-                                        <div class="lang-en">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-en">THE BIRTH OF A HERO</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-en">TV Gallery cycle, Ostankino television channel</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-en">Director: Nina Zareckaja</p>
-                                        </div>
-                                    </div>
-                                </article>
-
-                                <article class="film-item">
-                                    <div class="film-thumb">
-                                        <img class="film-image" src="films/02.jpg" alt="La nascita di un eroe">
-                                        <span class="film-play" aria-hidden="true">
-                                            <svg class="film-play__icon" viewBox="0 0 24 24">
-                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
-                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="film-meta">
-                                        <div class="lang-it">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-it">LA NASCITA DI UN EROE</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-it">Ciclo Tv Gallery, canale televisivo Ostankino</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-it">Regista: Nina Zareckaja</p>
-                                        </div>
-                                        <div class="lang-en">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-en">THE BIRTH OF A HERO</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-en">TV Gallery cycle, Ostankino television channel</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-en">Director: Nina Zareckaja</p>
-                                        </div>
-                                    </div>
-                                </article>
-
-                                <article class="film-item">
-                                    <div class="film-thumb">
-                                        <img class="film-image" src="films/03.jpg" alt="La nascita di un eroe">
-                                        <span class="film-play" aria-hidden="true">
-                                            <svg class="film-play__icon" viewBox="0 0 24 24">
-                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
-                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="film-meta">
-                                        <div class="lang-it">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-it">LA NASCITA DI UN EROE</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-it">Ciclo Tv Gallery, canale televisivo Ostankino</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-it">Regista: Nina Zareckaja</p>
-                                        </div>
-                                        <div class="lang-en">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-en">THE BIRTH OF A HERO</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-en">TV Gallery cycle, Ostankino television channel</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-en">Director: Nina Zareckaja</p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-
-                            <div class="films-page">
-                                <article class="film-item">
-                                    <div class="film-thumb">
-                                        <img class="film-image" src="films/04.jpg" alt="La nascita di un eroe">
-                                        <span class="film-play" aria-hidden="true">
-                                            <svg class="film-play__icon" viewBox="0 0 24 24">
-                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
-                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="film-meta">
-                                        <div class="lang-it">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-it">LA NASCITA DI UN EROE</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-it">Ciclo Tv Gallery, canale televisivo Ostankino</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-it">Regista: Nina Zareckaja</p>
-                                        </div>
-                                        <div class="lang-en">
-                                            <p class="film-heading">
-                                                <span class="film-year">1992.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title ai-translated" data-ai-id="films-title-en">THE BIRTH OF A HERO</span>
-                                            </p>
-                                            <p class="film-source ai-translated" data-ai-id="films-source-en">TV Gallery cycle, Ostankino television channel</p>
-                                            <p class="film-credit ai-translated" data-ai-id="films-credit-en">Director: Nina Zareckaja</p>
-                                        </div>
-                                    </div>
-                                </article>
+                                </a>
+                                <div id="films-gallery" hidden aria-hidden="true"></div>
                             </div>
 
                         </div>
                     </div>
+
                 </div>
 
                 <div class="switchers-row">

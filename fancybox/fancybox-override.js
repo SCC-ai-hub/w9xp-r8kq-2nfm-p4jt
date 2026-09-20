@@ -166,6 +166,24 @@ var bioImageGalleries = [
         triggerSelector: '.bio-item--press',
         containerId: 'bio-press-gallery',
         initialized: false
+    },
+    {
+        fancyboxGroup: 'films-gallery',
+        mainClass: 'films-gallery',
+        getItems: function () { return window.FILMS_IMAGES; },
+        folder: 'films/',
+        triggerSelector: '.film-item--trigger',
+        containerId: 'films-gallery',
+        initialized: false
+    },
+    {
+        fancyboxGroup: 'books-gallery',
+        mainClass: 'books-gallery',
+        getItems: function () { return window.BOOKS_IMAGES; },
+        folder: 'books/',
+        triggerSelector: '.book-item--trigger',
+        containerId: 'books-gallery',
+        initialized: false
     }
 ];
 
