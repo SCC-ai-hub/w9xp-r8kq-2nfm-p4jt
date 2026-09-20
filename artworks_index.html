@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="card-grid-page.css">
     <link rel="stylesheet" href="artworks_index.css">
     <link rel="stylesheet" href="fancybox/fancybox.css">
-    <link rel="stylesheet" href="fancybox/fancybox-override.css">
+    <link rel="stylesheet" href="fancybox/fancybox-override.css?v=artworks-bio-pattern">
     <script src="fancybox/fancybox.umd.js"></script>
     <script src="artworks/alefbet-list.js"></script>
-    <script src="fancybox/fancybox-override.js"></script>
+    <script src="artworks/artworks-list.js?v=artworks-bio-pattern"></script>
+    <script src="fancybox/fancybox-override.js?v=artworks-bio-pattern"></script>
     <script src="language-switcher.js" defer></script>
     <script src="scroll-grid.js" defer></script>
     <style>
@@ -66,7 +67,7 @@
                                 </a>
                                 <div id="artwork-alefbet-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item" href="artworks/Archaeologist.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/Archaeologist.jpg" data-artwork-index="0">
                                     <div class="card-label">
                                         <span class="lang-en">An Archaeologist's Collection</span>
                                         <span class="lang-it">La collezione di un archeologo</span>
@@ -74,7 +75,7 @@
                                     <img class="card-image" src="artworks/Archaeologist.jpg" alt="An Archaeologist's Collection">
                                 </a>
 
-                                <a class="card-item" href="artworks/Dies-Illa.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/Dies-Illa.jpg" data-artwork-index="1">
                                     <div class="card-label">
                                         <span class="lang-en">Dies Illa</span>
                                         <span class="lang-it">Dies Illa</span>
@@ -82,7 +83,7 @@
                                     <img class="card-image" src="artworks/Dies-Illa.jpg" alt="Dies Illa">
                                 </a>
 
-                                <a class="card-item" href="artworks/FundamentalLexicon.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/FundamentalLexicon.jpg" data-artwork-index="2">
                                     <div class="card-label">
                                         <span class="lang-en">Fundamental Lexicon</span>
                                         <span class="lang-it">Lessico fondamentale</span>
@@ -90,7 +91,7 @@
                                     <img class="card-image" src="artworks/FundamentalLexicon.jpg" alt="Fundamental Lexicon">
                                 </a>
 
-                                <a class="card-item" href="artworks/X-Hour.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/X-Hour.jpg" data-artwork-index="3">
                                     <div class="card-label">
                                         <span class="lang-en">H-Hour</span>
                                         <span class="lang-it">L'Ora X</span>
@@ -98,7 +99,7 @@
                                     <img class="card-image" src="artworks/X-Hour.jpg" alt="H-Hour">
                                 </a>
 
-                                <a class="card-item" href="artworks/LifeAboveAll.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/LifeAboveAll.jpg" data-artwork-index="4">
                                     <div class="card-label">
                                         <span class="lang-en">Life Above All</span>
                                         <span class="lang-it">La vita soprattutto</span>
@@ -108,7 +109,7 @@
                             </div>
 
                             <div class="artworks-page">
-                                <a class="card-item" href="artworks/OnTheEdge.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/OnTheEdge.jpg" data-artwork-index="5">
                                     <div class="card-label">
                                         <span class="lang-en">On the Edge</span>
                                         <span class="lang-it">In bilico</span>
@@ -116,7 +117,7 @@
                                     <img class="card-image" src="artworks/OnTheEdge.jpg" alt="On the Edge">
                                 </a>
 
-                                <a class="card-item" href="artworks/SceneChange.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/SceneChange.jpg" data-artwork-index="6">
                                     <div class="card-label">
                                         <span class="lang-en">Scene Change</span>
                                         <span class="lang-it">Cambio di scena</span>
@@ -124,13 +125,15 @@
                                     <img class="card-image" src="artworks/SceneChange.jpg" alt="Scene Change">
                                 </a>
 
-                                <a class="card-item" href="artworks/TheGreatTomorrow.jpg" data-fancybox="artworks">
+                                <a class="card-item artwork-item--series" href="artworks/TheGreatTomorrow.jpg" data-artwork-index="7">
                                     <div class="card-label">
                                         <span class="lang-en">The Great Tomorrow</span>
                                         <span class="lang-it">Il grande domani</span>
                                     </div>
                                     <img class="card-image" src="artworks/TheGreatTomorrow.jpg" alt="The Great Tomorrow">
                                 </a>
+
+                                <div id="artwork-series-gallery" hidden aria-hidden="true"></div>
                             </div>
 
                         </div>

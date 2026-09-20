@@ -141,6 +141,16 @@ var bioImageGalleries = [
         initialized: false
     },
     {
+        fancyboxGroup: 'artwork-series',
+        mainClass: 'artworks-series-gallery',
+        getItems: function () { return window.ARTWORKS_IMAGES; },
+        folder: 'artworks/',
+        triggerSelector: '.artwork-item--series',
+        containerId: 'artwork-series-gallery',
+        openAtTriggerIndex: true,
+        initialized: false
+    },
+    {
         fancyboxGroup: 'bio-photos',
         mainClass: 'bio-photos-gallery',
         getItems: function () { return window.BIO_PHOTOS; },
@@ -283,16 +293,34 @@ function applyBioGalleryItemData(anchor, item, folder, index, group) {
 
 function buildBioImageGallery(config) {
     var items = config.getItems();
-    var trigger = document.querySelector(config.triggerSelector);
+    var triggers = document.querySelectorAll(config.triggerSelector);
     var container = document.getElementById(config.containerId);
 
-    if (!items || !items.length || !trigger || !container) {
+    if (!items || !items.length || !triggers.length || !container) {
         return;
     }
 
-    /* Card is a manual opener — strip Fancybox auto-bind attrs */
-    trigger.removeAttribute('data-fancybox');
-    applyBioGalleryItemData(trigger, items[0], config.folder, 0, config.fancyboxGroup);
+    /* Cards are manual openers — strip Fancybox auto-bind attrs */
+    for (var t = 0; t < triggers.length; t++) {
+        var trigger = triggers[t];
+        trigger.removeAttribute('data-fancybox');
+
+        var triggerIndex = parseInt(trigger.getAttribute('data-artwork-index'), 10);
+        if (isNaN(triggerIndex) || triggerIndex < 0) {
+            triggerIndex = config.openAtTriggerIndex ? t : 0;
+        }
+        if (triggerIndex >= items.length) {
+            triggerIndex = 0;
+        }
+
+        applyBioGalleryItemData(
+            trigger,
+            items[triggerIndex],
+            config.folder,
+            triggerIndex,
+            config.fancyboxGroup
+        );
+    }
 
     container.innerHTML = '';
 
@@ -414,23 +442,44 @@ function openBioImageGallery(config, startIndex) {
 }
 
 function bindBioGalleryResumeTrigger(config) {
-    var trigger = document.querySelector(config.triggerSelector);
-    if (!trigger || trigger.getAttribute('data-bio-resume-bound') === '1') {
+    var triggers = document.querySelectorAll(config.triggerSelector);
+    if (!triggers.length) {
         return;
     }
-    trigger.setAttribute('data-bio-resume-bound', '1');
 
-    trigger.addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        var last = bioGalleryResumeIndex[config.fancyboxGroup];
-        if (typeof last !== 'number' || last < 0) {
-            last = 0;
+    for (var i = 0; i < triggers.length; i++) {
+        var trigger = triggers[i];
+        if (trigger.getAttribute('data-bio-resume-bound') === '1') {
+            continue;
         }
+        trigger.setAttribute('data-bio-resume-bound', '1');
 
-        openBioImageGallery(config, last);
-    });
+        (function (el) {
+            el.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var startIndex = 0;
+
+                if (config.openAtTriggerIndex) {
+                    var idx = parseInt(
+                        el.getAttribute('data-artwork-index') || el.getAttribute('data-bio-index'),
+                        10
+                    );
+                    if (!isNaN(idx) && idx >= 0) {
+                        startIndex = idx;
+                    }
+                } else {
+                    var last = bioGalleryResumeIndex[config.fancyboxGroup];
+                    if (typeof last === 'number' && last >= 0) {
+                        startIndex = last;
+                    }
+                }
+
+                openBioImageGallery(config, startIndex);
+            });
+        })(trigger);
+    }
 }
 
 function getActiveBioImageGalleryConfig() {
@@ -867,57 +916,12 @@ function initBooksFancybox() {
     });
 }
 
-function initArtworksFancybox() {
-    if (typeof Fancybox === 'undefined') {
-        return;
-    }
-
-    if (!document.querySelector('[data-fancybox="artworks"]')) {
-        return;
-    }
-
-    /* Shared data-fancybox="artworks" → carousel with next/prev like Alefbet/Bio */
-    Fancybox.bind('[data-fancybox="artworks"]', {
-        mainClass: 'artworks-gallery',
-        closeButton: false,
-        dragToClose: false,
-        animated: true,
-        showClass: 'f-zoomInUp',
-        hideClass: 'f-zoomOutDown',
-        Carousel: {
-            infinite: false
-        },
-        Thumbs: {
-            showOnStart: true
-        },
-        Toolbar: {
-            display: {
-                left: [],
-                middle: [],
-                right: []
-            }
-        },
-        on: {
-            done: function (fancybox) {
-                layoutBioImageGalleryChrome(fancybox);
-            },
-            reveal: function (fancybox) {
-                layoutBioImageGalleryChrome(fancybox);
-            },
-            'Carousel.change': function (fancybox) {
-                layoutBioImageGalleryChrome(fancybox);
-            }
-        }
-    });
-}
-
 function initFancybox() {
     initFancyboxIframe();
     initBioFancybox();
     initBioImageGalleries();
     initQuestionsVideoFancybox();
     initBooksFancybox();
-    initArtworksFancybox();
 }
 
 document.addEventListener('DOMContentLoaded', initFancybox);
