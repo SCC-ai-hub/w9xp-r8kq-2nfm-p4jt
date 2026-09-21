@@ -3,3 +3,58 @@ compare-png/
 *.log
 .DS_Store
 Thumbs.db
+
+# Local audit / scratch (not site runtime)
+_audit/
+_cmp_*.jpg
+fancybox/_backup*/
+
+# Design reference assets (optional local); keep already-tracked files as-is
+# reference/ — leave tracked; do not auto-add new bulk here
+
+# Source masters not served by the site
+**/ORIG/
+**/*.psd
+**/*.CR2
+**/*.dop
+**/*_DxO.jpg
+**/*.tif
+**/*.tiff
+**/*.docx
+BIO/documents/*.txt
+
+# Unreferenced media variants
+artworks/IL_Grande_Domani/*.mov
+artworks/Performance/Performance_deinterlace.mp4
+artworks/Performance/FF *.png
+artworks/Performance/VirtualDub.png
+artworks/Scene_Change/05 Scene_Change (iPad version).mp4
+artworks/TheGreatTomorrow.jpg
+placeholder.png
+
+# H-Hour: site gallery uses PNG for these sculptures (JPG duplicates unused)
+artworks/H-Hour/7.Soldier-Killer.jpg
+artworks/H-Hour/8.Aid.jpg
+artworks/H-Hour/10.Man Running from a Dog.jpg
+artworks/H-Hour/11.The Crowd.2.jpg
+artworks/H-Hour/15.Twins.jpg
+artworks/H-Hour/20.Horseman in a Gas Mask.jpg
+artworks/H-Hour/23.Beggar.jpg
+artworks/H-Hour/24.Starving Dogs.jpg
+artworks/H-Hour/29.Ruined Characters.1.jpg
+artworks/H-Hour/37.Melancholy Androgynous Warriors.3.jpg
+
+# Film source originals (site uses *_trim.mp4 + JPG posters)
+films/*.mov
+films/*.m4v
+
+# Questions-video: only *_trim*.mp4 are wired in questions-video.html
+questions-video/Copia di *_mono.mp4
+questions-video/Copia di 01_mono_trim.mp4
+
+# Font pack leftovers — site uses only Regular/Medium/Bold/Italic in fonts/
+fonts/static/
+fonts/*VariableFont*
+fonts/noto-sans-display.zip
+fonts/OFL.txt
+fonts/README.txt

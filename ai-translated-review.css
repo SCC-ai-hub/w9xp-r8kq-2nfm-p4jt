@@ -1,4 +1,5 @@
-/* Temporary review: AI-translated UI strings (see _audit/ai-translations.tsv) */
+/* Temporary review: AI-translated UI strings (see _audit/ai-translations.tsv).
+   Red highlight disabled — keep class/data-ai-id for audit tooling. */
 .ai-translated {
-    color: #c00 !important;
+    color: inherit;
 }

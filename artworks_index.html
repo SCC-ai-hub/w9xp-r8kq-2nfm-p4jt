@@ -11,15 +11,17 @@
     <link rel="stylesheet" href="navigation.css">
     <link rel="stylesheet" href="page-arrows.css">
     <link rel="stylesheet" href="card-grid-page.css">
-    <link rel="stylesheet" href="artworks_index.css">
+    <link rel="stylesheet" href="artworks_index.css?v=hide-dies-life">
     <link rel="stylesheet" href="fancybox/fancybox.css">
-    <link rel="stylesheet" href="fancybox/fancybox-override.css?v=artworks-gallery-css-fix">
+    <link rel="stylesheet" href="fancybox/fancybox-override.css?v=thumbs-z45">
     <script src="fancybox/fancybox.umd.js"></script>
     <script src="artworks/alefbet-list.js"></script>
-    <script src="artworks/artworks-list.js?v=artworks-gallery-css-fix"></script>
-    <script src="fancybox/fancybox-override.js?v=artworks-gallery-css-fix"></script>
+    <script src="artworks/artworks-list.js?v=scene-hide-01"></script>
+    <script src="fancybox/no-translation-captions.js"></script>
+    <script src="fancybox/fancybox-override.js?v=thumbs-z45"></script>
     <script src="language-switcher.js" defer></script>
     <script src="scroll-grid.js" defer></script>
+    <script src="artworks-cover-hq.js" defer></script>
     <style>
         /* ref page3 — erase this block to revert */
         :root {
@@ -67,73 +69,104 @@
                                 </a>
                                 <div id="artwork-alefbet-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item artwork-item--series" href="artworks/Archaeologist.jpg" data-artwork-index="0">
+                                <a class="card-item artwork-item--archaeologist" href="#">
                                     <div class="card-label">
                                         <span class="lang-en">An Archaeologist's Collection</span>
                                         <span class="lang-it">La collezione di un archeologo</span>
                                     </div>
                                     <img class="card-image" src="artworks/Archaeologist.jpg" alt="An Archaeologist's Collection">
                                 </a>
+                                <div id="artwork-archaeologist-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item artwork-item--series" href="artworks/Dies-Illa.jpg" data-artwork-index="1">
-                                    <div class="card-label">
-                                        <span class="lang-en">Dies Illa</span>
-                                        <span class="lang-it">Dies Illa</span>
-                                    </div>
-                                    <img class="card-image" src="artworks/Dies-Illa.jpg" alt="Dies Illa">
-                                </a>
-
-                                <a class="card-item artwork-item--series" href="artworks/FundamentalLexicon.jpg" data-artwork-index="2">
+                                <a class="card-item artwork-item--fundamental-lexicon" href="#">
                                     <div class="card-label">
                                         <span class="lang-en">Fundamental Lexicon</span>
                                         <span class="lang-it">Lessico fondamentale</span>
                                     </div>
                                     <img class="card-image" src="artworks/FundamentalLexicon.jpg" alt="Fundamental Lexicon">
                                 </a>
+                                <div id="artwork-fundamental-lexicon-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item artwork-item--series" href="artworks/X-Hour.jpg" data-artwork-index="3">
+                                <a class="card-item artwork-item--h-hour" href="#">
                                     <div class="card-label">
                                         <span class="lang-en">H-Hour</span>
                                         <span class="lang-it">L'Ora X</span>
                                     </div>
                                     <img class="card-image" src="artworks/X-Hour.jpg" alt="H-Hour">
                                 </a>
+                                <div id="artwork-h-hour-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item artwork-item--series" href="artworks/LifeAboveAll.jpg" data-artwork-index="4">
-                                    <div class="card-label">
-                                        <span class="lang-en">Life Above All</span>
-                                        <span class="lang-it">La vita soprattutto</span>
-                                    </div>
-                                    <img class="card-image" src="artworks/LifeAboveAll.jpg" alt="Life Above All">
-                                </a>
-                            </div>
-
-                            <div class="artworks-page">
-                                <a class="card-item artwork-item--series" href="artworks/OnTheEdge.jpg" data-artwork-index="5">
+                                <a class="card-item artwork-item--on-the-edge" href="#">
                                     <div class="card-label">
                                         <span class="lang-en">On the Edge</span>
                                         <span class="lang-it">In bilico</span>
                                     </div>
                                     <img class="card-image" src="artworks/OnTheEdge.jpg" alt="On the Edge">
                                 </a>
+                                <div id="artwork-on-the-edge-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item artwork-item--series" href="artworks/SceneChange.jpg" data-artwork-index="6">
+                                <a class="card-item artwork-item--performance" href="#">
+                                    <div class="card-label">
+                                        <span class="lang-en">Performance</span>
+                                        <span class="lang-it">Prestazione</span>
+                                    </div>
+                                    <img class="card-image" src="artworks/Performance/Performance.png" alt="Performance">
+                                </a>
+                                <div id="artwork-performance-gallery" hidden aria-hidden="true"></div>
+                            </div>
+
+                            <div class="artworks-page">
+                                <a class="card-item artwork-item--scene-change" href="#">
                                     <div class="card-label">
                                         <span class="lang-en">Scene Change</span>
                                         <span class="lang-it">Cambio di scena</span>
                                     </div>
                                     <img class="card-image" src="artworks/SceneChange.jpg" alt="Scene Change">
                                 </a>
+                                <div id="artwork-scene-change-gallery" hidden aria-hidden="true"></div>
 
-                                <a class="card-item artwork-item--series" href="artworks/TheGreatTomorrow.jpg" data-artwork-index="7">
+                                <a
+                                    class="card-item artwork-item--grande-domani"
+                                    href="artworks/IL_Grande_Domani/+++++ BВеликое завтра_trim.mp4"
+                                    data-artwork-video
+                                    data-poster="artworks/IL_Grande_Domani/Il grande domani.png"
+                                    data-html5video-format="video/mp4"
+                                >
                                     <div class="card-label">
                                         <span class="lang-en">The Great Tomorrow</span>
                                         <span class="lang-it">Il grande domani</span>
                                     </div>
-                                    <img class="card-image" src="artworks/TheGreatTomorrow.jpg" alt="The Great Tomorrow">
+                                    <div class="artwork-thumb">
+                                        <img
+                                            class="card-image"
+                                            src="artworks/IL_Grande_Domani/Il grande domani.png"
+                                            alt="Il grande domani"
+                                        >
+                                        <span class="artwork-play" aria-hidden="true">
+                                            <svg class="artwork-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
                                 </a>
 
-                                <div id="artwork-series-gallery" hidden aria-hidden="true"></div>
+                                <!-- Hidden series kept in DOM (not deleted) -->
+                                <div class="card-item" hidden aria-hidden="true">
+                                    <div class="card-label">
+                                        <span class="lang-en">Dies Illa</span>
+                                        <span class="lang-it">Dies Illa</span>
+                                    </div>
+                                    <img class="card-image" src="artworks/Dies-Illa.jpg" alt="Dies Illa">
+                                </div>
+
+                                <div class="card-item" hidden aria-hidden="true">
+                                    <div class="card-label">
+                                        <span class="lang-en">Life Above All</span>
+                                        <span class="lang-it">La vita soprattutto</span>
+                                    </div>
+                                    <img class="card-image" src="artworks/LifeAboveAll.jpg" alt="Life Above All">
+                                </div>
                             </div>
 
                         </div>

@@ -5,9 +5,10 @@
     --ref-w: 1920;
     --ref-h: 1080;
 
-    --text-scale: 0.75;
+    /* font +20%; switcher/scroll controls −20% */
+    --text-scale: 0.9;
     --footer-zone-fr: 19%;
-    --switcher-scale: 1.18;
+    --switcher-scale: 0.944;
 
     --page-padding: calc(28 / var(--ref-h) * 100cqh);
     --content-width: 92%;
@@ -30,11 +31,12 @@
     --switcher-font: calc(21 / 1080 * 100cqh * var(--switcher-scale));
     --circle-size: calc(42 / 1080 * 100cqh * var(--switcher-scale));
 
-    --scroll-btn-d: calc(85 / var(--ref-h) * 100cqh);
-    --scroll-arrows-stack-gap: calc(18 / var(--ref-h) * 100cqh);
+    --scroll-btn-d: calc(68 / var(--ref-h) * 100cqh);
+    --scroll-arrows-stack-gap: calc(14 / var(--ref-h) * 100cqh);
     --scroll-btn-border: #4a4a4a;
     --text-bottom-lift: 50px;
     --switcher-bottom-pad: 0;
+}
 
 * {
     user-select: none;

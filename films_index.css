@@ -19,7 +19,7 @@
     --film-meta-line: 1.58; /* same rhythm as heading wraps */
     --film-block-gap: 0; /* inter-block = inter-line */
     --film-credit-color: #676767;
-    --film-play-d: calc(50 / var(--ref-h) * 100cqh);
+    --film-play-d: calc(60 / var(--ref-h) * 100cqh); /* 50 × 1.2 */
 }
 
 .films-scroll {
@@ -75,6 +75,10 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .film-thumb {
@@ -107,6 +111,13 @@
     width: var(--film-play-d);
     height: var(--film-play-d);
     overflow: visible;
+}
+
+/* Triangle +30% vs original (icon already +20% → extra 1.3/1.2) */
+.film-play__icon path {
+    transform-box: view-box;
+    transform-origin: center;
+    transform: scale(1.083333);
 }
 
 /* ---------- Meta typography ---------- */

@@ -8,7 +8,7 @@ window.BOOKS_IMAGES = [
         captionEn: ''
     },
     {
-        file: "Vsjudu žizn' .2.jpg",
+        file: "Vsjudu žizn’ .2.jpg",
         captionIt: '',
         captionEn: ''
     },
@@ -18,7 +18,7 @@ window.BOOKS_IMAGES = [
         captionEn: ''
     },
     {
-        file: "Podrobnosti pis'mom.jpg",
+        file: "Podrobnosti pis’mom.jpg",
         captionIt: '',
         captionEn: ''
     },
@@ -48,7 +48,7 @@ window.BOOKS_IMAGES = [
         captionEn: ''
     },
     {
-        file: "Archaeologist's Collection.jpg",
+        file: "Archaeologist’s Collection.jpg",
         captionIt: '',
         captionEn: ''
     },
@@ -63,7 +63,7 @@ window.BOOKS_IMAGES = [
         captionEn: ''
     },
     {
-        file: "Klokočuščaja jarost'. Revoljucija i kontrrevoljucija v iskusstve.jpg",
+        file: "Klokočuščaja jarost’. Revoljucija i kontrrevoljucija v iskusstve.jpg",
         captionIt: '',
         captionEn: ''
     },

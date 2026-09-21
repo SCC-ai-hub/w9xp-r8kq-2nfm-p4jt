@@ -148,6 +148,20 @@
             return best;
         }
 
+        function nearestStartIndexAt(scroll) {
+            var starts = getPageStarts();
+            var best = 0;
+            var bestDist = Infinity;
+            for (var i = 0; i < starts.length; i++) {
+                var dist = Math.abs(starts[i] - scroll);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = i;
+                }
+            }
+            return best;
+        }
+
         function nextBookPageTarget() {
             if (mode === 'page') {
                 var items = getItems();
@@ -205,6 +219,10 @@
         if (axis === 'x') {
             var scrollMs = 1640;
             var scrolling = false;
+            var drag = null;
+            var DRAG_THRESHOLD = 10;
+            var SWIPE_RATIO = 0.12;
+            var SWIPE_MIN_PX = 48;
 
             function runX(to) {
                 if (scrolling) return;
@@ -222,6 +240,93 @@
                     updateScrollArrows();
                 }, scrollMs + 40);
             }
+
+            function targetFromStartIndex(startIdx, dx) {
+                var starts = getPageStarts();
+                if (!starts.length) return 0;
+                var threshold = Math.max(SWIPE_MIN_PX, grid.clientWidth * SWIPE_RATIO);
+                var idx = startIdx;
+                if (dx < -threshold) {
+                    idx = Math.min(startIdx + 1, starts.length - 1);
+                } else if (dx > threshold) {
+                    idx = Math.max(startIdx - 1, 0);
+                }
+                return starts[idx];
+            }
+
+            function suppressClickOnce(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                grid.removeEventListener('click', suppressClickOnce, true);
+            }
+
+            function endDrag(e) {
+                if (!drag || e.pointerId !== drag.pointerId) return;
+                var wasActive = drag.active;
+                var dx = e.clientX - drag.startX;
+                var startIdx = drag.startIdx;
+                try {
+                    if (grid.hasPointerCapture && grid.hasPointerCapture(e.pointerId)) {
+                        grid.releasePointerCapture(e.pointerId);
+                    }
+                } catch (err) { /* ignore */ }
+                grid.classList.remove('is-dragging');
+                drag = null;
+                if (!wasActive) return;
+
+                grid.addEventListener('click', suppressClickOnce, true);
+                window.setTimeout(function () {
+                    grid.removeEventListener('click', suppressClickOnce, true);
+                }, 450);
+
+                runX(targetFromStartIndex(startIdx, dx));
+            }
+
+            grid.addEventListener('pointerdown', function (e) {
+                if (scrolling) return;
+                if (e.pointerType === 'mouse' && e.button !== 0) return;
+                if (e.target.closest('button, input, textarea, select, .page-arrow, .lang-switcher, .nav-switcher')) return;
+
+                drag = {
+                    pointerId: e.pointerId,
+                    startX: e.clientX,
+                    startY: e.clientY,
+                    startScroll: grid.scrollLeft,
+                    startIdx: nearestStartIndexAt(grid.scrollLeft),
+                    active: false
+                };
+            });
+
+            grid.addEventListener('pointermove', function (e) {
+                if (!drag || e.pointerId !== drag.pointerId) return;
+                var dx = e.clientX - drag.startX;
+                var dy = e.clientY - drag.startY;
+
+                if (!drag.active) {
+                    if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
+                    if (Math.abs(dy) > Math.abs(dx)) {
+                        drag = null;
+                        return;
+                    }
+                    drag.active = true;
+                    grid.classList.add('is-dragging');
+                    try {
+                        grid.setPointerCapture(e.pointerId);
+                    } catch (err) { /* ignore */ }
+                }
+
+                e.preventDefault();
+                var maxScroll = Math.max(0, grid.scrollWidth - grid.clientWidth);
+                grid.scrollLeft = Math.max(0, Math.min(maxScroll, drag.startScroll - dx));
+                updateScrollArrows();
+            }, { passive: false });
+
+            grid.addEventListener('pointerup', endDrag);
+            grid.addEventListener('pointercancel', endDrag);
+
+            grid.addEventListener('dragstart', function (e) {
+                e.preventDefault();
+            });
 
             if (btnPrev) {
                 btnPrev.addEventListener('click', function () {

@@ -15,6 +15,7 @@
     --label-image-gap: calc(17.5 / var(--ref-h) * 100cqh);
 
     --art-cols: 3;
+    --artwork-play-d: calc(60 / var(--ref-h) * 100cqh); /* 50 × 1.2 */
 }
 
 .artworks-panel.card-panel--scroll {
@@ -84,9 +85,53 @@
     min-width: 0;
 }
 
+.artworks-page .card-item[hidden] {
+    display: none !important;
+}
+
 /* avg 723.⅓ × 469.5 @3840 — не 3:2 */
 .artworks-page .card-image {
     aspect-ratio: 4340 / 2817;
+}
+
+/* HQ canvas covers — lock layout box (bitmap size ≠ CSS size) */
+.artworks-page canvas.card-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4340 / 2817;
+    object-fit: unset;
+}
+
+/* Video cover (Il grande domani) — gray play like films */
+.artwork-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    line-height: 0;
+}
+
+.artwork-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: #d8d8d8;
+}
+
+.artwork-play__icon {
+    display: block;
+    width: var(--artwork-play-d);
+    height: var(--artwork-play-d);
+    overflow: visible;
+}
+
+/* Triangle +30% vs original (icon already +20% → extra 1.3/1.2) */
+.artwork-play__icon path {
+    transform-box: view-box;
+    transform-origin: center;
+    transform: scale(1.083333);
 }
 
 .artworks-panel .switchers-row {

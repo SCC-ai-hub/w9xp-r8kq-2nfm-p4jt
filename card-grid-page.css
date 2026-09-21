@@ -66,6 +66,31 @@ html, body {
     padding: 0;
     background: var(--canvas-bg);
     font-family: var(--font-display);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+img, a, svg {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+/* Horizontal page grids: mouse/touch swipe (scroll-grid.js) */
+[data-scroll-grid] {
+    touch-action: none;
+    cursor: grab;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+[data-scroll-grid].is-dragging {
+    cursor: grabbing;
+}
+
+[data-scroll-grid].is-dragging a,
+[data-scroll-grid].is-dragging img {
+    pointer-events: none;
 }
 
 body {
@@ -364,9 +389,7 @@ em, i {
 }
 
 body.video-chrome-hidden .switchers-row,
-body.video-chrome-hidden .page-arrow,
-body:has(.films-video-gallery) .switchers-row,
-body:has(.films-video-gallery) .page-arrow {
+body.video-chrome-hidden .page-arrow {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;

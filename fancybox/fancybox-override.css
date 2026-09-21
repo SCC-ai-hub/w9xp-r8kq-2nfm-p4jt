@@ -7,27 +7,28 @@
     --fancybox-margin-bottom: 10vh;
     --fancybox-margin-left: 10vw;
     --fancybox-margin-right: 10vw;
+    /* Inactive carousel circles/thumbs: films was 0.35, +⅓ darker → ×2/3 */
+    --carousel-inactive-opacity: calc(0.35 * 2 / 3);
 }
 
-/* ===== КОНТЕНТ И IFRAME — width −20%; height +½ of each vertical screen gap ===== */
+/* ===== КОНТЕНТ И IFRAME — width −20% again (42.24vw); height unchanged formula ===== */
 .fancybox__slide.has-iframe .fancybox__content,
 .fancybox__slide.has-html .fancybox__content {
-    width: min(52.8vw, calc(49.2vh * 16 / 9)) !important;
-    /* was min(83.025vh, 66vw*243/320); grow by half the top gap + half the bottom gap */
+    width: min(42.24vw, calc(39.36vh * 16 / 9)) !important;
     height: min(
         calc((83.025vh + 100vh) / 2 + 100px),
-        calc((52.8vw * 243 / 320 + 100vh) / 2 + 100px)
+        calc((42.24vw * 243 / 320 + 100vh) / 2 + 100px)
     ) !important;
-    max-width: 52.8vw !important;
+    max-width: 42.24vw !important;
     max-height: min(
         calc((83.025vh + 100vh) / 2 + 100px),
-        calc((52.8vw * 243 / 320 + 100vh) / 2 + 100px)
+        calc((42.24vw * 243 / 320 + 100vh) / 2 + 100px)
     ) !important;
     background: #b2b2b2 !important;
     position: relative !important;
     overflow: visible !important;
-    /* Fancybox default pad 32px; half the bottom gap so switcher sits mid-way to sheet edge */
     padding-bottom: 16px !important;
+    box-shadow: none !important;
 }
 
 /* вариант когда размеры fancybox высчитываются */
@@ -48,14 +49,10 @@
     display: block;
 }
 
-/* ===== БЕЛАЯ РАМКА (glow ×0.5) ===== */
+/* ===== IFRAME SHEET — no glow ===== */
 .fancybox__content {
     border-radius: 15px !important;
-    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0),
-                0 0 0 0.1vw rgba(255, 255, 255, 0.45),
-                0 0 1vw 0.6vw rgba(255, 255, 255, 0.4),
-                0 0 2.5vw 1.2vw rgba(255, 255, 255, 0.05),
-                0 0 4vw 2vw rgba(255, 255, 255, 0) !important;
+    box-shadow: none !important;
     background: white !important;
     border: none !important;
     background-clip: padding-box !important;
@@ -70,8 +67,12 @@
     overflow: visible !important;
 }
 
+.fancybox__container {
+    --fancybox-bg: rgba(0, 0, 0, 0.9);
+}
+
 .fancybox__backdrop {
-    background: rgba(0, 0, 0, 0.6) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
     backdrop-filter: blur(2px);
 }
 
@@ -221,14 +222,23 @@
     clip-path: none !important;
 }
 
+/*
+ * Fancybox default: .f-thumbs.is-horizontal .f-thumbs__track { padding: 8px 0 12px }
+ * When the thumbs bar height equals the slide height, that asymmetric padding
+ * (more on the bottom) + overflow:hidden clips the lower edge of every thumb.
+ */
+.f-thumbs.is-horizontal .f-thumbs__track {
+    padding: 0 !important;
+}
+
 /* Расстояние между миниатюрами */
 .f-thumbs.is-horizontal .f-thumbs__slide {
     margin-right: 16px !important;
 }
 
-/* Панель миниатюр — больше отступы */
+/* Панель миниатюр — без вертикального padding (иначе та же обрезка по высоте) */
 .fancybox__thumbs {
-    padding: 16px 0 !important;
+    padding: 0 !important;
 }
 
 /* Адаптация под маленькие экраны */
@@ -301,7 +311,7 @@
 .bio-documents-gallery .fancybox__backdrop,
 .bio-press-gallery .fancybox__backdrop,
 .artworks-gallery .fancybox__backdrop {
-    background: rgba(0, 0, 0, 0.9) !important;
+    background: rgba(0, 0, 0, 0.99) !important;
 }
 
 .bio-photos-gallery .fancybox__toolbar,
@@ -382,12 +392,57 @@
 .bio-documents-gallery .fancybox__thumbs,
 .bio-press-gallery .fancybox__thumbs,
 .artworks-gallery .fancybox__thumbs {
+    --f-thumb-width: var(--bio-thumb-width);
+    --f-thumb-height: var(--bio-thumb-height);
+    --f-thumb-clip-width: var(--bio-thumb-width);
     --f-thumbs-gap: 0;
+    --f-thumb-opacity: var(--carousel-inactive-opacity);
+    --f-thumb-hover-opacity: 1;
+    --f-thumb-selected-opacity: 1;
     bottom: var(--bio-thumbs-bottom) !important;
     height: var(--bio-thumb-height) !important;
     padding: 0 !important;
     padding-bottom: 0 !important;
     box-sizing: border-box !important;
+    overflow: hidden;
+    /* Carousel is z-index:10 and covers this band; without this,
+       thumb clicks hit the slide → backdropClick:"close". */
+    z-index: 60 !important;
+    pointer-events: auto !important;
+}
+
+/* Inactive thumbs dim (works for modern + classic; modern ignores selected-opacity alone) */
+.bio-photos-gallery .f-thumbs__slide__button,
+.bio-documents-gallery .f-thumbs__slide__button,
+.bio-press-gallery .f-thumbs__slide__button,
+.artworks-gallery .f-thumbs__slide__button {
+    opacity: var(--carousel-inactive-opacity) !important;
+    transition: opacity 0.2s ease;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 1;
+}
+
+.bio-photos-gallery .f-thumbs__slide__button:hover,
+.bio-documents-gallery .f-thumbs__slide__button:hover,
+.bio-press-gallery .f-thumbs__slide__button:hover,
+.artworks-gallery .f-thumbs__slide__button:hover,
+.bio-photos-gallery .is-nav-selected .f-thumbs__slide__button,
+.bio-documents-gallery .is-nav-selected .f-thumbs__slide__button,
+.bio-press-gallery .is-nav-selected .f-thumbs__slide__button,
+.artworks-gallery .is-nav-selected .f-thumbs__slide__button,
+.bio-photos-gallery .f-thumbs__slide.is-nav-selected .f-thumbs__slide__button,
+.bio-documents-gallery .f-thumbs__slide.is-nav-selected .f-thumbs__slide__button,
+.bio-press-gallery .f-thumbs__slide.is-nav-selected .f-thumbs__slide__button,
+.artworks-gallery .f-thumbs__slide.is-nav-selected .f-thumbs__slide__button {
+    opacity: 1 !important;
+}
+
+.bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__track,
+.bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__track,
+.bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__track,
+.artworks-gallery .f-thumbs.is-horizontal .f-thumbs__track {
+    padding: 0 !important;
 }
 
 .bio-photos-gallery .f-thumbs__slide,
@@ -443,11 +498,188 @@
     pointer-events: none;
 }
 
+/* Empty caption placeholder: "No translation" / "Nessuna traduzione" in red.
+ * Remove .no-translation-caption rule (or delete no-translation-captions.js) to turn off. */
+.no-translation-caption {
+    color: #ff2a2a;
+}
+
 .bio-photos-gallery .bio-gallery-caption:empty,
 .bio-documents-gallery .bio-gallery-caption:empty,
 .bio-press-gallery .bio-gallery-caption:empty,
 .artworks-gallery .bio-gallery-caption:empty {
     display: none;
+}
+
+/* Photos + artworks: grow photo +50px down (top fixed); caption mid of remaining photo↔thumbs gap */
+.bio-photos-gallery,
+.artworks-gallery {
+    --bio-photo-max-h: calc(var(--bio-photo-slot-h) * 0.9 + 50px);
+    --bio-caption-gap-total: max(
+        24px,
+        calc(var(--bio-photo-thumbs-gap) + var(--bio-photo-slot-h) * 0.1 - 50px)
+    );
+    --bio-caption-reserve: var(--bio-caption-gap-total);
+}
+
+/* Documents: per-slide caption modes; photo bottom = 50px above caption.
+   Caption reserve tokens are set synchronously (no post-paint measure → no photo jump). */
+.bio-documents-gallery {
+    --bio-docs-line: calc(var(--bio-caption-font) * 1.35);
+    --bio-docs-caption-h-fit: calc(3 * var(--bio-docs-line) + 2 * var(--bio-caption-pad-y));
+    --bio-docs-caption-h-invite: calc(min(22vh, 180px) - 2 * var(--bio-docs-line));
+    --bio-docs-caption-h-last: calc(4 * var(--bio-docs-line) + 2 * var(--bio-caption-pad-y));
+    --bio-docs-caption-h: var(--bio-docs-caption-h-fit);
+    --bio-docs-photo-caption-gap: 50px;
+    --bio-docs-caption-thumbs-gap: 10px;
+    --bio-photo-thumbs-gap: 72px;
+    --bio-caption-font: calc(4rem / 3 * 0.72);
+    --bio-photo-max-h: calc(
+        100vh - var(--bio-inset-top) - var(--bio-thumbs-bottom)
+            - var(--bio-thumbs-stack) - var(--bio-docs-caption-h)
+            - var(--bio-docs-photo-caption-gap) - var(--bio-docs-caption-thumbs-gap)
+    );
+    --bio-caption-gap-total: calc(
+        var(--bio-docs-caption-h) + var(--bio-docs-photo-caption-gap)
+            + var(--bio-docs-caption-thumbs-gap)
+    );
+    --bio-caption-reserve: var(--bio-caption-gap-total);
+}
+
+.bio-documents-gallery .bio-gallery-caption {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 8px;
+    width: min(78vw, 720px);
+    height: var(--bio-docs-caption-h);
+    max-height: var(--bio-docs-caption-h);
+    bottom: calc(var(--bio-caption-band-bottom) + var(--bio-docs-caption-thumbs-gap));
+    transform: translate(-50%, 0);
+    padding: var(--bio-caption-pad-y) 8px var(--bio-caption-pad-y) 12px;
+    overflow: hidden;
+    pointer-events: auto;
+    text-align: left;
+}
+
+/* 1st: height fits text, no scroll buttons */
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--fit {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+}
+
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--fit .bio-caption-body {
+    overflow: visible;
+}
+
+/* 2nd & 3rd (invite): shorter by 2 lines, no text select, scroll btns +20% */
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite {
+    height: var(--bio-docs-caption-h-invite);
+    max-height: var(--bio-docs-caption-h-invite);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-body {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-scroll-btn {
+    width: calc(28px * 1.2);
+    height: calc(28px * 1.2);
+}
+
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-scroll-btn svg {
+    width: calc(14px * 1.2);
+    height: calc(14px * 1.2);
+}
+
+/* last: fixed 4-line height, no scroll buttons */
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--last {
+    height: var(--bio-docs-caption-h-last);
+    max-height: var(--bio-docs-caption-h-last);
+}
+
+.bio-documents-gallery .bio-caption-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.bio-documents-gallery .bio-caption-body::-webkit-scrollbar {
+    display: none;
+}
+
+.bio-documents-gallery .bio-caption-scroll-btns {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    align-self: center;
+}
+
+.bio-documents-gallery .bio-caption-scroll-btns[hidden] {
+    display: none !important;
+}
+
+/* fit / last: never reserve space for scroll controls */
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--fit .bio-caption-scroll-btns,
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--last .bio-caption-scroll-btns {
+    display: none !important;
+}
+
+.bio-documents-gallery .bio-caption-scroll-btn {
+    all: unset;
+    box-sizing: border-box;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.35);
+    pointer-events: auto;
+}
+
+.bio-documents-gallery .bio-caption-scroll-btn svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+}
+
+.bio-documents-gallery .bio-caption-scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.bio-documents-gallery .bio-caption-scroll-btn.is-inactive {
+    opacity: var(--carousel-inactive-opacity);
+    pointer-events: none;
+}
+
+.bio-documents-gallery .bio-gallery-caption .ai-translated {
+    color: inherit;
+}
+
+/* PRESS: thumbs ×1.8; photo +75px down (top fixed); caption mid of remaining gap */
+.bio-press-gallery {
+    --bio-thumb-width: calc(144px * 0.8 * 1.5 * 1.2);
+    --bio-thumb-height: calc(108px * 0.8 * 1.5 * 1.2);
+    --bio-photo-max-h: calc(var(--bio-photo-slot-h) * 0.9 + 35px);
+    --bio-caption-gap-total: max(
+        24px,
+        calc(var(--bio-photo-thumbs-gap) + var(--bio-photo-slot-h) * 0.1 - 35px)
+    );
+    --bio-caption-reserve: var(--bio-caption-gap-total);
 }
 
 .bio-photos-gallery .bio-image-close,
@@ -495,7 +727,8 @@
 .bio-photos-gallery .fancybox__nav .f-button,
 .bio-documents-gallery .fancybox__nav .f-button,
 .bio-press-gallery .fancybox__nav .f-button,
-.artworks-gallery .fancybox__nav .f-button {
+.artworks-gallery .fancybox__nav .f-button,
+.films-video-gallery .fancybox__nav .f-button {
     width: var(--bio-nav-size) !important;
     height: var(--bio-nav-size) !important;
     border-radius: 50% !important;
@@ -509,7 +742,8 @@
 .bio-photos-gallery .fancybox__nav .f-button svg,
 .bio-documents-gallery .fancybox__nav .f-button svg,
 .bio-press-gallery .fancybox__nav .f-button svg,
-.artworks-gallery .fancybox__nav .f-button svg {
+.artworks-gallery .fancybox__nav .f-button svg,
+.films-video-gallery .fancybox__nav .f-button svg {
     width: calc(var(--bio-nav-size) * 0.42) !important;
     height: calc(var(--bio-nav-size) * 0.42) !important;
     stroke: #ffffff !important;
@@ -520,7 +754,8 @@
 .bio-photos-gallery .fancybox__nav .f-button.is-prev,
 .bio-documents-gallery .fancybox__nav .f-button.is-prev,
 .bio-press-gallery .fancybox__nav .f-button.is-prev,
-.artworks-gallery .fancybox__nav .f-button.is-prev {
+.artworks-gallery .fancybox__nav .f-button.is-prev,
+.films-video-gallery .fancybox__nav .f-button.is-prev {
     left: var(--bio-nav-inset) !important;
     right: auto !important;
 }
@@ -528,7 +763,8 @@
 .bio-photos-gallery .fancybox__nav .f-button.is-next,
 .bio-documents-gallery .fancybox__nav .f-button.is-next,
 .bio-press-gallery .fancybox__nav .f-button.is-next,
-.artworks-gallery .fancybox__nav .f-button.is-next {
+.artworks-gallery .fancybox__nav .f-button.is-next,
+.films-video-gallery .fancybox__nav .f-button.is-next {
     right: var(--bio-nav-inset) !important;
     left: auto !important;
 }
@@ -536,7 +772,8 @@
 .bio-photos-gallery .fancybox__nav .f-button:hover,
 .bio-documents-gallery .fancybox__nav .f-button:hover,
 .bio-press-gallery .fancybox__nav .f-button:hover,
-.artworks-gallery .fancybox__nav .f-button:hover {
+.artworks-gallery .fancybox__nav .f-button:hover,
+.films-video-gallery .fancybox__nav .f-button:hover {
     opacity: 1 !important;
     background: rgba(0, 0, 0, 0.6) !important;
 }
@@ -544,10 +781,12 @@
 .bio-photos-gallery .fancybox__nav .f-button[disabled],
 .bio-documents-gallery .fancybox__nav .f-button[disabled],
 .bio-press-gallery .fancybox__nav .f-button[disabled],
-.artworks-gallery .fancybox__nav .f-button[disabled] {
-    opacity: 1 !important;
+.artworks-gallery .fancybox__nav .f-button[disabled],
+.films-video-gallery .fancybox__nav .f-button[disabled] {
+    opacity: var(--carousel-inactive-opacity) !important;
+    /* Absorb clicks — pointer-events:none let them fall through to backdrop → close */
     pointer-events: auto !important;
-    cursor: pointer !important;
+    cursor: default !important;
 }
 
 @media (max-width: 768px) {
@@ -558,6 +797,11 @@
         --bio-thumb-width: calc(96px * 0.8);
         --bio-thumb-height: calc(72px * 0.8);
         --bio-nav-inset: max(8px, calc(8vw - var(--bio-nav-size)));
+    }
+
+    .bio-press-gallery {
+        --bio-thumb-width: calc(96px * 0.8 * 1.5 * 1.2);
+        --bio-thumb-height: calc(72px * 0.8 * 1.5 * 1.2);
     }
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
@@ -575,6 +819,11 @@
     .artworks-gallery {
         --bio-thumb-width: calc(176px * 0.8);
         --bio-thumb-height: calc(132px * 0.8);
+    }
+
+    .bio-press-gallery {
+        --bio-thumb-width: calc(176px * 0.8 * 1.5 * 1.2);
+        --bio-thumb-height: calc(132px * 0.8 * 1.5 * 1.2);
     }
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
@@ -596,7 +845,7 @@
 }
 
 .questions-video-gallery .fancybox__backdrop {
-    background: rgba(0, 0, 0, 0.75) !important;
+    background: rgba(0, 0, 0, 1) !important;
 }
 
 .questions-video-gallery .fancybox__container {
@@ -720,6 +969,538 @@
 }
 
 .questions-video-gallery .fancybox__nav .f-button[disabled] {
-    opacity: 0.25;
+    opacity: var(--carousel-inactive-opacity);
     cursor: default;
+}
+
+/* ========== Artwork video (Il grande domani) — poster + gray play ========== */
+.artwork-video-gallery {
+    --av-video-max-w: min(86vw, calc(100vw - 8vw));
+    --av-video-max-h: min(82vh, calc(100vh - 8vh));
+    --av-play-d: clamp(130px, 16.25vh, 220px); /* 2.5× card play */
+    --av-close-size: clamp(36px, 4.2vh, 52px);
+    --av-close-gap: clamp(12px, 1.6vw, 24px);
+}
+
+.artwork-video-gallery .fancybox__backdrop {
+    background: rgba(0, 0, 0, 0.9) !important;
+}
+
+.artwork-video-gallery .fancybox__toolbar,
+.artwork-video-gallery .fancybox__nav {
+    display: none !important;
+}
+
+.artwork-video-gallery .fancybox__slide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+
+.artwork-video-gallery .fancybox__slide.has-html5video .fancybox__content,
+.artwork-video-gallery .fancybox__slide.has-html .fancybox__content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--av-video-max-w) !important;
+    max-height: var(--av-video-max-h) !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.artwork-video-gallery .artwork-video-frame {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    max-width: var(--av-video-max-w);
+    max-height: var(--av-video-max-h);
+}
+
+.artwork-video-gallery .fancybox__html5video,
+.artwork-video-gallery video,
+.artwork-video-gallery .artwork-video-poster {
+    display: block;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--av-video-max-w) !important;
+    max-height: var(--av-video-max-h) !important;
+    object-fit: contain;
+    margin: 0;
+    background: #000;
+}
+
+.artwork-video-gallery video[hidden] {
+    display: none !important;
+}
+
+.artwork-video-gallery .artwork-video-frame:not(.is-playing) video.is-poster-hidden {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.artwork-video-gallery .artwork-video-frame.is-playing .artwork-video-poster {
+    display: none !important;
+}
+
+.artwork-video-gallery .artwork-video-play {
+    all: unset;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    color: #d8d8d8;
+    pointer-events: auto;
+}
+
+.artwork-video-gallery .artwork-video-play[hidden] {
+    display: none !important;
+}
+
+.artwork-video-gallery .artwork-video-play svg {
+    display: block;
+    width: var(--av-play-d);
+    height: var(--av-play-d);
+    overflow: visible;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.35));
+}
+
+.artwork-video-gallery .artwork-video-play svg circle {
+    stroke: #000;
+    stroke-width: 5px;
+    vector-effect: non-scaling-stroke;
+    paint-order: stroke fill;
+}
+
+.artwork-video-gallery .artwork-video-close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translateX(var(--av-close-gap));
+    width: var(--av-close-size);
+    height: var(--av-close-size);
+    border: calc(var(--av-close-size) * 0.045) solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.artwork-video-gallery .artwork-video-close svg {
+    display: block;
+    width: calc(var(--av-close-size) * 0.42);
+    height: calc(var(--av-close-size) * 0.42);
+}
+
+.artwork-video-gallery .artwork-video-close:hover {
+    transform: translateX(var(--av-close-gap)) scale(1.04);
+}
+
+/* ========== Performance — fixed full-width thumbs (no Fancybox Thumbs) ========== */
+.artworks-gallery--fixed-thumbs {
+    --bio-thumb-width: calc(144px * 1.16);
+    --bio-thumb-height: calc(108px * 1.16);
+    --bio-thumbs-stack: var(--bio-thumb-height);
+    --bio-fixed-thumbs-gap: 28px;
+}
+
+.artworks-gallery--fixed-thumbs .fancybox__thumbs {
+    display: none !important;
+}
+
+.artworks-fixed-thumbs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--bio-thumbs-bottom);
+    z-index: 60;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--bio-thumb-height);
+    margin: 0;
+    padding: 0 max(12px, 2vw);
+    gap: var(--bio-fixed-thumbs-gap);
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.artworks-fixed-thumbs__btn {
+    all: unset;
+    position: relative;
+    flex: 0 0 auto;
+    width: var(--bio-thumb-width);
+    height: var(--bio-thumb-height);
+    cursor: pointer;
+    opacity: var(--carousel-inactive-opacity);
+    transition: opacity 0.2s ease;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #111;
+}
+
+.artworks-fixed-thumbs__btn:hover,
+.artworks-fixed-thumbs__btn.is-active {
+    opacity: 1;
+}
+
+.artworks-fixed-thumbs__btn img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    pointer-events: none;
+}
+
+.artworks-fixed-thumbs__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d8d8d8;
+    pointer-events: none;
+}
+
+.artworks-fixed-thumbs__play svg {
+    display: block;
+    width: 34%;
+    height: 34%;
+    max-width: 28px;
+    max-height: 28px;
+    overflow: visible;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.4));
+}
+
+.artworks-fixed-thumbs__play svg circle {
+    stroke: #000;
+    stroke-width: 5px;
+    vector-effect: non-scaling-stroke;
+    paint-order: stroke fill;
+}
+
+/* Video slide inside artworks gallery (Performance) — same poster/play as Il grande domani */
+.artworks-gallery .fancybox__slide.has-html5video {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: var(--bio-inset-top) !important;
+    padding-bottom: calc(var(--bio-caption-reserve)) !important;
+    box-sizing: border-box !important;
+}
+
+.artworks-gallery .fancybox__slide.has-html5video::before,
+.artworks-gallery .fancybox__slide.has-html5video::after {
+    content: none !important;
+    display: none !important;
+    margin: 0 !important;
+    flex: none !important;
+}
+
+.artworks-gallery .fancybox__slide.has-html5video .fancybox__content {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    align-self: center !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--bio-photo-max-w) !important;
+    max-height: var(--bio-photo-max-h) !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    cursor: default !important;
+}
+
+.artworks-gallery .artwork-video-frame {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    max-width: var(--bio-photo-max-w);
+    max-height: var(--bio-photo-max-h);
+}
+
+.artworks-gallery .fancybox__html5video,
+.artworks-gallery video,
+.artworks-gallery .artwork-video-poster {
+    display: block;
+    width: auto !important;
+    height: auto !important;
+    max-width: var(--bio-photo-max-w) !important;
+    max-height: var(--bio-photo-max-h) !important;
+    object-fit: contain;
+    margin: 0;
+    background: #000;
+}
+
+/* Keep video in layout (not display:none) so it can buffer under the poster */
+.artworks-gallery .artwork-video-frame:not(.is-playing) video.is-poster-hidden,
+.artwork-video-gallery .artwork-video-frame:not(.is-playing) video.is-poster-hidden {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.artworks-gallery video[hidden] {
+    display: none !important;
+}
+
+.artworks-gallery .artwork-video-frame.is-playing .artwork-video-poster {
+    display: none !important;
+}
+
+.artworks-gallery .artwork-video-play {
+    all: unset;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    color: #d8d8d8;
+    pointer-events: auto;
+}
+
+.artworks-gallery .artwork-video-play[hidden] {
+    display: none !important;
+}
+
+.artworks-gallery .artwork-video-play svg {
+    display: block;
+    width: clamp(90px, 11vh, 160px);
+    height: clamp(90px, 11vh, 160px);
+    overflow: visible;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.35));
+}
+
+.artworks-gallery .artwork-video-play svg circle {
+    stroke: #000;
+    stroke-width: 5px;
+    vector-effect: non-scaling-stroke;
+    paint-order: stroke fill;
+}
+
+/* ========== Read-only playback progress (all Fancybox videos) ========== */
+.video-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(3px, 0.55vh, 6px);
+    background: rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+    z-index: 4;
+    overflow: hidden;
+}
+
+.video-progress__fill {
+    height: 100%;
+    width: 0%;
+    background: #ffffff;
+    pointer-events: none;
+}
+
+/* Hide until play starts (poster + play button state) */
+.artwork-video-frame:not(.is-playing) .video-progress {
+    visibility: hidden;
+}
+
+/* ========== Films — stage = each file’s pixel size, fit inside 1280×720 ========== */
+.films-video-gallery {
+    --fancybox-bg: #000;
+    --fv-max-w: min(1280px, calc(100vw - 11vw));
+    --fv-max-h: min(720px, calc(100vh - 10vh));
+    --av-play-d: clamp(90px, 11vh, 160px);
+    --av-close-size: clamp(36px, 4.2vh, 52px);
+    --av-close-gap: clamp(12px, 1.6vw, 24px);
+    --bio-nav-size: calc(min(100vh, calc(100vw * 9 / 16)) * 0.085);
+    --bio-nav-inset: max(8px, calc(18vw - 2 * var(--bio-nav-size)));
+}
+
+.films-video-gallery .fancybox__backdrop {
+    background: #000 !important;
+    backdrop-filter: none;
+}
+
+.films-video-gallery .fancybox__toolbar,
+.films-video-gallery .fancybox__thumbs,
+.films-video-gallery .f-thumbs {
+    display: none !important;
+}
+
+.films-video-gallery .fancybox__slide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+
+.films-video-gallery .fancybox__slide.has-html5video .fancybox__content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    aspect-ratio: auto !important;
+}
+
+.films-video-gallery .artwork-video-frame {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    line-height: 0;
+    margin: 0 auto;
+    background: #000;
+    overflow: visible;
+}
+
+.films-video-gallery .fancybox__html5video,
+.films-video-gallery video,
+.films-video-gallery .artwork-video-poster {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: fill !important;
+    object-position: center center !important;
+    margin: 0;
+    background: #000;
+}
+
+.films-video-gallery .artwork-video-poster {
+    object-fit: contain !important;
+}
+
+.films-video-gallery video[hidden] {
+    display: none !important;
+}
+
+.films-video-gallery .artwork-video-frame:not(.is-playing) video.is-poster-hidden {
+    position: absolute !important;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.films-video-gallery .artwork-video-frame.is-playing .artwork-video-poster {
+    display: none !important;
+}
+
+.films-video-gallery .artwork-video-frame.is-playing video {
+    position: absolute !important;
+    inset: 0 !important;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.films-video-gallery .artwork-video-play {
+    all: unset;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    color: #d8d8d8;
+    pointer-events: auto;
+}
+
+.films-video-gallery .artwork-video-play[hidden] {
+    display: none !important;
+}
+
+.films-video-gallery .artwork-video-play svg {
+    display: block;
+    width: var(--av-play-d);
+    height: var(--av-play-d);
+    overflow: visible;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.35));
+}
+
+.films-video-gallery .artwork-video-play svg circle {
+    stroke: #000;
+    stroke-width: 5px;
+    vector-effect: non-scaling-stroke;
+    paint-order: stroke fill;
+}
+
+.films-video-gallery .artwork-video-close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translateX(var(--av-close-gap));
+    width: var(--av-close-size);
+    height: var(--av-close-size);
+    border: calc(var(--av-close-size) * 0.045) solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.films-video-gallery .artwork-video-close svg {
+    display: block;
+    width: calc(var(--av-close-size) * 0.42);
+    height: calc(var(--av-close-size) * 0.42);
+}
+
+.films-video-gallery .artwork-video-close:hover {
+    transform: translateX(var(--av-close-gap)) scale(1.04);
 }

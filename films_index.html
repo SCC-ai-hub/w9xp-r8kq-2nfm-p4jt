@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="fancybox/fancybox-override.css">
     <script src="fancybox/fancybox.umd.js"></script>
     <script src="films/films-list.js"></script>
+    <script src="fancybox/no-translation-captions.js"></script>
     <script src="fancybox/fancybox-override.js"></script>
     <script src="language-switcher.js" defer></script>
     <script src="scroll-grid.js" defer></script>
@@ -64,9 +65,15 @@
                         <div class="films-track">
 
                             <div class="films-page">
-                                <a class="film-item film-item--trigger" href="films/01.jpg">
+                                <a
+                                    class="film-item"
+                                    href="films/Sotheby‘s Sale Moskow.Июль 1988 г_trim.mp4"
+                                    data-film-video
+                                    data-poster="films/02.jpg"
+                                    data-html5video-format="video/mp4"
+                                >
                                     <div class="film-thumb">
-                                        <img class="film-image" src="films/01.jpg" alt="Film">
+                                        <img class="film-image" src="films/02.jpg" alt="Sotheby's Sale Moscow">
                                         <span class="film-play" aria-hidden="true">
                                             <svg class="film-play__icon" viewBox="0 0 24 24">
                                                 <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
@@ -74,13 +81,145 @@
                                             </svg>
                                         </span>
                                     </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">1988.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">ASTA SOTHEBY'S A MOSCA</span>
+                                            </p>
+                                            <p class="film-source">Vendita Sotheby's. Mosca, luglio 1988</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">1988.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">SOTHEBY'S SALE IN MOSCOW</span>
+                                            </p>
+                                            <p class="film-source">Sotheby's Sale. Moscow, July 1988</p>
+                                        </div>
+                                    </div>
                                 </a>
-                                <div id="films-gallery" hidden aria-hidden="true"></div>
+
+                                <a
+                                    class="film-item"
+                                    href="films/фильм Зарецкой_trim.mp4"
+                                    data-film-video
+                                    data-poster="films/04.jpg"
+                                    data-vw="720"
+                                    data-vh="432"
+                                    data-html5video-format="video/mp4"
+                                >
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/04.jpg" alt="Passato imperfetto">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">2012.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">PASSATO IMPERFETTO</span>
+                                            </p>
+                                            <p class="film-source">Documentario dalla serie America russa, canale televisivo Kul'tura</p>
+                                            <p class="film-credit">Regista: Nina Zareckaja</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">2012.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">IMPERFECT PAST</span>
+                                            </p>
+                                            <p class="film-source">Documentary from the series Russian America, Kul'tura television channel</p>
+                                            <p class="film-credit">Director: Nina Zareckaja</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a
+                                    class="film-item"
+                                    href="films/+++Sh.H-HOUR  mov_trim.mp4"
+                                    data-film-video
+                                    data-poster="films/01.jpg"
+                                    data-vw="1280"
+                                    data-vh="720"
+                                    data-html5video-format="video/mp4"
+                                >
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/01.jpg" alt="H-Hour">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">2013.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">L'ORA X</span>
+                                            </p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">2013.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">H-HOUR</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="films-page">
+                                <a
+                                    class="film-item"
+                                    href="films/ГТГ Scene_Change_Grisha_Bruskin _trim.mp4"
+                                    data-film-video
+                                    data-poster="films/03.jpg"
+                                    data-vw="1920"
+                                    data-vh="1080"
+                                    data-html5video-format="video/mp4"
+                                >
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/03.jpg" alt="Scene Change">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">2022.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">CAMBIO DI SCENA</span>
+                                            </p>
+                                            <p class="film-source">Galleria Statale Tret'jakov, Mosca</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">2022.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">SCENE CHANGE</span>
+                                            </p>
+                                            <p class="film-source">State Tretyakov Gallery, Moscow</p>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
 
                         </div>
                     </div>
-
                 </div>
 
                 <div class="switchers-row">

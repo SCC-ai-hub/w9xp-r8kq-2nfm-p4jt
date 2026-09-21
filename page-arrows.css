@@ -63,6 +63,7 @@
 }
 
 .page-arrow.scroll-btn--inactive {
-    opacity: 0.35;
+    /* Match fancybox: films 0.35 × 2/3 */
+    opacity: calc(0.35 * 2 / 3);
     cursor: default;
 }
