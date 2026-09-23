@@ -48,7 +48,7 @@
                     <span class="lang-en">PUBLICATIONS</span>
                 </h1>
 
-                <div class="books-scroll" data-scroll-area data-scroll-axis="x" data-scroll-mode="group" data-scroll-cols="4" data-scroll-item=".book-item">
+                <div class="books-scroll" data-scroll-area data-scroll-axis="x" data-scroll-mode="group" data-scroll-cols="4" data-scroll-item=".book-item:not(.book-item--hidden):not([hidden])">
                     <div class="books-viewport" data-scroll-grid>
                         <div class="books-track">
 
@@ -204,7 +204,7 @@
                                 </div>
                             </button>
 
-                            <button type="button" class="book-item" data-book-flip aria-expanded="false" aria-label="Špalera Alefbet, 2006">
+                            <button type="button" class="book-item book-item--hidden" data-book-flip aria-expanded="false" aria-label="Špalera Alefbet, 2006" hidden>
                                 <div class="book-flip">
                                     <div class="book-flip__inner">
                                         <div class="book-flip__face book-flip__face--front">
@@ -344,6 +344,34 @@
                                                     </p>
                                                     <p class="book-publisher">Lienart</p>
                                                     <p class="book-place">Montreuil-sous-Bois 2010</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <button type="button" class="book-item" data-book-flip aria-expanded="false" aria-label="H-Hour, 2012">
+                                <div class="book-flip">
+                                    <div class="book-flip__inner">
+                                        <div class="book-flip__face book-flip__face--front">
+                                            <img class="book-cover is-pending" data-src="books/H-Hour.jpg" alt="" decoding="async" style="--book-ar: 1271 / 1896;">
+                                        </div>
+                                        <div class="book-flip__face book-flip__face--back">
+                                            <div class="book-meta">
+                                                <div class="lang-it">
+                                                    <p class="book-title">
+                                                        <span class="book-title-main">H-Hour</span>
+                                                    </p>
+                                                    <p class="book-publisher">Kerber Art</p>
+                                                    <p class="book-place">Bielefeld 2012</p>
+                                                </div>
+                                                <div class="lang-en">
+                                                    <p class="book-title">
+                                                        <span class="book-title-main">H-Hour</span>
+                                                    </p>
+                                                    <p class="book-publisher">Kerber Art</p>
+                                                    <p class="book-place">Bielefeld 2012</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -498,10 +526,6 @@
                             </button>
 
                             <!-- unmatched covers (no publication text yet) -->
-                            <div class="book-item book-item--cover-only" aria-label="H-Hour">
-                                <img class="book-cover is-pending" data-src="books/H-Hour.jpg" alt="H-Hour" decoding="async" style="--book-ar: 1271 / 1896;">
-                            </div>
-
                             <div class="book-item book-item--cover-only" aria-label="Imperfetto passato">
                                 <img class="book-cover is-pending" data-src="books/Imperfetto passato.jpg" alt="Imperfetto passato" decoding="async" style="--book-ar: 600 / 847;">
                             </div>

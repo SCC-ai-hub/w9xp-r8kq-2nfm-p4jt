@@ -48,6 +48,11 @@ window.BOOKS_IMAGES = [
         captionEn: ''
     },
     {
+        file: "H-Hour.jpg",
+        captionIt: '',
+        captionEn: ''
+    },
+    {
         file: "Archaeologist’s Collection.jpg",
         captionIt: '',
         captionEn: ''
@@ -69,11 +74,6 @@ window.BOOKS_IMAGES = [
     },
     {
         file: "Erot, nebesnyj voin… O ljubvi, prestuplenii i smerti v iskiusstve_.jpg",
-        captionIt: '',
-        captionEn: ''
-    },
-    {
-        file: "H-Hour.jpg",
         captionIt: '',
         captionEn: ''
     },

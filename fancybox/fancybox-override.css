@@ -1476,6 +1476,106 @@
     paint-order: stroke fill;
 }
 
+/* Description + play (before video starts)
+   Play top = screen mid + 1.5×circle (set in px via JS); text docks above. */
+.films-video-gallery .film-video-intro {
+    --av-play-d: clamp(72px, 8.2vh, 112px);
+    --film-intro-play-gap: clamp(8px, 1.1vh, 14px);
+    --film-intro-pad-x: clamp(20px, 3vw, 48px);
+    --film-intro-pad-top: clamp(16px, 2vh, 28px);
+    /* Fallbacks until JS measures viewport → frame */
+    --film-intro-play-top: calc(50% + 1.0 * var(--av-play-d));
+    --film-intro-text-bottom: calc(50% - 0 * var(--av-play-d) + var(--film-intro-play-gap));
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: block;
+    box-sizing: border-box;
+    padding: 0;
+    background: #000;
+    color: #efefef;
+    line-height: normal;
+    overflow: hidden;
+}
+
+.films-video-gallery .film-video-intro[hidden] {
+    display: none !important;
+}
+
+.films-video-gallery .film-video-intro__text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: var(--film-intro-pad-top);
+    bottom: var(--film-intro-text-bottom);
+    width: calc(100% - 2 * var(--film-intro-pad-x));
+    max-width: 41.6em; /* 52em − 20% */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: left;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* Short copy sits on the play; long copy scrolls from the top */
+.films-video-gallery .film-video-intro__text::before {
+    content: '';
+    flex: 1 0 0;
+    min-height: 0;
+}
+
+.films-video-gallery .film-video-intro__text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.films-video-gallery .film-video-intro__text::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+}
+
+.films-video-gallery .film-video-intro__title {
+    margin: 0 0 0.85em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: clamp(18px, 2.22vh, 26.4px); /* +20% */
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+}
+
+.films-video-gallery .film-video-intro__body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: clamp(15.6px, 1.86vh, 21.6px); /* +20% */
+    font-weight: 400;
+    line-height: 1.45;
+    color: #e6e6e6;
+}
+
+.films-video-gallery .film-video-intro .artwork-video-play {
+    position: absolute;
+    inset: auto;
+    left: 50%;
+    top: var(--film-intro-play-top);
+    bottom: auto;
+    transform: translateX(-50%);
+    flex: none;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.films-video-gallery .artwork-video-frame.is-playing .film-video-intro {
+    display: none !important;
+}
+
 .films-video-gallery .artwork-video-close {
     all: unset;
     position: absolute;

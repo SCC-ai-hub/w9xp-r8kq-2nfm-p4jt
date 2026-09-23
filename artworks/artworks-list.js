@@ -12,8 +12,8 @@ window.ARTWORKS_SERIES = [
         images: [
             {
                 file: "01 Раскопки скульптур. Проект _Коллекция археолога 2001 Тоскана.Италия tif.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Scavi delle sculture per il progetto La collezione dell\'archeologo, Toscana, Italia, 2001.',
+                captionEn: 'Excavation of sculptures for The Archaeologist\'s Collection project, Tuscany, Italy, 2001.'
             },
             {
                 file: "02 _MG_0887bruskin2.jpg",
@@ -37,8 +37,8 @@ window.ARTWORKS_SERIES = [
             },
             {
                 file: "06 _De profondis_& Фонд искусства _Голубицкое_ Таманский полуостров 2022.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'De profundis. Fondazione d\'arte Golubitskoe, penisola di Taman, 2022.',
+                captionEn: 'De profundis. Golubitskoe Art Foundation, Taman Peninsula, 2022.'
             },
             {
                 file: "07 _DSC4595.jpg",
@@ -87,28 +87,24 @@ window.ARTWORKS_SERIES = [
         titleEn: "Fundamental Lexicon",
         images: [
             {
-                // Logies, Part 1, 1987, Oil on canvas, 196x579 cm
                 file: "01 Logies, Part 1, 1987, Oil on canvas, 196x579 cm.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Logies, Part 1, 1987. Olio su tela, 196 × 579 cm.',
+                captionEn: 'Logies, Part 1, 1987. Oil on canvas, 196 × 579 cm.'
             },
             {
-                // Logies, Part 1, Fragment, 1987, Oil on canvas
                 file: "02 Logies, Part 1, Fragment, 1987, Oil on canvas.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Logies, Part 1, Fragment, 1987. Olio su tela.',
+                captionEn: 'Logies, Part 1, Fragment, 1987. Oil on canvas.'
             },
             {
-                // Logies 1, Fragment, 1987, Oil on canvas, 180x545 cm
                 file: "03 Logies 1, Fragment, 1987, Oil on canvas, 180x545 cm.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Logies 1, Fragment, 1987. Olio su tela, 180 × 545 cm.',
+                captionEn: 'Logies 1, Fragment, 1987. Oil on canvas, 180 × 545 cm.'
             },
             {
-                // Logies 1, Fragment, 1986. Oil on canvas, 180x545 cm
                 file: "04 Logies 1, Fragment, 1986. Oil on canvas, 180x545 cm.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Logies 1, Fragment, 1986. Olio su tela, 180 × 545 cm.',
+                captionEn: 'Logies 1, Fragment, 1986. Oil on canvas, 180 × 545 cm.'
             },
             {
                 file: "05 5f31e70dbf5d9.jpg",
@@ -175,13 +171,13 @@ window.ARTWORKS_SERIES = [
         images: [
             {
                 file: "01 выставка Гриши Брускина _Время Ч_. Музей Американского университета. Вашингтон. 2013 .jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Grisha Bruskin, H-Hour. Veduta della mostra all\'American University Museum, Washington, D.C., 2013.',
+                captionEn: 'Grisha Bruskin, H-Hour. Exhibition view at the American University Museum, Washington, D.C., 2013.'
             },
             {
                 file: "02 Гриша Брускин. Инсталяция проекта _Время Ч_. Арсенал. Нижний Новгород. 2021 jpg.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Grisha Bruskin, H-Hour. Veduta dell\'installazione all\'Arsenal, Nizhny Novgorod, 2021.',
+                captionEn: 'Grisha Bruskin, H-Hour. Installation view at the Arsenal, Nizhny Novgorod, 2021.'
             },
             {
                 file: "7.Soldier-Killer.png",
@@ -251,33 +247,35 @@ window.ARTWORKS_SERIES = [
         images: [
             {
                 file: "01 Memorial, 1983, Oil on canvas, 100х118 cm.jpg",
-                captionIt: '',
-                captionEn: 'Memorial, 1983, Oil on canvas, 100х118 cm'
+                captionIt: 'Memorial, 1983. Olio su tela, 100 × 118 cm.',
+                captionEn: 'Memorial, 1983. Oil on canvas, 100 × 118 cm.'
             },
+            /* Let's not add it — kept off gallery, data preserved:
             {
                 file: "02 montaggio 9 foto.jpg",
                 captionIt: 'montaggio 9 foto',
                 captionEn: ''
             },
+            */
             {
                 file: "03 Moonlight, 1982, Oil on canvas, 140x97 cm.jpg",
-                captionIt: '',
-                captionEn: 'Moonlight, 1982, Oil on canvas, 140x97 cm'
+                captionIt: 'Moonlight, 1982. Olio su tela, 140 × 97 cm.',
+                captionEn: 'Moonlight, 1982. Oil on canvas, 140 × 97 cm.'
             },
             {
                 file: "04 Step, 1982, Oil on canvas, 116x88 cm.jpg",
-                captionIt: '',
-                captionEn: 'Step, 1982, Oil on canvas, 116x88 cm'
+                captionIt: 'Step, 1982. Olio su tela, 116 × 88 cm.',
+                captionEn: 'Step, 1982. Oil on canvas, 116 × 88 cm.'
             },
             {
                 file: "05 Monuments 2, 1983, Oil on canvas, 112x98 cm.jpg",
-                captionIt: '',
-                captionEn: 'Monuments 2, 1983, Oil on canvas, 112x98 cm'
+                captionIt: 'Monuments 2, 1983. Olio su tela, 112 × 98 cm.',
+                captionEn: 'Monuments 2, 1983. Oil on canvas, 112 × 98 cm.'
             },
             {
                 file: "06 Monuments, 1983, Oil on canvas, 120х108 cm.jpg",
-                captionIt: '',
-                captionEn: 'Monuments, 1983, Oil on canvas, 120х108 cm'
+                captionIt: 'Monuments, 1983. Olio su tela, 120 × 108 cm.',
+                captionEn: 'Monuments, 1983. Oil on canvas, 120 × 108 cm.'
             },
             {
                 file: "18. DSC_2243Copy.NEF.jpg",
@@ -296,8 +294,8 @@ window.ARTWORKS_SERIES = [
             },
             {
                 file: "34 From the series _On the Edge_ Collapse, 2001 painted bronze 48x92x50 cm.jpg",
-                captionIt: '',
-                captionEn: 'From the series On the Edge. Collapse, 2001 painted bronze 48x92x50 cm'
+                captionIt: 'Dalla serie On the Edge: Collapse, 2001. Bronzo dipinto, 48 × 92 × 50 cm.',
+                captionEn: 'From the series On the Edge: Collapse, 2001. Painted bronze, 48 × 92 × 50 cm.'
             },
             {
                 file: "35. DSC_2330Copy.NEF.jpg",
@@ -306,8 +304,8 @@ window.ARTWORKS_SERIES = [
             },
             {
                 file: "600 step.jpg",
-                captionIt: '',
-                captionEn: 'step'
+                captionIt: 'Step.',
+                captionEn: 'Step.'
             }
         ]
     },

@@ -161,6 +161,11 @@
     perspective: none;
 }
 
+.book-item--hidden,
+.book-item[hidden] {
+    display: none !important;
+}
+
 .book-item--cover-only .book-cover {
     border-radius: var(--image-radius);
 }
