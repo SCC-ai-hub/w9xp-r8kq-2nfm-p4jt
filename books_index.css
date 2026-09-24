@@ -217,6 +217,11 @@
     text-transform: uppercase;
 }
 
+.book-title-main.no-translation-caption {
+    color: #ff2a2a;
+    text-transform: none;
+}
+
 .book-title-alt {
     display: block;
     margin-top: var(--book-meta-gap);
