@@ -25,10 +25,11 @@
 
     /* Thumb size; desc width is per-film via films-desc-fit.js */
     --film-thumb-w: 660;
-    --film-desc-gap: calc(14 / var(--ref-h) * 100cqh);
-    --film-desc-headline-font: calc(19 / var(--ref-h) * 100cqh);
     --film-desc-body-font: calc(16 / var(--ref-h) * 100cqh);
     --film-desc-line: 1.4;
+    /* One body-line after meta; bottom band clears switchers by 1 line */
+    --film-desc-gap: calc(var(--film-desc-body-font) * var(--film-desc-line));
+    --film-desc-bottom-lines: 1;
     /* Filled by films-desc-fit.js from tallest .film-meta */
     --film-meta-slot-h: 0px;
 }
@@ -232,16 +233,6 @@
 
 #lang-en:checked ~ .page .film-desc .lang-en {
     opacity: 1;
-}
-
-.film-desc-headline {
-    margin: 0 0 0.55em;
-    padding: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: var(--film-desc-headline-font);
-    font-weight: 700;
-    line-height: var(--film-desc-line);
-    color: #000000;
 }
 
 .film-desc-body {

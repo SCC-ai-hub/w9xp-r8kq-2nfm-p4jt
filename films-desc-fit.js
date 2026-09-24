@@ -1,12 +1,11 @@
 /**
- * Films page: lock description top (fixed meta slot) + per-film desc width
- * so short copy fills the desc band; long copy stays as wide as needed to fit.
+ * Films page: lock description top (fixed meta slot) + per-film desc width.
+ * Narrowest width that still fits the desc band (bottom = 2 body-lines above switchers).
  */
 (function () {
     var META_SLOT = '--film-meta-slot-h';
-    var MIN_THUMB_REF = 660;
     var REF_W = 1920;
-    var BOTTOM_PAD = 10;
+    var MIN_W_FLOOR = 280;
 
     function panel() {
         return document.querySelector('.films-panel:not(.films-panel--two)');
@@ -43,6 +42,20 @@
         return Math.ceil(maxH);
     }
 
+    /** Raise bottom of band by N body lines (from CSS --film-desc-bottom-lines). */
+    function bottomPadPx(p) {
+        var body = document.querySelector('.films-panel:not(.films-panel--two) .film-desc-body');
+        var lines = parseFloat(getComputedStyle(p).getPropertyValue('--film-desc-bottom-lines')) || 2;
+        var linePx = 22;
+        if (body) {
+            var cs = getComputedStyle(body);
+            var lh = cs.lineHeight;
+            if (lh && lh !== 'normal') linePx = parseFloat(lh);
+            else linePx = parseFloat(cs.fontSize) * 1.4;
+        }
+        return Math.ceil(linePx * lines);
+    }
+
     function setDescWidth(desc, px) {
         desc.style.width = px + 'px';
         desc.style.maxWidth = '100%';
@@ -54,9 +67,7 @@
     }
 
     /**
-     * Narrowest width whose height still fits in availH.
-     * Short texts → narrow (taller block fills the band).
-     * Long texts → stay wide enough not to overflow.
+     * Narrowest width whose height still fits in availH (max density at fixed font).
      */
     function fitItem(item, maxW, minW, availH) {
         var desc = item.querySelector('.film-desc');
@@ -78,9 +89,9 @@
             var mid = (lo + hi) >> 1;
             if (heightAt(desc, mid) <= availH) {
                 best = mid;
-                hi = mid - 1; /* try narrower → taller */
+                hi = mid - 1;
             } else {
-                lo = mid + 1; /* too tall → widen */
+                lo = mid + 1;
             }
         }
 
@@ -109,8 +120,9 @@
         p.style.setProperty(META_SLOT, measureMetaSlot(list) + 'px');
         void p.offsetHeight;
 
+        var pad = bottomPadPx(p);
         var swTop = sw.getBoundingClientRect().top;
-        var minW = Math.max(200, Math.round(pageW * (MIN_THUMB_REF / REF_W)));
+        var minW = Math.max(MIN_W_FLOOR, Math.round(pageW * 0.32));
         var maxW = Math.round(pageW);
 
         list.forEach(function (item) {
@@ -118,7 +130,7 @@
             if (!desc) return;
             setDescWidth(desc, maxW);
             void desc.offsetHeight;
-            var availH = swTop - BOTTOM_PAD - desc.getBoundingClientRect().top;
+            var availH = swTop - pad - desc.getBoundingClientRect().top;
             fitItem(item, maxW, minW, availH);
         });
     }
