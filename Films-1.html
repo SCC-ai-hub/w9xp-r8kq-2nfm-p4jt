@@ -6,13 +6,14 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
     <meta name="baiduspider" content="noindex, nofollow">
-    <title>Interviews and Films</title>
+    <title>Films — variant 1 (one film + full description)</title>
     <link rel="stylesheet" href="language-switcher.css">
     <link rel="stylesheet" href="navigation.css">
     <link rel="stylesheet" href="page-arrows.css">
     <link rel="stylesheet" href="card-grid-page.css">
     <link rel="stylesheet" href="ai-translated-review.css">
     <link rel="stylesheet" href="films_index.css">
+    <link rel="stylesheet" href="films_variants.css">
     <link rel="stylesheet" href="fancybox/fancybox.css">
     <link rel="stylesheet" href="fancybox/fancybox-override.css">
     <script src="fancybox/fancybox.umd.js"></script>
@@ -21,7 +22,6 @@
     <script src="fancybox/fancybox-override.js"></script>
     <script src="language-switcher.js" defer></script>
     <script src="scroll-grid.js" defer></script>
-    <script src="films-desc-fit.js" defer></script>
     <style>
         :root {
             --canvas-bg: #08080a;
@@ -37,6 +37,8 @@
         <input type="radio" name="lang" id="lang-en" class="lang-radio" checked hidden>
 
         <div class="page card-page">
+            <p class="films-variant-note">Variant 1 — one film / page</p>
+
             <button type="button" class="page-arrow page-arrow--prev" data-scroll-prev aria-label="Scroll left">
                 <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
                     <path d="M120 31H8M36 3L8 31l28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -48,7 +50,7 @@
                 </svg>
             </button>
 
-            <div class="card-panel films-panel">
+            <div class="card-panel films-panel films-panel--variant films-panel--one">
                 <h1 class="card-title">
                     <span class="lang-it">INTERVISTE E FILM</span>
                     <span class="lang-en">INTERVIEWS AND FILMS</span>

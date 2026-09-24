@@ -6,13 +6,14 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
     <meta name="baiduspider" content="noindex, nofollow">
-    <title>Interviews and Films</title>
+    <title>Films — variant 2 (two films + descriptions)</title>
     <link rel="stylesheet" href="language-switcher.css">
     <link rel="stylesheet" href="navigation.css">
     <link rel="stylesheet" href="page-arrows.css">
     <link rel="stylesheet" href="card-grid-page.css">
     <link rel="stylesheet" href="ai-translated-review.css">
     <link rel="stylesheet" href="films_index.css">
+    <link rel="stylesheet" href="films_variants.css">
     <link rel="stylesheet" href="fancybox/fancybox.css">
     <link rel="stylesheet" href="fancybox/fancybox-override.css">
     <script src="fancybox/fancybox.umd.js"></script>
@@ -21,7 +22,6 @@
     <script src="fancybox/fancybox-override.js"></script>
     <script src="language-switcher.js" defer></script>
     <script src="scroll-grid.js" defer></script>
-    <script src="films-desc-fit.js" defer></script>
     <style>
         :root {
             --canvas-bg: #08080a;
@@ -37,6 +37,8 @@
         <input type="radio" name="lang" id="lang-en" class="lang-radio" checked hidden>
 
         <div class="page card-page">
+            <p class="films-variant-note">Variant 2 — two films / page (longest pair first)</p>
+
             <button type="button" class="page-arrow page-arrow--prev" data-scroll-prev aria-label="Scroll left">
                 <svg class="page-arrow__icon" viewBox="0 0 128 62" aria-hidden="true">
                     <path d="M120 31H8M36 3L8 31l28 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -48,7 +50,7 @@
                 </svg>
             </button>
 
-            <div class="card-panel films-panel">
+            <div class="card-panel films-panel films-panel--variant films-panel--two">
                 <h1 class="card-title">
                     <span class="lang-it">INTERVISTE E FILM</span>
                     <span class="lang-en">INTERVIEWS AND FILMS</span>
@@ -64,56 +66,7 @@
                     <div class="films-viewport" data-scroll-grid>
                         <div class="films-track">
 
-                            <!-- 1988 Sotheby's -->
-                            <div class="films-page">
-                                <a
-                                    class="film-item"
-                                    href="films/Sotheby‘s Sale Moskow.Июль 1988 г_trim.mp4"
-                                    data-film-video
-                                    data-poster="films/02.jpg"
-                                    data-html5video-format="video/mp4"
-                                >
-                                    <div class="film-thumb">
-                                        <img class="film-image" src="films/02.jpg" alt="Sotheby's Sale Moscow">
-                                        <span class="film-play" aria-hidden="true">
-                                            <svg class="film-play__icon" viewBox="0 0 24 24">
-                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
-                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="film-meta">
-                                        <div class="lang-it">
-                                            <p class="film-heading">
-                                                <span class="film-year">1988.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title">ASTA SOTHEBY'S A MOSCA</span>
-                                            </p>
-                                            <p class="film-source">Vendita Sotheby's. Mosca, luglio 1988</p>
-                                        </div>
-                                        <div class="lang-en">
-                                            <p class="film-heading">
-                                                <span class="film-year">1988.</span>
-                                                <span class="film-artist">GRISHA BRUSKIN.</span>
-                                                <span class="film-title">SOTHEBY'S SALE IN MOSCOW</span>
-                                            </p>
-                                            <p class="film-source">Sotheby's Sale. Moscow, July 1988</p>
-                                        </div>
-                                    </div>
-                                    <div class="film-desc">
-                                        <div class="lang-it">
-                                            <p class="film-desc-headline">Luglio 1988. Sotheby’s, Mosca.</p>
-                                            <p class="film-desc-body">Il video documenta il momento in cui Lessico fondamentale di Grisha Bruskin viene battuto all’asta da Sotheby’s a Mosca nel luglio 1988. Le immagini seguono la vendita dell’opera, registrando le offerte, gli interventi del banditore e le reazioni del pubblico presente in sala. Il filmato conserva così una testimonianza diretta di un momento significativo nella storia dell’opera di Bruskin e della sua ricezione internazionale. L’asta si svolge in una fase di profonda trasformazione culturale, durante gli ultimi anni dell’Unione Sovietica e nel contesto di una crescente attenzione internazionale verso l’arte sovietica contemporanea. La sequenza restituisce l’immediatezza dell’evento e il progressivo susseguirsi delle offerte fino all’aggiudicazione.</p>
-                                        </div>
-                                        <div class="lang-en">
-                                            <p class="film-desc-headline">July 1988. Sotheby’s, Moscow.</p>
-                                            <p class="film-desc-body">The video documents the moment when Grisha Bruskin’s Fundamental Lexicon was auctioned at Sotheby’s in Moscow in July 1988. The footage follows the sale of the work, recording the bids, the auctioneer’s calls, and the reactions of the audience in the room. It thus preserves a direct record of a significant moment in the history of Bruskin’s work and its international reception. The auction took place during a period of profound cultural transformation, in the final years of the Soviet Union and amid growing international interest in contemporary Soviet art. The sequence captures the immediacy of the event and the progression of bids leading to the final sale.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- 2012 Imperfect Past (long) -->
+                            <!-- Stress page: two longest bodies side by side -->
                             <div class="films-page">
                                 <a
                                     class="film-item"
@@ -164,10 +117,7 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>
 
-                            <!-- 2013 H-Hour (longest) -->
-                            <div class="films-page">
                                 <a
                                     class="film-item"
                                     href="films/+++Sh.H-HOUR  mov_trim.mp4"
@@ -215,8 +165,54 @@
                                 </a>
                             </div>
 
-                            <!-- 2022 Scene Change -->
+                            <!-- Shorter pair for comparison -->
                             <div class="films-page">
+                                <a
+                                    class="film-item"
+                                    href="films/Sotheby‘s Sale Moskow.Июль 1988 г_trim.mp4"
+                                    data-film-video
+                                    data-poster="films/02.jpg"
+                                    data-html5video-format="video/mp4"
+                                >
+                                    <div class="film-thumb">
+                                        <img class="film-image" src="films/02.jpg" alt="Sotheby's Sale Moscow">
+                                        <span class="film-play" aria-hidden="true">
+                                            <svg class="film-play__icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="12" fill="currentColor" fill-opacity="0.42"/>
+                                                <path d="M10 8.2v7.6L16.5 12z" fill="#fff"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="film-meta">
+                                        <div class="lang-it">
+                                            <p class="film-heading">
+                                                <span class="film-year">1988.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">ASTA SOTHEBY'S A MOSCA</span>
+                                            </p>
+                                            <p class="film-source">Vendita Sotheby's. Mosca, luglio 1988</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-heading">
+                                                <span class="film-year">1988.</span>
+                                                <span class="film-artist">GRISHA BRUSKIN.</span>
+                                                <span class="film-title">SOTHEBY'S SALE IN MOSCOW</span>
+                                            </p>
+                                            <p class="film-source">Sotheby's Sale. Moscow, July 1988</p>
+                                        </div>
+                                    </div>
+                                    <div class="film-desc">
+                                        <div class="lang-it">
+                                            <p class="film-desc-headline">Luglio 1988. Sotheby’s, Mosca.</p>
+                                            <p class="film-desc-body">Il video documenta il momento in cui Lessico fondamentale di Grisha Bruskin viene battuto all’asta da Sotheby’s a Mosca nel luglio 1988. Le immagini seguono la vendita dell’opera, registrando le offerte, gli interventi del banditore e le reazioni del pubblico presente in sala. Il filmato conserva così una testimonianza diretta di un momento significativo nella storia dell’opera di Bruskin e della sua ricezione internazionale. L’asta si svolge in una fase di profonda trasformazione culturale, durante gli ultimi anni dell’Unione Sovietica e nel contesto di una crescente attenzione internazionale verso l’arte sovietica contemporanea. La sequenza restituisce l’immediatezza dell’evento e il progressivo susseguirsi delle offerte fino all’aggiudicazione.</p>
+                                        </div>
+                                        <div class="lang-en">
+                                            <p class="film-desc-headline">July 1988. Sotheby’s, Moscow.</p>
+                                            <p class="film-desc-body">The video documents the moment when Grisha Bruskin’s Fundamental Lexicon was auctioned at Sotheby’s in Moscow in July 1988. The footage follows the sale of the work, recording the bids, the auctioneer’s calls, and the reactions of the audience in the room. It thus preserves a direct record of a significant moment in the history of Bruskin’s work and its international reception. The auction took place during a period of profound cultural transformation, in the final years of the Soviet Union and amid growing international interest in contemporary Soviet art. The sequence captures the immediacy of the event and the progression of bids leading to the final sale.</p>
+                                        </div>
+                                    </div>
+                                </a>
+
                                 <a
                                     class="film-item"
                                     href="films/ГТГ Scene_Change_Grisha_Bruskin _trim.mp4"

@@ -1,0 +1,72 @@
+/* ========== films_variants.css — Films-2 experiment only (2 films + desc)
+   Main page styles live in films_index.css. Do not change Films-2 layout here
+   unless iterating on the two-film experiment. ========== */
+
+.films-panel--variant .films-viewport {
+    overflow-y: visible;
+}
+
+.films-panel--variant .films-scroll {
+    overflow: visible;
+}
+
+.films-panel--two {
+    --film-cols: 2;
+    --title-grid-gap: calc(72 / var(--ref-h) * 100cqh);
+    --film-gap-x: calc(56 / var(--ref-h) * 100cqh);
+    --film-thumb-scale: 0.82;
+    --film-thumb-w: 1920;
+    --film-desc-w: 1920;
+    --film-desc-headline-font: calc(15.5 / var(--ref-h) * 100cqh);
+    --film-desc-body-font: calc(13.5 / var(--ref-h) * 100cqh);
+    --film-desc-line: 1.38;
+    --film-meta-font: calc(18 / var(--ref-h) * 100cqh);
+    --film-source-font: calc(17 / var(--ref-h) * 100cqh);
+    --film-credit-font: calc(15 / var(--ref-h) * 100cqh);
+}
+
+.films-panel--two .films-page {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--film-gap-x);
+    align-items: start;
+    align-content: start;
+}
+
+.films-panel--two .film-item {
+    width: 100%;
+    max-width: none;
+    align-items: flex-start;
+}
+
+.films-panel--two .film-thumb {
+    width: calc(100% * var(--film-thumb-scale));
+    max-width: none;
+    align-self: flex-start;
+}
+
+.films-panel--two .film-meta {
+    width: 100%;
+    max-width: none;
+}
+
+.films-panel--two .film-desc {
+    width: 100%;
+}
+
+.films-variant-note {
+    position: absolute;
+    top: calc(18 / var(--ref-h) * 100cqh);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    margin: 0;
+    padding: calc(4 / var(--ref-h) * 100cqh) calc(14 / var(--ref-h) * 100cqh);
+    font-family: var(--font-display);
+    font-size: calc(14 / var(--ref-h) * 100cqh);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    pointer-events: none;
+    white-space: nowrap;
+}
