@@ -3,7 +3,7 @@
  */
 window.FILMS_IMAGES = [
     {
-        file: "Sotheby‘s Sale Moskow.Июль 1988 г_trim.mp4",
+        file: "Sotheby‘s Sale Moskow.Июль 1988 г_DeBlock.mp4",
         type: "html5video",
         videoFormat: "video/mp4",
         poster: "02.jpg",
@@ -20,7 +20,7 @@ window.FILMS_IMAGES = [
         bodyEn: "The video documents the moment when Grisha Bruskin’s Fundamental Lexicon was auctioned at Sotheby’s in Moscow in July 1988. The footage follows the sale of the work, recording the bids, the auctioneer’s calls, and the reactions of the audience in the room. It thus preserves a direct record of a significant moment in the history of Bruskin’s work and its international reception. The auction took place during a period of profound cultural transformation, in the final years of the Soviet Union and amid growing international interest in contemporary Soviet art. The sequence captures the immediacy of the event and the progression of bids leading to the final sale."
     },
     {
-        file: "фильм Зарецкой_trim.mp4",
+        file: "фильм Зарецкой.m4v",
         type: "html5video",
         videoFormat: "video/mp4",
         poster: "04.jpg",
@@ -37,9 +37,9 @@ window.FILMS_IMAGES = [
         bodyEn: "The documentary portrays Grisha Bruskin through the artist’s own voice, his works, and archival material. Bruskin reflects on aspects of his personal and artistic experience, connecting them with the Soviet history and culture that form an important point of reference throughout his practice. Paintings, sculptures, and emblematic figures from his visual universe accompany the narrative, revealing a language constructed through symbols, archetypes, and systems of signs. The film brings individual and collective memory into dialogue, showing how images and ideological structures inherited from the past are reworked in the artist’s oeuvre. Sequences devoted to Bruskin’s works alternate with the interview and documentary material, establishing a continuous relationship between biography, history, and artistic practice."
     },
     {
-        file: "+++Sh.H-HOUR  mov_trim.mp4",
+        file: "+++Sh.H-HOUR  mov.mov",
         type: "html5video",
-        videoFormat: "video/mp4",
+        videoFormat: "video/quicktime",
         poster: "01.jpg",
         year: "2013",
         titleIt: "L'ORA X",
@@ -54,9 +54,9 @@ window.FILMS_IMAGES = [
         bodyEn: "Produced on the occasion of the exhibition of the same name at the Multimedia Art Museum in Moscow, the video presents H-Hour, Grisha Bruskin’s project exploring memory, ideology, and the mechanisms through which power constructs and transmits its symbolic systems. The exhibition, curated by Olga Sviblova, with Anna Zaitseva as assistant curator, is also discussed through their appearances in the video, alongside the artist’s own commentary. Images of the works are interwoven with photographs, footage, and archival material related to Soviet history. Bruskin reflects on the experience of a society in which collective rituals, propaganda, and representations of power contributed to shaping both individual and public imagination. The film connects personal memory with collective history, past with present, and historical documentation with artistic representation. Views of the exhibition reveal how these elements take shape within the installation of H-Hour. The video thus offers an interpretation of the project through a dialogue between the artist’s perspective, the curatorial voices, and the historical material at the core of Bruskin’s reflections."
     },
     {
-        file: "ГТГ Scene_Change_Grisha_Bruskin _trim.mp4",
+        file: "ГТГ Scene_Change_Grisha_Bruskin (1).mov",
         type: "html5video",
-        videoFormat: "video/mp4",
+        videoFormat: "video/quicktime",
         poster: "03.jpg",
         year: "2022",
         titleIt: "CAMBIO DI SCENA",

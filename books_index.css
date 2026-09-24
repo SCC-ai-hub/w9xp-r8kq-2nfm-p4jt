@@ -218,7 +218,7 @@
 }
 
 .book-title-main.no-translation-caption {
-    color: #ff2a2a;
+    color: inherit;
     text-transform: none;
 }
 

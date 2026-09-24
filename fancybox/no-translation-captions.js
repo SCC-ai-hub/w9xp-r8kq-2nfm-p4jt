@@ -5,7 +5,7 @@
  * Pages keep working from disk (file://); a missing file just skips placeholders.
  */
 window.NO_TRANSLATION_CAPTIONS = {
-    SHOW: true,
+    SHOW: false,
     en: 'No translation',
     it: 'Nessuna traduzione'
 };

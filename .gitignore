@@ -25,6 +25,8 @@ BIO/documents/*.txt
 
 # Unreferenced media variants
 artworks/IL_Grande_Domani/*.mov
+artworks/IL_Grande_Domani/*.mp4
+!artworks/IL_Grande_Domani/*_trim.mp4
 artworks/Performance/Performance_deinterlace.mp4
 artworks/Performance/FF *.png
 artworks/Performance/VirtualDub.png
@@ -44,13 +46,14 @@ artworks/H-Hour/24.Starving Dogs.jpg
 artworks/H-Hour/29.Ruined Characters.1.jpg
 artworks/H-Hour/37.Melancholy Androgynous Warriors.3.jpg
 
-# Film source originals (site uses *_trim.mp4 + JPG posters)
+# Films: site links non-trim *.mp4 (large, local-only); *_trim.mp4 kept as backup
 films/*.mov
 films/*.m4v
+films/*.mp4
+!films/*_trim.mp4
 
-# Questions-video: only *_trim*.mp4 are wired in questions-video.html
+# Questions-video: site links Copia di *_mono.mp4 (large, local-only); *_trim* kept as backup
 questions-video/Copia di *_mono.mp4
-questions-video/Copia di 01_mono_trim.mp4
 
 # Font pack leftovers — site uses only Regular/Medium/Bold/Italic in fonts/
 fonts/static/

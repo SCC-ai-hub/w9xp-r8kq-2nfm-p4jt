@@ -395,7 +395,7 @@ window.ARTWORKS_SERIES = [
                 captionEn: ''
             },
             {
-                file: "Performance_deinterlace_trim.mp4",
+                file: "Performance_deinterlace.mp4",
                 type: "html5video",
                 poster: "Performance.png",
                 videoFormat: "video/mp4",

@@ -498,10 +498,9 @@
     pointer-events: none;
 }
 
-/* Empty caption placeholder: "No translation" / "Nessuna traduzione" in red.
- * Remove .no-translation-caption rule (or delete no-translation-captions.js) to turn off. */
+/* Empty caption placeholder (disabled via NO_TRANSLATION_CAPTIONS.SHOW=false). */
 .no-translation-caption {
-    color: #ff2a2a;
+    color: inherit;
 }
 
 .bio-photos-gallery .bio-gallery-caption:empty,
