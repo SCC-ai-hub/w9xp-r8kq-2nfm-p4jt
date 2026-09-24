@@ -1,0 +1,266 @@
+/* ========== books_hub.css — Publications hub (2 rectangular tiles, index-like) ========== */
+@import url("fonts.css");
+
+:root {
+    --ref-w: 1920;
+    --ref-h: 1080;
+
+    --bg: #08080a;
+    --text: #ffffff;
+
+    /* Left cover Prošedšee_2ed 2545×4255 → frame AR; right letterboxed to match */
+    --tile-w: calc(268 / var(--ref-h) * 100cqh);
+    --tile-ar: 2545 / 4255;
+    --tile-border: calc(1.5 / var(--ref-h) * 100cqh);
+    --tile-radius: calc(4 / var(--ref-h) * 100cqh);
+    --hub-gap-x: calc(220 / var(--ref-h) * 100cqh);
+    --label-gap: calc(28 / var(--ref-h) * 100cqh);
+    --label-font: calc(32 / var(--ref-h) * 100cqh);
+
+    --switcher-w: calc(275 / 1080 * 100cqh);
+    --switcher-h: calc(64 / 1080 * 100cqh);
+    --switcher-radius: calc(32 / 1080 * 100cqh);
+    --switcher-font: calc(21 / 1080 * 100cqh);
+    --circle-size: calc(42 / 1080 * 100cqh);
+    --switchers-gap: calc(105 / var(--ref-w) * 100cqw);
+    --switchers-optical-x: calc(2.5 / 1080 * 100cqh);
+    --switchers-bottom: calc(48 / var(--ref-h) * 100cqh);
+    --lang-fade: 0.28s ease;
+}
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    font-family: var(--font-display);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+img, a, svg {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    aspect-ratio: 16 / 9;
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    max-height: 100vh;
+    max-width: 100vw;
+    margin: auto;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.page {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    background: var(--bg);
+    padding: 0;
+}
+
+.hub-list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--hub-gap-x);
+    /* center tiles, then lift one label line */
+    transform: translate(-50%, calc(-50% - var(--label-font) * 1.15));
+    width: max-content;
+}
+
+.hub-item {
+    position: relative;
+    display: block;
+    width: var(--tile-w);
+    /* height = tile only → vertical center hits book frames, not labels */
+    text-decoration: none;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.hub-tile {
+    display: block;
+    box-sizing: border-box;
+    width: var(--tile-w);
+    aspect-ratio: var(--tile-ar);
+    border-radius: var(--tile-radius);
+    overflow: hidden;
+    border: var(--tile-border) solid rgba(255, 255, 255, 0.92);
+    background: #000000;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hub-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Right cover: same outer AR as left; contain → black bars T/B */
+.hub-item--mono .hub-tile img {
+    object-fit: contain;
+    background: #000000;
+}
+
+.hub-label {
+    position: absolute;
+    top: calc(100% + var(--label-gap));
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    width: max-content;
+    max-width: calc(var(--tile-w) * 1.55);
+    min-width: 100%;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--label-font);
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--text);
+    white-space: normal;
+}
+
+.hub-item--pressed .hub-tile {
+    border-color: #ffffff;
+    box-shadow:
+        0 0 calc(8 / var(--ref-h) * 100cqh) rgba(255, 255, 255, 0.55),
+        0 0 calc(18 / var(--ref-h) * 100cqh) rgba(255, 255, 255, 0.28);
+}
+
+.hub-label .lang-it,
+.hub-label .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .hub-label .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .hub-label .lang-en {
+    opacity: 1;
+}
+
+/* Switchers: kill language-switcher/navigation auto margins that split the pills */
+.page .switchers-row {
+    position: absolute;
+    left: 50%;
+    bottom: var(--switchers-bottom);
+    top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--switchers-gap);
+    margin: 0;
+    padding: 0;
+    transform: translateX(calc(-50% + var(--switchers-optical-x)));
+    z-index: 4;
+}
+
+.page .css-switcher,
+.page .nav-switcher,
+.page a.nav-switcher {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+.container .css-switcher {
+    background-color: var(--bg);
+    border-color: transparent;
+}
+
+.container .css-switcher::before {
+    left: calc(-15 / 1080 * 100cqh);
+    border-color: #9a9a9a;
+    background-color: var(--bg);
+}
+
+.container .css-switcher .switcher-left {
+    transform: translateX(calc(10 / 1080 * 100cqh));
+}
+
+.page .css-switcher .switcher-label,
+#lang-it:checked ~ .page .css-switcher .switcher-label--toggle-en,
+#lang-en:checked ~ .page .css-switcher .switcher-label--toggle-it {
+    color: #9a9a9a;
+}
+
+.page .css-switcher .it-circle,
+.page .css-switcher .en-circle,
+#lang-en:checked ~ .page .css-switcher .it-circle,
+#lang-en:checked ~ .page .css-switcher .en-circle,
+#lang-it:checked ~ .page .css-switcher .it-circle,
+#lang-it:checked ~ .page .css-switcher .en-circle {
+    color: #9a9a9a;
+}
+
+/* Только активный язык — обводка (как index.css) */
+#lang-en:checked ~ .page .css-switcher .en-circle,
+#lang-it:checked ~ .page .css-switcher .it-circle {
+    border-color: #9a9a9a;
+}
+
+#lang-en:checked ~ .page .css-switcher .it-circle,
+#lang-it:checked ~ .page .css-switcher .en-circle {
+    border-color: transparent;
+}
+
+.page .nav-switcher {
+    background-color: var(--bg);
+    border-color: transparent;
+}
+
+.page .nav-switcher::before {
+    border-color: #9a9a9a;
+    background-color: var(--bg);
+}
+
+.page .nav-switcher .nav-label,
+.page .nav-switcher .nav-home,
+.page .nav-label::before,
+.page .nav-home::before {
+    color: #9a9a9a;
+}
+
+.page .nav-divider {
+    background-color: #9a9a9a;
+}

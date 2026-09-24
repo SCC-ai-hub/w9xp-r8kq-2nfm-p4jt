@@ -1,0 +1,155 @@
+/* ========== books_monografie.css — Monographs list (scroll text) ========== */
+
+.mono-panel {
+    /* sides −30% content width vs prior 160 pad → padX ≈ 400 @1920 */
+    --card-padding-x: calc(400 / var(--ref-w) * 100cqw);
+    --card-padding-top: calc(56 / var(--ref-h) * 100cqh);
+    --mono-font: calc(20 / var(--ref-h) * 100cqh);
+    --mono-line: 1.35;
+    --mono-line-h: calc(var(--mono-font) * var(--mono-line));
+    /* title → text field: base + 1 line (cut field top, not inner pad) */
+    --title-grid-gap: calc(40 / var(--ref-h) * 100cqh + var(--mono-line-h));
+    --mono-entry-gap: calc(22 / var(--ref-h) * 100cqh);
+
+    /* bio-text circular arrows */
+    --scroll-btn-d: calc(68 / var(--ref-h) * 100cqh);
+    --scroll-btn-border: #4a4a4a;
+    --scroll-arrows-stack-gap: calc(14 / var(--ref-h) * 100cqh);
+    /* band between text bottom and switchers — arrows centered in it */
+    --mono-arrow-band: calc(100 / var(--ref-h) * 100cqh + 2 * var(--mono-line-h));
+}
+
+.mono-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.mono-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    box-sizing: border-box;
+    /* content flush to field edges; field top set via --title-grid-gap */
+    padding: 0;
+}
+
+.mono-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.mono-list {
+    display: grid;
+    width: 100%;
+}
+
+.mono-list .lang-it,
+.mono-list .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+}
+
+#lang-it:checked ~ .page .mono-list .lang-it {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#lang-en:checked ~ .page .mono-list .lang-en {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mono-entry {
+    margin: 0 0 var(--mono-entry-gap);
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: var(--mono-font);
+    font-weight: 400;
+    line-height: var(--mono-line);
+    color: #000000;
+    text-align: left;
+}
+
+.mono-entry:last-child {
+    margin-bottom: 0;
+}
+
+.mono-entry em,
+.mono-entry i {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.mono-entry strong,
+.mono-entry b {
+    font-weight: 700;
+}
+
+/* Gap between text field and language switcher — arrows mid-height */
+.mono-arrow-band {
+    flex: 0 0 auto;
+    height: var(--mono-arrow-band);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 3;
+    background: var(--card-bg);
+}
+
+.mono-panel .scroll-arrows {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--scroll-arrows-stack-gap);
+    margin: 0;
+    pointer-events: none;
+}
+
+.mono-panel .scroll-btn {
+    width: var(--scroll-btn-d);
+    height: var(--scroll-btn-d);
+    border: 2px solid var(--scroll-btn-border);
+    border-radius: 50%;
+    background: transparent;
+    color: #000000;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.mono-panel .scroll-btn__icon {
+    width: 55%;
+    height: 55%;
+}
+
+.mono-panel .scroll-btn--inactive {
+    color: #8a8a8a;
+    border-color: #8a8a8a;
+    cursor: default;
+    pointer-events: none;
+}
+
+.mono-panel .switchers-row {
+    position: relative;
+    z-index: 4;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.mono-panel.card-panel--scroll .switchers-row::before {
+    display: none;
+}

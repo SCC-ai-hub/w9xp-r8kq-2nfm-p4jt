@@ -61,7 +61,7 @@ function initBioFancybox() {
         return;
     }
 
-    Fancybox.bind('[data-fancybox="bio"]', {
+    Fancybox.bind('[data-fancybox="bio"], [data-fancybox="books-text"]', {
         type: 'iframe',
         iframe: {
             preload: false,

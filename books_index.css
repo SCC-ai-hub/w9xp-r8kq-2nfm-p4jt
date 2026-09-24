@@ -276,3 +276,61 @@
     background: var(--card-bg);
     pointer-events: none;
 }
+
+/* Black LIST button — same design language as questions-video SHOW ANSWER */
+.books-list-btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: calc(12 / var(--ref-h) * 100cqh);
+    padding-bottom: calc(4 / var(--ref-h) * 100cqh);
+    position: relative;
+    z-index: 4;
+}
+
+.books-list-btn {
+    --books-list-h: calc(63 / var(--ref-h) * 100cqh);
+    --books-list-pad-x: calc(40 / var(--ref-h) * 100cqh);
+    --books-list-min-w: calc(235 / var(--ref-h) * 100cqh);
+    --books-list-font: calc(16 / var(--ref-h) * 100cqh);
+
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    box-sizing: border-box;
+    min-width: var(--books-list-min-w);
+    height: var(--books-list-h);
+    padding: 0 var(--books-list-pad-x);
+    border: 0;
+    border-radius: 999px;
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: var(--books-list-font);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.books-list-btn .lang-it,
+.books-list-btn .lang-en {
+    grid-area: 1 / 1;
+    display: block !important;
+    opacity: 0;
+    transition: opacity var(--lang-fade);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+#lang-it:checked ~ .page .books-list-btn .lang-it {
+    opacity: 1;
+}
+
+#lang-en:checked ~ .page .books-list-btn .lang-en {
+    opacity: 1;
+}
