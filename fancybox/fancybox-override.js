@@ -1995,40 +1995,22 @@ function ensureFilmsVideoIntro(frame, slide) {
         return;
     }
 
-    var hasText = !!(slide.headlineIt || slide.headlineEn || slide.bodyIt || slide.bodyEn);
-    if (!hasText) {
-        return;
-    }
-
+    /* Descriptions are on films_index; Fancybox shows poster + play only. */
     var intro = frame.querySelector('.film-video-intro');
-    if (!intro) {
-        intro = document.createElement('div');
-        intro.className = 'film-video-intro';
-        intro.innerHTML =
-            '<div class="film-video-intro__text">' +
-            '<p class="film-video-intro__title"></p>' +
-            '<p class="film-video-intro__body"></p>' +
-            '</div>';
-        var playBtn = frame.querySelector('.artwork-video-play');
+    if (intro) {
+        var playBtn = intro.querySelector('.artwork-video-play');
         if (playBtn) {
-            frame.insertBefore(intro, playBtn);
-            intro.appendChild(playBtn);
-        } else {
-            frame.appendChild(intro);
+            frame.appendChild(playBtn);
+            if (!frame.classList.contains('is-playing')) {
+                playBtn.hidden = false;
+            }
         }
+        intro.remove();
     }
-
-    fillFilmsVideoIntro(intro, slide);
-
     var poster = frame.querySelector('.artwork-video-poster');
     if (poster && !frame.classList.contains('is-playing')) {
-        poster.hidden = true;
+        poster.hidden = false;
     }
-    if (!frame.classList.contains('is-playing')) {
-        intro.hidden = false;
-    }
-
-    syncFilmsIntroPlayAnchor(frame);
 }
 
 function refreshFilmsVideoIntroLang() {

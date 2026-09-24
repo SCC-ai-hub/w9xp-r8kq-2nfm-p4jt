@@ -1502,22 +1502,9 @@
     display: none !important;
 }
 
+/* Descriptions moved to films_index — keep intro shell unused / no copy overlay */
 .films-video-gallery .film-video-intro__text {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: var(--film-intro-pad-top);
-    bottom: var(--film-intro-text-bottom);
-    width: calc(100% - 2 * var(--film-intro-pad-x));
-    max-width: 41.6em; /* 52em − 20% */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-    text-align: left;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    display: none !important;
 }
 
 /* Short copy sits on the play; long copy scrolls from the top */
