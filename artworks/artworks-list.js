@@ -409,8 +409,8 @@ window.ARTWORKS_SERIES = [
             },
             {
                 file: "5 Sportswoman and Soldier from the _Birth of the Hero_ series. Palais Royal, Paris, 2000.jpg",
-                captionIt: '',
-                captionEn: 'Sportswoman and Soldier from the Birth of the Hero series. Palais Royal, Paris, 2000'
+                captionIt: 'La sportiva e il soldato, dalla serie Nascita di un eroe. Palais Royal, Parigi 2000.',
+                captionEn: 'Sportswoman and Soldier, from the Birth of the Hero series. Palais Royal, Paris, 2000.'
             },
             {
                 file: "6 Г. Брускин и Д. Пригов. Перформанс Гриши Брускина_.jpg",
