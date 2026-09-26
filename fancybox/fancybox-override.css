@@ -561,7 +561,8 @@
 .bio-documents-gallery {
     --bio-docs-line: calc(var(--bio-caption-font) * 1.35);
     --bio-docs-caption-h-fit: calc(3 * var(--bio-docs-line) + 2 * var(--bio-caption-pad-y));
-    --bio-docs-caption-h-invite: calc(min(22vh, 180px) - 2 * var(--bio-docs-line));
+    /* ~1.5 lines shorter than before; 0.5 line peeks so scroll is obvious */
+    --bio-docs-caption-h-invite: calc(min(22vh, 180px) - 3.5 * var(--bio-docs-line));
     --bio-docs-caption-h-last: calc(4 * var(--bio-docs-line) + 2 * var(--bio-caption-pad-y));
     --bio-docs-caption-h: var(--bio-docs-caption-h-fit);
     /* Same gap above and below the caption band */
@@ -611,16 +612,28 @@
 
 /* Long captions (e.g. Sotheby invite): fixed box + ↑↓ scroll */
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite {
+    width: fit-content;
+    max-width: min(90vw, 920px);
     height: var(--bio-docs-caption-h-invite);
     max-height: var(--bio-docs-caption-h-invite);
+    gap: 2px;
     user-select: none;
     -webkit-user-select: none;
-    padding-right: 8px;
+    padding-left: 12px;
+    padding-right: 4px;
 }
 
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-body {
+    flex: 0 1 auto;
+    width: max-content;
+    max-width: min(82vw, 860px);
     user-select: none;
     -webkit-user-select: none;
+}
+
+.bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-scroll-btns {
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-scroll-btn {

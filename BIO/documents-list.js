@@ -130,7 +130,8 @@ window.BIO_DOCUMENTS = [
         aspect: 0.7536,
         captionIt: `
             La mostra “L’artista e la contemporaneità” alla sala espositiva “Na Kaširke”, febbraio 1987
-            Da sinistra a destra: Grisha Bruskin, Evgenij Barabanov e Friedrich Dürrenmatt davanti al dipinto di Grisha Bruskin “Lessico Fondamentale” - prima parte
+            Da sinistra a destra: Grisha Bruskin, Evgenij Barabanov e Friedrich Dürrenmatt davanti al dipinto di Grisha Bruskin
+            “Lessico Fondamentale” - prima parte
         `.trim(),
         captionEn: `
             The exhibition “The Artist and His Contemporaneity” at the “Na Kashirke” Exhibition Hall, February 1987.
@@ -143,7 +144,8 @@ window.BIO_DOCUMENTS = [
         aspect: 0.7528,
         captionIt: `
             La mostra “L’artista e la contemporaneità” alla sala espositiva “Na Kaširke”, febbraio 1987
-            Da sinistra a destra: Grisha Bruskin, Evgenij Barabanov e Friedrich Dürrenmatt davanti al dipinto di Grisha Bruskin “Lessico Fondamentale” - prima parte
+            Da sinistra a destra: Grisha Bruskin, Evgenij Barabanov e Friedrich Dürrenmatt davanti al dipinto di Grisha Bruskin
+            “Lessico Fondamentale” - prima parte
         `.trim(),
         captionEn: `
             The exhibition “The Artist and His Contemporaneity” at the “Na Kashirke” Exhibition Hall, February 1987.
