@@ -52,8 +52,9 @@ films/*.m4v
 films/*.mp4
 !films/*_trim.mp4
 
-# Questions-video: site links Copia di *_mono.mp4 (large, local-only); *_trim* kept as backup
-questions-video/Copia di *_mono.mp4
+# Questions-video: finals on GitHub except 06/07 (>100MB) — those come from LIFE_oversized_source_videos.zip
+questions-video/Copia di 06_mono.mp4
+questions-video/Copia di 07_mono.mp4
 
 # Font pack leftovers — site uses only Regular/Medium/Bold/Italic in fonts/
 fonts/static/
