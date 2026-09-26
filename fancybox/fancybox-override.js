@@ -61,7 +61,7 @@ function initBioFancybox() {
         return;
     }
 
-    Fancybox.bind('[data-fancybox="bio"], [data-fancybox="books-text"]', {
+    Fancybox.bind('[data-fancybox="bio"]', {
         type: 'iframe',
         iframe: {
             preload: false,
@@ -127,18 +127,19 @@ function ensureBioIframeCloseButton(fancybox) {
 }
 
 function galleryItemSrc(folder, file) {
-    var base = String(folder || '');
-    var encodedBase = base.split('/').map(function (segment) {
+    var full = String(folder || '') + String(file || '');
+    return full.split('/').map(function (segment) {
         return segment === '' ? '' : encodeURIComponent(segment);
     }).join('/');
-    return encodedBase + encodeURIComponent(file);
 }
 
 var bioImageGalleries = [
     {
         fancyboxGroup: 'artwork-alefbet',
         mainClass: 'artworks-gallery',
-        getItems: function () { return window.ALEFBET_IMAGES; },
+        getItems: function () {
+            return (window.ALEFBET_IMAGES || []).filter(function (item) { return !item.hidden; });
+        },
         folder: 'artworks/alefbet/',
         triggerSelector: '.artwork-item--alefbet',
         containerId: 'artwork-alefbet-gallery',
@@ -1040,19 +1041,20 @@ function syncDocumentsCaptionReserve(container, mode) {
     if (!container) {
         return;
     }
+    /* Keep photo↔caption gap equal to caption↔thumbs (CSS --bio-docs-chrome-gap) */
     if (mode === 'fit') {
         container.style.setProperty('--bio-docs-caption-h', 'var(--bio-docs-caption-h-fit)');
-        container.style.setProperty('--bio-docs-photo-caption-gap', '50px');
+        container.style.setProperty('--bio-docs-photo-caption-gap', 'var(--bio-docs-chrome-gap)');
         return;
     }
     if (mode === 'invite') {
         container.style.setProperty('--bio-docs-caption-h', 'var(--bio-docs-caption-h-invite)');
-        container.style.setProperty('--bio-docs-photo-caption-gap', '50px');
+        container.style.setProperty('--bio-docs-photo-caption-gap', 'var(--bio-docs-chrome-gap)');
         return;
     }
     if (mode === 'last') {
         container.style.setProperty('--bio-docs-caption-h', 'var(--bio-docs-caption-h-last)');
-        container.style.setProperty('--bio-docs-photo-caption-gap', '50px');
+        container.style.setProperty('--bio-docs-photo-caption-gap', 'var(--bio-docs-chrome-gap)');
         return;
     }
     container.style.setProperty('--bio-docs-caption-h', '0px');
@@ -1060,21 +1062,23 @@ function syncDocumentsCaptionReserve(container, mode) {
 }
 
 /**
- * Documents-only caption modes by slide index:
- * 0 fit (no scroll), 1–2 invite (scroll, −2 lines), 4 last (4 lines).
- * EN: hide caption on slide 1 (second photo).
+ * Documents caption modes by text length (not slide index):
+ * short → fit (auto height); long multiline → invite (fixed box + ↑↓ scroll).
  * Photo size tokens set synchronously to avoid size jump on slide change.
  */
+function documentsCaptionNeedsScroll(text) {
+    if (!text) {
+        return false;
+    }
+    /* Only true multi-paragraph captions (Sotheby invite, etc.) */
+    return String(text).split(/\r\n|\n|\r/).length > 3;
+}
+
 function applyDocumentsCaptionMode(fancybox, captionEl, slideIndex, text) {
     var container = fancybox && fancybox.container;
     var btns = captionEl ? captionEl.querySelector('.bio-caption-scroll-btns') : null;
-    var lang = getCurrentLanguage();
 
     clearDocumentsCaptionMode(captionEl);
-
-    if (slideIndex === 1 && lang === 'en') {
-        text = '';
-    }
 
     if (!text) {
         if (captionEl) {
@@ -1089,16 +1093,7 @@ function applyDocumentsCaptionMode(fancybox, captionEl, slideIndex, text) {
 
     captionEl.style.display = '';
 
-    if (slideIndex === 0) {
-        captionEl.classList.add('bio-docs-caption--fit');
-        if (btns) {
-            btns.hidden = true;
-        }
-        syncDocumentsCaptionReserve(container, 'fit');
-        return text;
-    }
-
-    if (slideIndex === 1 || slideIndex === 2) {
+    if (documentsCaptionNeedsScroll(text)) {
         captionEl.classList.add('bio-docs-caption--invite');
         syncDocumentsCaptionReserve(container, 'invite');
         window.requestAnimationFrame(function () {
@@ -1107,21 +1102,28 @@ function applyDocumentsCaptionMode(fancybox, captionEl, slideIndex, text) {
         return text;
     }
 
-    if (slideIndex === 4) {
-        captionEl.classList.add('bio-docs-caption--last');
-        if (btns) {
-            btns.hidden = true;
-        }
-        syncDocumentsCaptionReserve(container, 'last');
-        return text;
-    }
-
+    captionEl.classList.add('bio-docs-caption--fit');
     if (btns) {
         btns.hidden = true;
     }
-    syncDocumentsCaptionReserve(container, 'none');
-    captionEl.style.display = 'none';
-    return '';
+    syncDocumentsCaptionReserve(container, 'fit');
+    return text;
+}
+
+/** After fit caption text is painted, shrink reserve to real height so photo reaches it. */
+function syncDocumentsFitCaptionHeight(fancybox, captionEl) {
+    var container = fancybox && fancybox.container;
+    if (!container || !captionEl || !captionEl.classList.contains('bio-docs-caption--fit')) {
+        return;
+    }
+    if (captionEl.style.display === 'none') {
+        return;
+    }
+    var h = Math.ceil(captionEl.getBoundingClientRect().height);
+    if (h > 0) {
+        container.style.setProperty('--bio-docs-caption-h', h + 'px');
+        container.style.setProperty('--bio-docs-photo-caption-gap', 'var(--bio-docs-chrome-gap)');
+    }
 }
 
 function positionBioImageGalleryCaption(fancybox) {
@@ -1179,9 +1181,13 @@ function refreshBioImageGalleryCaption() {
             if (otherBtns) {
                 otherBtns.hidden = true;
             }
-        } else if (text && (slideIndex === 1 || slideIndex === 2)) {
+        } else if (text && captionEl.classList.contains('bio-docs-caption--invite')) {
             window.requestAnimationFrame(function () {
                 updateBioCaptionScrollButtons(captionEl);
+            });
+        } else if (text && captionEl.classList.contains('bio-docs-caption--fit')) {
+            window.requestAnimationFrame(function () {
+                syncDocumentsFitCaptionHeight(fancybox, captionEl);
             });
         }
 

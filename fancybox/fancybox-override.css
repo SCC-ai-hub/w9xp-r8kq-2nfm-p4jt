@@ -293,18 +293,23 @@
         100vh - var(--bio-inset-top) - var(--bio-thumbs-bottom)
             - var(--bio-thumbs-stack) - var(--bio-photo-thumbs-gap)
     );
-    --bio-photo-max-w: calc(90vw * 0.85 * 0.9);
+    --bio-close-size: calc(var(--bio-stage-h) * 0.055);
+    --bio-close-gap: 30px;
+    --bio-nav-size: calc(var(--bio-stage-h) * 0.085);
+    /* Push nav outward by one button diameter so horizontal photos clear */
+    --bio-nav-inset: max(8px, calc(18vw - var(--bio-nav-size)));
+    --bio-nav-clear: 14px;
+    /* Cap width so landscape slides stay clear of ← → */
+    --bio-photo-max-w: min(
+        calc(90vw * 0.85 * 0.9),
+        calc(100vw - 2 * (var(--bio-nav-inset) + var(--bio-nav-size) + var(--bio-nav-clear)))
+    );
     --bio-photo-max-h: calc(var(--bio-photo-slot-h) * 0.9);
     /* Freed 10% of photo slot joins the caption band */
     --bio-caption-gap-total: calc(var(--bio-photo-thumbs-gap) + var(--bio-photo-slot-h) * 0.1);
     --bio-caption-reserve: var(--bio-caption-gap-total);
     /* Thumbs top = bottom + height; caption center = mid of photo-bottom↔thumbs-top */
     --bio-caption-band-bottom: calc(var(--bio-thumbs-bottom) + var(--bio-thumb-height));
-    --bio-close-size: calc(var(--bio-stage-h) * 0.055);
-    --bio-close-gap: 30px;
-    --bio-nav-size: calc(var(--bio-stage-h) * 0.085);
-    /* Push nav outward by one button diameter so horizontal photos clear */
-    --bio-nav-inset: max(8px, calc(18vw - var(--bio-nav-size)));
 }
 
 .bio-photos-gallery .fancybox__backdrop,
@@ -369,6 +374,36 @@
     border-radius: 0 !important;
     overflow: visible !important;
     cursor: default !important;
+}
+
+/* Documents: anchor photo BOTTOM to the caption top (− chrome gap).
+   Fancybox slide is already shortened by the thumbs strip — do NOT
+   subtract --bio-thumbs-stack again or the photo sits too high. */
+.bio-documents-gallery .fancybox__slide.has-image {
+    padding-bottom: calc(
+        var(--bio-thumbs-bottom)
+            + var(--bio-docs-caption-thumbs-gap) + var(--bio-docs-caption-h)
+            + var(--bio-docs-photo-caption-gap)
+    ) !important;
+}
+
+.bio-documents-gallery .fancybox__slide.has-image .fancybox__content {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: calc(
+        var(--bio-thumbs-bottom)
+            + var(--bio-docs-caption-thumbs-gap) + var(--bio-docs-caption-h)
+            + var(--bio-docs-photo-caption-gap)
+    ) !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    max-height: calc(
+        100% - var(--bio-inset-top) - var(--bio-thumbs-bottom)
+            - var(--bio-docs-caption-thumbs-gap) - var(--bio-docs-caption-h)
+            - var(--bio-docs-photo-caption-gap)
+    ) !important;
 }
 
 .bio-photos-gallery .fancybox__image,
@@ -510,8 +545,9 @@
     display: none;
 }
 
-/* Photos + artworks: grow photo +50px down (top fixed); caption mid of remaining photo↔thumbs gap */
+/* Photos + artworks + press: grow photo +50px down (top fixed); caption mid of remaining photo↔thumbs gap */
 .bio-photos-gallery,
+.bio-press-gallery,
 .artworks-gallery {
     --bio-photo-max-h: calc(var(--bio-photo-slot-h) * 0.9 + 50px);
     --bio-caption-gap-total: max(
@@ -521,28 +557,30 @@
     --bio-caption-reserve: var(--bio-caption-gap-total);
 }
 
-/* Documents: per-slide caption modes; photo bottom = 50px above caption.
-   Caption reserve tokens are set synchronously (no post-paint measure → no photo jump). */
+/* Documents: caption under photo; equal gap photo↔caption and caption↔thumbs. */
 .bio-documents-gallery {
     --bio-docs-line: calc(var(--bio-caption-font) * 1.35);
     --bio-docs-caption-h-fit: calc(3 * var(--bio-docs-line) + 2 * var(--bio-caption-pad-y));
     --bio-docs-caption-h-invite: calc(min(22vh, 180px) - 2 * var(--bio-docs-line));
     --bio-docs-caption-h-last: calc(4 * var(--bio-docs-line) + 2 * var(--bio-caption-pad-y));
     --bio-docs-caption-h: var(--bio-docs-caption-h-fit);
-    --bio-docs-photo-caption-gap: 50px;
-    --bio-docs-caption-thumbs-gap: 10px;
+    /* Same gap above and below the caption band */
+    --bio-docs-chrome-gap: 10px;
+    --bio-docs-photo-caption-gap: var(--bio-docs-chrome-gap);
+    --bio-docs-caption-thumbs-gap: var(--bio-docs-chrome-gap);
     --bio-photo-thumbs-gap: 72px;
     --bio-caption-font: calc(4rem / 3 * 0.72);
-    --bio-photo-max-h: calc(
-        100vh - var(--bio-inset-top) - var(--bio-thumbs-bottom)
-            - var(--bio-thumbs-stack) - var(--bio-docs-caption-h)
-            - var(--bio-docs-photo-caption-gap) - var(--bio-docs-caption-thumbs-gap)
-    );
+    /* Keep gap-total as caption band only (not full chrome) — used by shared mid-band math */
     --bio-caption-gap-total: calc(
         var(--bio-docs-caption-h) + var(--bio-docs-photo-caption-gap)
             + var(--bio-docs-caption-thumbs-gap)
     );
     --bio-caption-reserve: var(--bio-caption-gap-total);
+    --bio-photo-max-h: calc(
+        100% - var(--bio-inset-top) - var(--bio-thumbs-bottom)
+            - var(--bio-docs-caption-thumbs-gap) - var(--bio-docs-caption-h)
+            - var(--bio-docs-photo-caption-gap)
+    );
 }
 
 .bio-documents-gallery .bio-gallery-caption {
@@ -550,18 +588,17 @@
     flex-direction: row;
     align-items: stretch;
     gap: 8px;
-    width: min(78vw, 720px);
+    width: min(90vw, 920px);
     height: var(--bio-docs-caption-h);
     max-height: var(--bio-docs-caption-h);
     bottom: calc(var(--bio-caption-band-bottom) + var(--bio-docs-caption-thumbs-gap));
     transform: translate(-50%, 0);
-    padding: var(--bio-caption-pad-y) 8px var(--bio-caption-pad-y) 12px;
+    padding: var(--bio-caption-pad-y) 12px;
     overflow: hidden;
     pointer-events: auto;
-    text-align: left;
+    text-align: center;
 }
 
-/* 1st: height fits text, no scroll buttons */
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--fit {
     height: auto;
     max-height: none;
@@ -572,12 +609,13 @@
     overflow: visible;
 }
 
-/* 2nd & 3rd (invite): shorter by 2 lines, no text select, scroll btns +20% */
+/* Long captions (e.g. Sotheby invite): fixed box + ↑↓ scroll */
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite {
     height: var(--bio-docs-caption-h-invite);
     max-height: var(--bio-docs-caption-h-invite);
     user-select: none;
     -webkit-user-select: none;
+    padding-right: 8px;
 }
 
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--invite .bio-caption-body {
@@ -595,7 +633,6 @@
     height: calc(14px * 1.2);
 }
 
-/* last: fixed 4-line height, no scroll buttons */
 .bio-documents-gallery .bio-gallery-caption.bio-docs-caption--last {
     height: var(--bio-docs-caption-h-last);
     max-height: var(--bio-docs-caption-h-last);
@@ -609,6 +646,7 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    text-align: center;
 }
 
 .bio-documents-gallery .bio-caption-body::-webkit-scrollbar {
@@ -667,18 +705,6 @@
 
 .bio-documents-gallery .bio-gallery-caption .ai-translated {
     color: inherit;
-}
-
-/* PRESS: thumbs ×1.8; photo +75px down (top fixed); caption mid of remaining gap */
-.bio-press-gallery {
-    --bio-thumb-width: calc(144px * 0.8 * 1.5 * 1.2);
-    --bio-thumb-height: calc(108px * 0.8 * 1.5 * 1.2);
-    --bio-photo-max-h: calc(var(--bio-photo-slot-h) * 0.9 + 35px);
-    --bio-caption-gap-total: max(
-        24px,
-        calc(var(--bio-photo-thumbs-gap) + var(--bio-photo-slot-h) * 0.1 - 35px)
-    );
-    --bio-caption-reserve: var(--bio-caption-gap-total);
 }
 
 .bio-photos-gallery .bio-image-close,
@@ -798,11 +824,6 @@
         --bio-nav-inset: max(8px, calc(8vw - var(--bio-nav-size)));
     }
 
-    .bio-press-gallery {
-        --bio-thumb-width: calc(96px * 0.8 * 1.5 * 1.2);
-        --bio-thumb-height: calc(72px * 0.8 * 1.5 * 1.2);
-    }
-
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
     .bio-documents-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
     .bio-press-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
@@ -818,11 +839,6 @@
     .artworks-gallery {
         --bio-thumb-width: calc(176px * 0.8);
         --bio-thumb-height: calc(132px * 0.8);
-    }
-
-    .bio-press-gallery {
-        --bio-thumb-width: calc(176px * 0.8 * 1.5 * 1.2);
-        --bio-thumb-height: calc(132px * 0.8 * 1.5 * 1.2);
     }
 
     .bio-photos-gallery .f-thumbs.is-horizontal .f-thumbs__slide,
