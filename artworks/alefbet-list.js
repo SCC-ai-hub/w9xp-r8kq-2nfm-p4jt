@@ -7,6 +7,8 @@
  */
 window.ALEFBET_IMAGES = [
     {
+        /* temporarily off carousel — file + captions kept */
+        hidden: true,
         file: "Гриша Брускин выставки _Alefbet. Tapestry project_ Musee d_art. et d_istoire du Judaisme  Париж 2010.jpg",
         aspect: 1.5,
         captionIt: 'Grisha Bruskin, Alefbet. Tapestry Project. Veduta della mostra al Musée d\'Art et d\'Histoire du Judaïsme, Parigi, 2010.',

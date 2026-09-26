@@ -1,5 +1,5 @@
 /**
- * Art works gallery registry (all series except Alefbet).
+ * Artworks gallery registry (all series except Alefbet).
  * Each series uses images from its subfolder under artworks/ (depth 1 only; ORIG skipped).
  * Cover JPGs in artworks/ root are index thumbnails only — not gallery slides.
  */
@@ -386,41 +386,41 @@ window.ARTWORKS_SERIES = [
         images: [
             {
                 file: "1 Гриша Брускн. Перформанс _Рождение героя_ Каширка Москва. 1988.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'G. Bruskin e D. Prigov. Performance “La nascita di un eroe”,\nKaširka, 1 giugno 1988.',
+                captionEn: 'G. Bruskin and D. Prigov. Performance “Birth of a Hero”,\nKashirka, 1 June 1988.'
             },
             {
                 file: "2 Гиша Брускин. Перформанс _Рождение героя_. 1 июня 1988 года. Слева направо Г. Брускин, Ю. Альберт. Выставочный зал на Каширке 2.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'G. Bruskin e D. Prigov. Performance “La nascita di un eroe”,\nsala espositiva “Na Kaširke”, Mosca, 1988.',
+                captionEn: 'G. Bruskin and D. Prigov. Performance “Birth of a Hero”,\n“Na Kashirke” exhibition hall, Moscow, 1988.'
             },
             {
                 file: "Performance_deinterlace.mp4",
                 type: "html5video",
                 poster: "Performance.png",
                 videoFormat: "video/mp4",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Performance “La nascita di un eroe”,\nsala espositiva “Na Kaširke”, Mosca, 1988. Videodocumentazione.',
+                captionEn: 'Performance “Birth of a Hero”,\n“Na Kashirke” exhibition hall, Moscow, 1988. Video documentation.'
             },
             {
                 file: "4 Гриша Брускн. Перформанс _Рождение героя_ 1988.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'G. Bruskin e D. Prigov. Performance “La nascita di un eroe”,\nsala espositiva “Na Kaširke”, Mosca, 1988.',
+                captionEn: 'G. Bruskin and D. Prigov. Performance “Birth of a Hero”,\n“Na Kashirke” exhibition hall, Moscow, 1988.'
             },
             {
                 file: "5 Sportswoman and Soldier from the _Birth of the Hero_ series. Palais Royal, Paris, 2000.jpg",
-                captionIt: 'La sportiva e il soldato, dalla serie Nascita di un eroe. Palais Royal, Parigi 2000.',
-                captionEn: 'Sportswoman and Soldier, from the Birth of the Hero series. Palais Royal, Paris, 2000.'
+                captionIt: 'La sportiva e il soldato, dalla serie Nascita di un eroe.\nPalais Royal, Parigi 2000.',
+                captionEn: 'Sportswoman and Soldier, from the Birth of the Hero series.\nPalais Royal, Paris, 2000.'
             },
             {
                 file: "6 Г. Брускин и Д. Пригов. Перформанс Гриши Брускина_.jpg",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'G. Bruskin e D. Prigov. Performance “Good-bye USSR”,\nFiera del libro di Francoforte, 2003. Backstage.',
+                captionEn: 'G. Bruskin and D. Prigov. Performance “Good-bye USSR”,\nFrankfurt Book Fair, 2003. Backstage.'
             },
             {
                 file: "7 Гриша Брускин. Перформанс _Азбучные истины_ Париж. Maison rouge  2007.&JPG.JPG",
-                captionIt: '',
-                captionEn: ''
+                captionIt: 'Performance “Les Vérités Premières”,\nMaison Rouge, Parigi, 2007.',
+                captionEn: 'Performance “Les Vérités Premières”,\nMaison Rouge, Paris, 2007.'
             }
         ]
     },

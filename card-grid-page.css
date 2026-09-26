@@ -1,4 +1,4 @@
-/* ========== card-grid-page.css — общий шаблон index-страниц (Biography, Art Works, …)
+/* ========== card-grid-page.css — общий шаблон index-страниц (Biography, Artworks, …)
    Horizontal 16:9 — ref page2+ (3840×2160 → tokens @1920×1080) ========== */
 @import url("fonts.css");
 
@@ -208,7 +208,7 @@ em, i {
     background: #c8c8c8;
 }
 
-/* ---------- Прокручиваемая сетка (Art Works и др.) ---------- */
+/* ---------- Прокручиваемая сетка (Artworks и др.) ---------- */
 .card-panel--scroll .card-grid-scroll {
     flex: 1 1 auto;
     min-height: 0;

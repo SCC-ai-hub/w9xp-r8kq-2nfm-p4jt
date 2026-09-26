@@ -1,5 +1,5 @@
 /**
- * High-quality cover downscale for Art Works page thumbnails.
+ * High-quality cover downscale for Artworks page thumbnails.
  * Uses canvas imageSmoothingQuality = "high" (+ stepwise ½ shrink).
  * Only .artworks-page .card-image — not Fancybox gallery.
  */
